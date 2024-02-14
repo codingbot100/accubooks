@@ -1,3 +1,4 @@
+import 'package:accubooks/Factoring/Home_Factoring.dart';
 import 'package:accubooks/whouse2.dart/Ware_Home.dart';
 import 'package:accubooks/widgets/NavigationSideBar.dart';
 import 'package:flutter/material.dart';
@@ -53,7 +54,7 @@ class _HomePageState extends State<HomePage> {
                           child: _selectedindex == 0
                               ? Home_Page()
                               : _selectedindex == 1
-                                  ? Home_Page()
+                                  ? Home_Factoring()
                                   : _selectedindex == 3
                                       ? Table()
                                       : PageOneContent(),

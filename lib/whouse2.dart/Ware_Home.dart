@@ -13,6 +13,9 @@ class Home_Page extends StatefulWidget {
 }
 
 class _Home_PageState extends State<Home_Page> {
+  List filteredList = [];
+  TextEditingController _searchController = TextEditingController();
+
 // reference the hive box
   final _myBox = Hive.box('Mybox');
   ToDoDatabse2 db = ToDoDatabse2();
@@ -25,6 +28,8 @@ class _Home_PageState extends State<Home_Page> {
     } else {
       db.loadData();
     }
+    filteredList = List.from(db.allInOne);
+
     super.initState();
   }
 
@@ -47,6 +52,7 @@ class _Home_PageState extends State<Home_Page> {
       Navigator.of(context).pop();
       _controllers.cast();
       db.updateDatabase();
+      filteredList = List.from(db.allInOne);
     });
   }
 
@@ -66,6 +72,7 @@ class _Home_PageState extends State<Home_Page> {
   void deleteTask(int index) {
     setState(() {
       db.allInOne.removeAt(index);
+      filteredList = db.allInOne;
     });
     db.updateDatabase();
   }
@@ -128,22 +135,65 @@ class _Home_PageState extends State<Home_Page> {
                         child: ListTile(
                           title: Text("لیست اجناس ",
                               style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w700,
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.w900,
                                   fontFamily: 'YekanBakh')),
-                          trailing: Container(
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          right: 20, left: 20, top: 20, bottom: 20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
                             decoration: BoxDecoration(
-                                color: const Color.fromARGB(255, 255, 81, 7)),
+                                color: const Color.fromARGB(84, 3, 168, 244),
+                                borderRadius: BorderRadius.circular(8.5)),
                             child: MaterialButton(
                                 onPressed: () => createNewTask(),
                                 child: Text(
-                                  'کالا جدید +',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontFamily: 'YekanBakh'),
+                                  " کالا جدید +",
+                                  style: TextStyle(color: Colors.black),
                                 )),
                           ),
-                        ),
+                          // FloatingActionButton(onPressed:()=> createNewTask(),child:Icon(Icons.add)),
+                          Container(
+                              width: 250,
+                              height: 35,
+                              child: Directionality(
+                                  textDirection: TextDirection.rtl,
+                                  child: TextField(
+                                    controller: _searchController,
+                                    cursorHeight: 20,
+                                    textAlign: TextAlign.right,
+                                    textAlignVertical: TextAlignVertical.bottom,
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontFamily: 'YekanBakh',
+                                        fontWeight: FontWeight.w800),
+                                    decoration: InputDecoration(
+                                        suffixIcon: Icon(Icons.search),
+                                        hintText: 'جستجوی کالا...',
+                                        hintStyle: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 15,
+                                            fontFamily: 'YekanBakh'),
+                                        border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10.0))),
+                                    onChanged: (value) {
+                                      setState(() {
+                                        filteredList = db.allInOne
+                                            .where((task) => task[0]
+                                                .toLowerCase()
+                                                .contains(value.toLowerCase()))
+                                            .toList();
+                                      });
+                                    },
+                                  ))),
+                        ],
                       ),
                     ),
                     SizedBox(
@@ -158,7 +208,6 @@ class _Home_PageState extends State<Home_Page> {
                               top: 10,
                             ),
                             child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 Container(
                                   child: Row(
@@ -232,7 +281,7 @@ class _Home_PageState extends State<Home_Page> {
                                         thickness: 1,
                                       );
                                     },
-                                    itemCount: db.allInOne.length,
+                                    itemCount: filteredList.length,
                                     itemBuilder: ((context, index) {
                                       int counter = index + 1;
                                       return GestureDetector(
@@ -241,13 +290,14 @@ class _Home_PageState extends State<Home_Page> {
                                           textDirection: TextDirection.rtl,
                                           child: ToDotile2(
                                             counter: counter,
-                                            Product_Name: db.allInOne[index][0],
+                                            Product_Name: filteredList[index]
+                                                [0],
                                             Number_of_goods: _parseInt(
                                                 db.allInOne[index][1]),
                                             Barcode_number: _parseInt(
                                                 db.allInOne[index][2]),
-                                            Expiration_date: _parseInt(
-                                                db.allInOne[index][3]),
+                                            Expiration_date: db.allInOne[index]
+                                                [3],
                                             provisions: _parseDouble(
                                                 db.allInOne[index][4]),
                                             price: _parseDouble(
@@ -291,39 +341,4 @@ class _Home_PageState extends State<Home_Page> {
       return 0.0; // or handle the error in a way that makes sense for your app
     }
   }
-}
-
-main() {
-  runApp(TableHome());
-}
-
-class TableHome extends StatefulWidget {
-  const TableHome({super.key});
-
-  @override
-  State<TableHome> createState() => _TableHomeState();
-}
-
-class _TableHomeState extends State<TableHome> {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Padding(
-            padding: EdgeInsets.all(15.0),
-            child: Table(
-              defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-              children: [
-                buildRow(['Cell 1', 'Cell 2', 'Cell 3'])
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  TableRow buildRow(List<String> cell) =>
-      TableRow(children: cell.map((cell) => Text(cell)).toList());
 }

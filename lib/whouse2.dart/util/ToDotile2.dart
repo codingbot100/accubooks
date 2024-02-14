@@ -8,7 +8,7 @@ class ToDotile2 extends StatefulWidget {
   final String Product_Name;
   final int Number_of_goods;
   final int Barcode_number;
-  final int Expiration_date;
+  final String Expiration_date;
   final double provisions;
   final double price;
   final int counter;
@@ -30,8 +30,6 @@ class ToDotile2 extends StatefulWidget {
 
 class _ToDotile2State extends State<ToDotile2> with TickerProviderStateMixin {
   var color = Colors.transparent;
-  Color normalColor = Color.fromRGBO(248, 248, 251, 1);
-  Color hoverColor = Color.fromRGBO(200, 200, 255, 1);
   late AnimationController _controller;
   late Animation<double> _animation;
 
@@ -42,13 +40,11 @@ class _ToDotile2State extends State<ToDotile2> with TickerProviderStateMixin {
     _controller = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: 300),
-      
     );
 
     _animation = Tween<double>(
       begin: 0.0,
       end: 1.0,
-      
     ).animate(_controller);
 
     _controller.addListener(() {
@@ -62,12 +58,14 @@ class _ToDotile2State extends State<ToDotile2> with TickerProviderStateMixin {
       startActionPane: ActionPane(
         motion: StretchMotion(),
         children: [
-          SlidableAction(
-            onPressed: widget.deleteFunction,
-            icon: Icons.delete,
-            backgroundColor: Colors.red.shade900,
-            borderRadius: BorderRadius.circular(12.0),
-            spacing: 50,
+          Container(
+            child: SlidableAction(
+              onPressed: widget.deleteFunction,
+              icon: Icons.delete,
+              backgroundColor: Colors.red,
+              borderRadius: BorderRadius.circular(8.0),
+              spacing: 10,
+            ),
           )
         ],
       ),
@@ -79,12 +77,12 @@ class _ToDotile2State extends State<ToDotile2> with TickerProviderStateMixin {
             cursor: SystemMouseCursors.click,
             onHover: (event) {
               setState(() {
-                _controller.forward();
+                color = Color.fromRGBO(200, 200, 255, 1);
               });
             },
             onExit: (event) {
               setState(() {
-                _controller.reverse();
+                color = Colors.transparent;
               });
             },
             child: GestureDetector(
@@ -94,8 +92,7 @@ class _ToDotile2State extends State<ToDotile2> with TickerProviderStateMixin {
                   child: Padding(
                     padding: const EdgeInsets.only(),
                     child: Container(
-                      color:
-                          Color.lerp(normalColor, hoverColor, _animation.value),
+                      color: color,
                       child: Row(
                         // mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
@@ -147,7 +144,7 @@ class _ToDotile2State extends State<ToDotile2> with TickerProviderStateMixin {
                             ),
                           ),
                           SizedBox(
-                            width: 100,
+                            width: 70,
                           ),
                           Container(
                             width: 130,
@@ -161,7 +158,7 @@ class _ToDotile2State extends State<ToDotile2> with TickerProviderStateMixin {
                             ),
                           ),
                           SizedBox(
-                            width: 30,
+                            width: 70,
                           ),
                           Container(
                             width: 100,

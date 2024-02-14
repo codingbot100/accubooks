@@ -1,7 +1,6 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
-import 'package:accubooks/whouse2.dart/my_button2.dart';
 
 class DialogeBox2 extends StatelessWidget {
   final List<TextEditingController> controllers;
@@ -15,19 +14,34 @@ class DialogeBox2 extends StatelessWidget {
     required this.controllers,
   }) : super(key: key);
 
+  final List<String> name = [
+    "نام کالا",
+    "تعداد کالا",
+    "نمبر بارکد",
+    "تاریخ انقضا",
+    "قیمت خرید",
+    "قیمت فروش"
+  ];
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
       content: Container(
-        height: 600,
+        height: 500,
         width: 200,
-        color: Colors.yellow,
         child: Directionality(
           textDirection: TextDirection.rtl,
           child: Column(
             children: [
-              //Get USER INPUT
-              Text('کالا خود را  کنید'),
+              Text(
+                'کالا خود را ثبت کنید',
+                style: TextStyle(
+                  fontFamily: 'Yekan',
+                  color: Colors.black,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               SizedBox(height: 40),
               for (int i = 0; i < controllers.length; i++)
                 Padding(
@@ -35,29 +49,80 @@ class DialogeBox2 extends StatelessWidget {
                   child: Container(
                     height: 40,
                     child: TextField(
+                      cursorOpacityAnimates: true,
                       controller: controllers[i],
                       decoration: InputDecoration(
-                        hintText: ' کالا',
+                        labelText: name[i],
+                        labelStyle: TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.black,
+                            fontFamily:
+                                "Yekan"), // Use the corresponding label from the name list
                         border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(25.0),
+                          borderRadius: BorderRadius.circular(8.0),
                         ),
                       ),
                     ),
                   ),
                 ),
-              Padding(
-                padding: const EdgeInsets.only(right: 10, left: 30),
-                child: Row(
-                  children: [
-                    MyButton2(onPress: onSave, text: 'Save'),
-                    SizedBox(width: 30),
-                    MyButton2(onPress: onCancel, text: 'Load'),
-                  ],
-                ),
-              ),
             ],
           ),
         ),
+      ),
+      actions: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            TextButton(
+              onPressed: onCancel,
+              child: Text('انصراف',
+                  style: TextStyle(
+                    fontFamily: 'Yekan',
+                    color: Colors.black,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  )),
+            ),
+            TextButton(
+              onPressed: () {
+                bool allFieldsFilled = controllers.every(
+                  (controller) => controller.text.isNotEmpty,
+                );
+
+                if (allFieldsFilled) {
+                  onSave();
+                  _showSnackBar(context, 'اطلاعات با موفقیت ذخیره شد.');
+                } else {
+                  _showSnackBar(
+                      context, 'لطفاً تمامی فیلدها را پر کنید.', Colors.red);
+                }
+              },
+              child: Text(
+                'ثبت',
+                style: TextStyle(
+                  fontFamily: 'Yekan',
+                  color: Colors.black,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
+        )
+      ],
+    );
+  }
+
+  void _showSnackBar(BuildContext context, String message,
+      [Color color = Colors.green]) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Center(
+          child: Directionality(
+              textDirection: TextDirection.rtl, child: Text(message)),
+        ),
+        backgroundColor: color,
       ),
     );
   }
