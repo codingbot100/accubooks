@@ -3,6 +3,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 class ToDoDatabse2 {
   List allInOne = [];
+
 // reference our box
   final _myBox = Hive.box('Mybox');
 

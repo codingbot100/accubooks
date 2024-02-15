@@ -113,214 +113,218 @@ class _Home_PageState extends State<Home_Page> {
     return Container(
       decoration: BoxDecoration(),
       child: Scaffold(
-          floatingActionButton: FloatingActionButton(
-              onPressed: () => createNewTask(), child: Icon(Icons.add)),
+          // floatingActionButton: FloatingActionButton(
+          //     onPressed: () => createNewTask(), child: Icon(Icons.add)),
           body: Padding(
-            padding:
-                const EdgeInsets.only(right: 80, left: 80, top: 40, bottom: 50),
-            child: Center(
-              child: Container(
-                decoration: BoxDecoration(
-                    color: Color.fromRGBO(248, 248, 251, 1),
-                    borderRadius: BorderRadius.circular(10.0)),
-                width: double.infinity,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Directionality(
-                      textDirection: TextDirection.rtl,
-                      child: Container(
-                        // width: 700,
-                        child: ListTile(
-                          title: Text("لیست اجناس ",
-                              style: TextStyle(
-                                  fontSize: 25,
-                                  fontWeight: FontWeight.w900,
-                                  fontFamily: 'YekanBakh')),
-                        ),
-                      ),
+        padding:
+            const EdgeInsets.only(right: 80, left: 80, top: 40, bottom: 50),
+        child: Center(
+          child: Container(
+            decoration: BoxDecoration(
+                color: Color.fromRGBO(248, 248, 251, 1),
+                borderRadius: BorderRadius.circular(10.0)),
+            width: double.infinity,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Directionality(
+                  textDirection: TextDirection.rtl,
+                  child: Container(
+                    // width: 700,
+                    child: ListTile(
+                      title: Text("لیست اجناس ",
+                          style: TextStyle(
+                              fontSize: 25,
+                              fontWeight: FontWeight.w900,
+                              fontFamily: 'YekanBakh')),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          right: 20, left: 20, top: 20, bottom: 20),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                                color: const Color.fromARGB(84, 3, 168, 244),
-                                borderRadius: BorderRadius.circular(8.5)),
-                            child: MaterialButton(
-                                onPressed: () => createNewTask(),
-                                child: Text(
-                                  " کالا جدید +",
-                                  style: TextStyle(color: Colors.black),
-                                )),
-                          ),
-                          // FloatingActionButton(onPressed:()=> createNewTask(),child:Icon(Icons.add)),
-                          Container(
-                              width: 250,
-                              height: 35,
-                              child: Directionality(
-                                  textDirection: TextDirection.rtl,
-                                  child: TextField(
-                                    controller: _searchController,
-                                    cursorHeight: 20,
-                                    textAlign: TextAlign.right,
-                                    textAlignVertical: TextAlignVertical.bottom,
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        fontFamily: 'YekanBakh',
-                                        fontWeight: FontWeight.w800),
-                                    decoration: InputDecoration(
-                                        suffixIcon: Icon(Icons.search),
-                                        hintText: 'جستجوی کالا...',
-                                        hintStyle: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 15,
-                                            fontFamily: 'YekanBakh'),
-                                        border: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(10.0))),
-                                    onChanged: (value) {
-                                      setState(() {
-                                        filteredList = db.allInOne
-                                            .where((task) => task[0]
-                                                .toLowerCase()
-                                                .contains(value.toLowerCase()))
-                                            .toList();
-                                      });
-                                    },
-                                  ))),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      height: 30,
-                    ),
-                    Expanded(
-                      child: Container(
-                        width: double.infinity,
-                        child: Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                              top: 10,
-                            ),
-                            child: Column(
-                              children: [
-                                Container(
-                                  child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Text(
-                                          "قیمت فروش",
-                                          style: TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold,
-                                              fontFamily: 'YekanBakh'),
-                                        ),
-                                        SizedBox(
-                                          width: 25,
-                                        ),
-                                        Text(
-                                          "قیمت خرید",
-                                          style: TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold,
-                                              fontFamily: 'YekanBakh'),
-                                        ),
-                                        SizedBox(
-                                          width: 25,
-                                        ),
-                                        Text('تاریخ انقضا',
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.bold,
-                                                fontFamily: 'YekanBakh')),
-                                        SizedBox(
-                                          width: 25,
-                                        ),
-                                        Text('نمبر بارکد',
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.bold,
-                                                fontFamily: 'YekanBakh')),
-                                        SizedBox(
-                                          width: 25,
-                                        ),
-                                        Text('تعداد کالا',
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.bold,
-                                                fontFamily: 'YekanBakh')),
-                                        SizedBox(
-                                          width: 25,
-                                        ),
-                                        Text('نام کالا',
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.bold,
-                                                fontFamily: 'YekanBakh')),
-                                        Text("شماره",
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.bold,
-                                                fontFamily: 'YekanBakh')),
-                                      ]),
-                                ),
-                                Divider(
-                                  thickness: 1,
-                                  color: Colors.blueAccent,
-                                ),
-                                Expanded(
-                                  child: ListView.separated(
-                                    separatorBuilder: (context, index) {
-                                      return Divider(
-                                        thickness: 1,
-                                      );
-                                    },
-                                    itemCount: filteredList.length,
-                                    itemBuilder: ((context, index) {
-                                      int counter = index + 1;
-                                      return GestureDetector(
-                                        onTap: () => updateTask(index),
-                                        child: Directionality(
-                                          textDirection: TextDirection.rtl,
-                                          child: ToDotile2(
-                                            counter: counter,
-                                            Product_Name: filteredList[index]
-                                                [0],
-                                            Number_of_goods: _parseInt(
-                                                db.allInOne[index][1]),
-                                            Barcode_number: _parseInt(
-                                                db.allInOne[index][2]),
-                                            Expiration_date: db.allInOne[index]
-                                                [3],
-                                            provisions: _parseDouble(
-                                                db.allInOne[index][4]),
-                                            price: _parseDouble(
-                                                db.allInOne[index][5]),
-                                            deleteFunction: (context) =>
-                                                deleteTask(index),
-                                          ),
-                                        ),
-                                      );
-                                    }),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
-              ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                      right: 20, left: 20, top: 20, bottom: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        height: 30,
+                        decoration: BoxDecoration(
+                            border: Border.all(width: 0.5),
+                            color: Color.fromRGBO(248, 249, 251, 1),
+                            borderRadius: BorderRadius.circular(6.5)),
+                        child: MaterialButton(
+                            onPressed: () => createNewTask(),
+                            child: Text(
+                              "+" " کالا جدید",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 16,
+                                  fontFamily: 'YekanBakh',
+                                  fontWeight: FontWeight.w600),
+                            )),
+                      ),
+                      // FloatingActionButton(onPressed:()=> createNewTask(),child:Icon(Icons.add)),
+                      Container(
+                          width: 250,
+                          height: 35,
+                          child: Directionality(
+                              textDirection: TextDirection.rtl,
+                              child: TextField(
+                                controller: _searchController,
+                                cursorHeight: 20,
+                                textAlign: TextAlign.right,
+                                textAlignVertical: TextAlignVertical.bottom,
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontFamily: 'YekanBakh',
+                                    fontWeight: FontWeight.w800),
+                                decoration: InputDecoration(
+                                    suffixIcon: Icon(Icons.search),
+                                    hintText: 'جستجوی کالا...',
+                                    hintStyle: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 15,
+                                        fontFamily: 'YekanBakh'),
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0))),
+                                onChanged: (value) {
+                                  setState(() {
+                                    filteredList = db.allInOne
+                                        .where((task) => task[0]
+                                            .toLowerCase()
+                                            .contains(value.toLowerCase()))
+                                        .toList();
+                                  });
+                                },
+                              ))),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                Expanded(
+                  child: Container(
+                    width: double.infinity,
+                    child: Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                          top: 10,
+                        ),
+                        child: Column(
+                          children: [
+                            Container(
+                              child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Text(
+                                      "قیمت فروش",
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: 'YekanBakh'),
+                                    ),
+                                    SizedBox(
+                                      width: 25,
+                                    ),
+                                    Text(
+                                      "قیمت خرید",
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: 'YekanBakh'),
+                                    ),
+                                    SizedBox(
+                                      width: 25,
+                                    ),
+                                    Text('تاریخ انقضا',
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                            fontFamily: 'YekanBakh')),
+                                    SizedBox(
+                                      width: 25,
+                                    ),
+                                    Text('نمبر بارکد',
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                            fontFamily: 'YekanBakh')),
+                                    SizedBox(
+                                      width: 25,
+                                    ),
+                                    Text('تعداد کالا',
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                            fontFamily: 'YekanBakh')),
+                                    SizedBox(
+                                      width: 25,
+                                    ),
+                                    Text('نام کالا',
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                            fontFamily: 'YekanBakh')),
+                                    Text("شماره",
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                            fontFamily: 'YekanBakh')),
+                                  ]),
+                            ),
+                            Divider(
+                              thickness: 1,
+                              color: Colors.blueAccent,
+                            ),
+                            Expanded(
+                              child: ListView.separated(
+                                separatorBuilder: (context, index) {
+                                  return Divider(
+                                    thickness: 1,
+                                  );
+                                },
+                                itemCount: filteredList.length,
+                                itemBuilder: ((context, index) {
+                                  int counter = index + 1;
+                                  return GestureDetector(
+                                    onTap: () => updateTask(index),
+                                    child: Directionality(
+                                      textDirection: TextDirection.rtl,
+                                      child: ToDotile2(
+                                        counter: counter,
+                                        Product_Name: filteredList[index][0],
+                                        Number_of_goods:
+                                            _parseInt(db.allInOne[index][1]),
+                                        Barcode_number:
+                                            _parseInt(db.allInOne[index][2]),
+                                        Expiration_date: db.allInOne[index][3],
+                                        provisions:
+                                            _parseDouble(db.allInOne[index][4]),
+                                        price:
+                                            _parseDouble(db.allInOne[index][5]),
+                                        deleteFunction: (context) =>
+                                            deleteTask(index),
+                                      ),
+                                    ),
+                                  );
+                                }),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
-          )),
+          ),
+        ),
+      )),
     );
   }
 

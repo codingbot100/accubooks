@@ -12,7 +12,7 @@ class NavigationSidebar extends StatelessWidget {
     required this.onItemSelected,
     required this.itemsIcons,
   });
-
+  int font = 15;
   @override
   Widget build(BuildContext context) {
     return Container(

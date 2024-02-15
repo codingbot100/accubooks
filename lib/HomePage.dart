@@ -1,9 +1,12 @@
 import 'package:accubooks/Factoring/Home_Factoring.dart';
+import 'package:accubooks/Factoring/prac/pr.dart';
 import 'package:accubooks/whouse2.dart/Ware_Home.dart';
 import 'package:accubooks/widgets/NavigationSideBar.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'Factoring/data_save/dataProvider.dart'; // Import your DataProvider
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -25,6 +28,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    var dataProvider = Provider.of<DataProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromRGBO(247, 247, 247, 1),
@@ -57,7 +62,7 @@ class _HomePageState extends State<HomePage> {
                                   ? Home_Factoring()
                                   : _selectedindex == 3
                                       ? Table()
-                                      : PageOneContent(),
+                                      : InvoiceScreen(),
                         ),
                       ),
                     ),
@@ -77,6 +82,12 @@ class _HomePageState extends State<HomePage> {
                             selectedIndex: _selectedindex,
                             onItemSelected: (index) {
                               setState(() {
+                                dataProvider.updateTemporaryData([
+                                  ['Item 1', 'Value 1'],
+                                  ['Item 2', 'Value 2'],
+                                  // ... add more data as needed
+                                ]);
+
                                 _selectedindex = index;
                               });
                               switch (_selectedindex) {

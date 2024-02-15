@@ -1,3 +1,10 @@
+// ignore_for_file: must_be_immutable
+
+import 'dart:ui';
+
+import 'package:accubooks/Factoring/First_Row.dart';
+import 'package:accubooks/Factoring/TextFieldRow.dart';
+import 'package:accubooks/Factoring/secondRow.dart';
 import 'package:flutter/material.dart';
 
 class Home_Factoring extends StatefulWidget {
@@ -13,7 +20,7 @@ class _Home_FactoringState extends State<Home_Factoring> {
     return Scaffold(
       body: Padding(
         padding:
-            const EdgeInsets.only(left: 25, right: 25, top: 50, bottom: 45),
+            const EdgeInsets.only(left: 120, right: 120, top: 60, bottom: 45),
         child: Expanded(
           child: Container(
               decoration: BoxDecoration(
@@ -34,8 +41,16 @@ class _Home_FactoringState extends State<Home_Factoring> {
                       ),
                     ),
                   ),
-                  Row()
-
+                  First_Row(),
+                  Divider(
+                    thickness: 1,
+                  ),
+                  Second_Row(),
+                  Divider(
+                    thickness: 1,
+                  ),
+                  YourWidget(),
+                  
                 ],
               )),
         ),

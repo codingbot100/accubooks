@@ -9,8 +9,8 @@ class ToDotile2 extends StatefulWidget {
   final int Number_of_goods;
   final int Barcode_number;
   final String Expiration_date;
-  final double provisions;
-  final double price;
+  final num provisions;
+  final num price;
   final int counter;
 
   ToDotile2(
@@ -43,7 +43,7 @@ class _ToDotile2State extends State<ToDotile2> with TickerProviderStateMixin {
     );
 
     _animation = Tween<double>(
-      begin: 0.0,
+      begin: 6.0,
       end: 1.0,
     ).animate(_controller);
 
@@ -62,8 +62,8 @@ class _ToDotile2State extends State<ToDotile2> with TickerProviderStateMixin {
             child: SlidableAction(
               onPressed: widget.deleteFunction,
               icon: Icons.delete,
-              backgroundColor: Colors.red,
-              borderRadius: BorderRadius.circular(8.0),
+              backgroundColor: const Color.fromARGB(255, 232, 17, 17),
+              borderRadius: BorderRadius.circular(5.0),
               spacing: 10,
             ),
           )
@@ -77,7 +77,8 @@ class _ToDotile2State extends State<ToDotile2> with TickerProviderStateMixin {
             cursor: SystemMouseCursors.click,
             onHover: (event) {
               setState(() {
-                color = Color.fromRGBO(200, 200, 255, 1);
+                Duration(milliseconds: 2500);
+                color = Color.fromRGBO(200, 200, 255, 0.575);
               });
             },
             onExit: (event) {
@@ -94,13 +95,13 @@ class _ToDotile2State extends State<ToDotile2> with TickerProviderStateMixin {
                     child: Container(
                       color: color,
                       child: Row(
-                        // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           SizedBox(
                             width: 40,
                           ),
                           Container(
-                              width: 60,
+                              width: 50,
                               child: Text(widget.counter.toString())),
                           Container(
                             padding: EdgeInsets.only(),
@@ -144,7 +145,7 @@ class _ToDotile2State extends State<ToDotile2> with TickerProviderStateMixin {
                             ),
                           ),
                           SizedBox(
-                            width: 70,
+                            width: 55,
                           ),
                           Container(
                             width: 130,
