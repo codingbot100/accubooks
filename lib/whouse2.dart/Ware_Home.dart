@@ -49,10 +49,12 @@ class _Home_PageState extends State<Home_Page> {
         newTexts.add(_controllers[i].text);
       }
       db.allInOne.add(newTexts);
+
       Navigator.of(context).pop();
       _controllers.cast();
       db.updateDatabase();
       filteredList = List.from(db.allInOne);
+      _controllers.clear();
     });
   }
 
@@ -99,6 +101,7 @@ class _Home_PageState extends State<Home_Page> {
 
               Navigator.pop(context);
               db.updateDatabase();
+              db.clearAllData();
             });
           },
           onCancel: () => Navigator.pop(context),
@@ -113,8 +116,6 @@ class _Home_PageState extends State<Home_Page> {
     return Container(
       decoration: BoxDecoration(),
       child: Scaffold(
-          // floatingActionButton: FloatingActionButton(
-          //     onPressed: () => createNewTask(), child: Icon(Icons.add)),
           body: Padding(
         padding:
             const EdgeInsets.only(right: 80, left: 80, top: 40, bottom: 50),
@@ -147,6 +148,29 @@ class _Home_PageState extends State<Home_Page> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+                      // Container(
+                      //   height: 30,
+                      //   decoration: BoxDecoration(
+                      //       border: Border.all(width: 0.5),
+                      //       color: Color.fromRGBO(248, 249, 251, 1),
+                      //       borderRadius: BorderRadius.circular(6.5)),
+                      //   child: MaterialButton(
+                      //       onPressed: () {
+                      //         setState(() {
+                      //           db.clearAllData();
+                      //           db.updateDatabase();
+                      //           _controllers.cast();
+                      //         });
+                      //       },
+                      //       child: Text(
+                      //         "پاک کردن کل لیست",
+                      //         style: TextStyle(
+                      //             color: Colors.black,
+                      //             fontSize: 16,
+                      //             fontFamily: 'YekanBakh',
+                      //             fontWeight: FontWeight.w600),
+                      //       )),
+                      // ),
                       Container(
                         height: 30,
                         decoration: BoxDecoration(

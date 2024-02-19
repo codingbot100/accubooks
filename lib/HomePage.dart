@@ -74,10 +74,10 @@ class _HomePageState extends State<HomePage> {
                           child: NavigationSidebar(
                             itemsIcons: iconsList,
                             items: [
-                              ' گزارشات',
-                              'لیست اجناس',
+                              ' محصولات',
+                              ' فروشات',
                               'فاکتور گیری',
-                              'حسابات روزانه ',
+                              ' گزارشات ',
                             ],
                             selectedIndex: _selectedindex,
                             onItemSelected: (index) {
@@ -106,7 +106,7 @@ class _HomePageState extends State<HomePage> {
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            SizedBox(height: 113),
+                            SizedBox(height: 40),
                             AnimatedSmoothIndicator(
                               duration: Duration(milliseconds: 400),
                               axisDirection: Axis.vertical,

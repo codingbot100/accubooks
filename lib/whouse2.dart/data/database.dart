@@ -5,7 +5,7 @@ class ToDoDatabse2 {
   List allInOne = [];
 
 // reference our box
-  final _myBox = Hive.box('Mybox');
+  final _myBox = Hive.box('mybox');
 
   //run this method if this is the 1st time ever opening this app
   void createinitialData() {
@@ -18,5 +18,8 @@ class ToDoDatabse2 {
 
   void updateDatabase() {
     _myBox.put('TODOLIST2', allInOne);
+  }
+  void clearAllData() async {
+    await _myBox.clear();
   }
 }

@@ -51,6 +51,9 @@ dependencies:
   provider: ^6.1.1
   day_night_switcher: ^0.2.0+1
   intl: ^0.19.0
+  persian_fonts: ^1.0.5
+  barcode_scanner: ^3.6.2
+  flutter_barcode_scanner: ^2.0.0
 
 dev_dependencies:
   flutter_test:

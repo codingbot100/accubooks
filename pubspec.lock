@@ -41,6 +41,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.11.0"
+  barcode_scanner:
+    dependency: "direct main"
+    description:
+      name: barcode_scanner
+      sha256: "49118b73f51663674ebe1e72ee561a2fadf0916a86340e20753165ffffd81f5b"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.6.2"
   boolean_selector:
     dependency: transitive
     description:
@@ -246,6 +254,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_barcode_scanner:
+    dependency: "direct main"
+    description:
+      name: flutter_barcode_scanner
+      sha256: a4ba37daf9933f451a5e812c753ddd045d6354e4a3280342d895b07fecaab3fa
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.0"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -254,6 +270,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.3"
+  flutter_plugin_android_lifecycle:
+    dependency: transitive
+    description:
+      name: flutter_plugin_android_lifecycle
+      sha256: b068ffc46f82a55844acfa4fdbb61fad72fa2aef0905548419d97f0f95c456da
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.17"
   flutter_slidable:
     dependency: "direct main"
     description:
@@ -536,6 +560,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.1"
+  persian_fonts:
+    dependency: "direct main"
+    description:
+      name: persian_fonts
+      sha256: d340dda1895ad6af0b96f283056f622e52944cf9f7dc918570811ad4c01e29b3
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.5"
   platform:
     dependency: transitive
     description:

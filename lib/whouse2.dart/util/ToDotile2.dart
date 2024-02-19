@@ -131,21 +131,26 @@ class _ToDotile2State extends State<ToDotile2> with TickerProviderStateMixin {
                             ),
                           ),
                           SizedBox(
-                            width: 120,
+                            width: 50,
                           ),
-                          Container(
-                            width: 80,
-                            child: Text(
-                              widget.Barcode_number.toString(),
-                              style: TextStyle(
-                                  fontFamily: 'Yekan',
-                                  color: Colors.black,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 50),
+                            child: Container(
+                              width: 130,
+                              child: Center(
+                                child: Text(
+                                  widget.Barcode_number.toString(),
+                                  style: TextStyle(
+                                      fontFamily: 'Yekan',
+                                      color: Colors.black,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
                             ),
                           ),
                           SizedBox(
-                            width: 55,
+                            width: 10,
                           ),
                           Container(
                             width: 130,
@@ -195,6 +200,19 @@ class _ToDotile2State extends State<ToDotile2> with TickerProviderStateMixin {
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  void _showSnackBar(BuildContext context, String message,
+      [Color color = Colors.green]) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Center(
+          child: Directionality(
+              textDirection: TextDirection.rtl, child: Text(message)),
+        ),
+        backgroundColor: color,
       ),
     );
   }
