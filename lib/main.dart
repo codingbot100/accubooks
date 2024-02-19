@@ -9,6 +9,8 @@ import 'package:provider/provider.dart';
   // open box
   // ignore: unused_local_variable
   var box = await Hive.openBox('Mybox');
+    var employees = await Hive.openBox('employees');
+
   WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());
 }

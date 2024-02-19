@@ -1,6 +1,7 @@
 import 'package:accubooks/Factoring/Home_Factoring.dart';
 import 'package:accubooks/Factoring/prac/pr.dart';
-import 'package:accubooks/whouse2.dart/Ware_Home.dart';
+import 'package:accubooks/Tools/employees/Ware_Home.dart';
+import '../whouse2.dart/Ware_Home.dart';
 import 'package:accubooks/widgets/NavigationSideBar.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
@@ -61,7 +62,7 @@ class _HomePageState extends State<HomePage> {
                               : _selectedindex == 1
                                   ? Home_Factoring()
                                   : _selectedindex == 3
-                                      ? Table()
+                                      ? employees()
                                       : InvoiceScreen(),
                         ),
                       ),
@@ -76,7 +77,7 @@ class _HomePageState extends State<HomePage> {
                             items: [
                               ' محصولات',
                               ' فروشات',
-                              'فاکتور گیری',
+                              ' کارمندان',
                               ' گزارشات ',
                             ],
                             selectedIndex: _selectedindex,

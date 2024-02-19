@@ -1,7 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
-import 'package:accubooks/whouse2.dart/data/database.dart';
+import '../../whouse2.dart/data/database.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
@@ -22,7 +22,7 @@ class _YourWidgetState extends State<YourWidget> {
 
   final ToDoDatabse2 database = ToDoDatabse2();
   String barcodeResult = "Scan a barcode";
-
+  List<FocusNode> _barcodeFocusNodes = [FocusNode()];
   List<List<TextEditingController>> _controllersList = [
     [
       TextEditingController(),
@@ -153,7 +153,9 @@ class _YourWidgetState extends State<YourWidget> {
         searchItem(0); // Pass the index of the initial row
       });
     }
-
+    for (int i = 1; i < _controllersList.length; i++) {
+      _barcodeFocusNodes.add(FocusNode());
+    }
     super.initState();
   }
 
@@ -222,7 +224,11 @@ class _YourWidgetState extends State<YourWidget> {
 
                                 addNewRowIfNeeded();
                                 barcodeResult = _controllersList[row][i].text;
+                                setState(() {
+                                  onChangedController3(row, i);
+                                });
                               },
+                              autofocus: i == 3,
                               cursorHeight: 0,
                               textAlignVertical: TextAlignVertical.top,
                               textAlign: TextAlign.center,
@@ -261,5 +267,32 @@ class _YourWidgetState extends State<YourWidget> {
       ),
     );
   }
-  
+
+  void onChangedController3(int row, int controllerIndex) {
+    String enteredBarcode = _controllersList[row][3].text;
+    bool isDuplicated = false;
+
+    for (int i = 0; i < _controllersList.length; i++) {
+      if (i != row && _controllersList[i][3].text == enteredBarcode) {
+        isDuplicated = true;
+        break;
+      }
+    }
+
+    if (isDuplicated) {
+      int currentValue = int.tryParse(_controllersList[row][1].text) ?? 0;
+
+      // Update the value and keep the focus on the current row
+      setState(() {
+        _controllersList[row][1].text = (currentValue + 1).toString();
+        _controllersList[row][controllerIndex].selection =
+            TextSelection.fromPosition(
+          TextPosition(
+              offset: _controllersList[row][controllerIndex].text.length),
+        );
+      });
+    } else {
+      // Clear any error message or handle duplicate case as needed
+    }
+  }
 }

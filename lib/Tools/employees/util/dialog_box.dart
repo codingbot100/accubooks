@@ -1,14 +1,13 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
-class DialogeBox2 extends StatefulWidget {
+class DialogeEmployess extends StatefulWidget {
   final List<TextEditingController> controllers;
   VoidCallback onSave;
   VoidCallback onCancel;
 
-  DialogeBox2({
+  DialogeEmployess({
     Key? key,
     required this.onSave,
     required this.onCancel,
@@ -16,32 +15,23 @@ class DialogeBox2 extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<DialogeBox2> createState() => _DialogeBox2State();
+  State<DialogeEmployess> createState() => _DialogeEmployessState();
 }
 
-class _DialogeBox2State extends State<DialogeBox2> {
+class _DialogeEmployessState extends State<DialogeEmployess> {
   final List<String> name = [
-    "نام کالا",
-    "تعداد کالا",
-    "نمبر بارکد",
-    "تاریخ انقضا",
-    "قیمت خرید",
-    "قیمت فروش"
+    "نام کارمند",
+    "نام پدر ",
+    "محل سکونت",
+    "تاریخ استخدام",
+    " سطح تحصیل",
+    " معاش",
   ];
-
-  String SelectedValue = '';
-  List<String> seller = ["دانه", 'کارتن ', "کیلو", "بسته"];
-  late String selectedItem;
-  final List<String> items = ["دانه", 'کارتن ', "کیلو", "بسته"];
-  @override
-  void initState() {
-    super.initState();
-    selectedItem = seller.first; // Initialize selectedItem with the first item
-  }
 
   @override
   Widget build(BuildContext context) {
     DateTime selecedtDate = DateTime.now();
+
     return AlertDialog(
       content: Container(
         height: 500,
@@ -60,6 +50,8 @@ class _DialogeBox2State extends State<DialogeBox2> {
                 ),
               ),
               SizedBox(height: 40),
+              // ...
+
               for (int i = 0; i < widget.controllers.length; i++)
                 Padding(
                   padding: const EdgeInsets.only(bottom: 30),
@@ -70,35 +62,16 @@ class _DialogeBox2State extends State<DialogeBox2> {
                         : TextField(
                             cursorOpacityAnimates: true,
                             controller: widget.controllers[i],
-                            inputFormatters:
-                                i == 0 && widget.controllers[0].text != '0'
-                                    ? null
-                                    : [FilteringTextInputFormatter.digitsOnly],
                             decoration: InputDecoration(
-                              labelText: name[i],
-                              suffix:
-                                  i == 1 && widget.controllers[1].text != '1'
-                                      ? DropdownButton<String>(
-                                          value: selectedItem,
-                                          items: seller.map((String item) {
-                                            return DropdownMenuItem<String>(
-                                              value: item,
-                                              child: Text(item),
-                                            );
-                                          }).toList(),
-                                          onChanged: (String? newValue) {
-                                            setState(() {
-                                              selectedItem = newValue!;
-                                            });
-                                          },
-                                        )
-                                      : null,
+                              labelText: i < name.length
+                                  ? name[i]
+                                  : '', // Check index range
                               labelStyle: TextStyle(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black,
-                                  fontFamily:
-                                      "Yekan"), // Use the corresponding label from the name list
+                                fontSize: 13,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.black,
+                                fontFamily: "Yekan",
+                              ),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(8.0),
                               ),
@@ -106,6 +79,8 @@ class _DialogeBox2State extends State<DialogeBox2> {
                           ),
                   ),
                 ),
+
+// ...
             ],
           ),
         ),

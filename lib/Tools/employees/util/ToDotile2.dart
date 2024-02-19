@@ -3,32 +3,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
-class ToDotile2 extends StatefulWidget {
+class ToDoEmployees extends StatefulWidget {
   Function(BuildContext)? deleteFunction;
-  final String Product_Name;
-  final int Number_of_goods;
-  final int Barcode_number;
-  final String Expiration_date;
-  final num provisions;
-  final num price;
+  final String Name;
+  final String Father_s_name;
+  final String Address;
+  final String date_of_employeement;
+  final String education;
+  var Salary;
   final int counter;
 
-  ToDotile2(
+  ToDoEmployees(
       {required this.counter,
-      required this.Product_Name,
-      required this.Number_of_goods,
-      required this.Barcode_number,
-      required this.Expiration_date,
-      required this.provisions,
-      required this.price,
+      required this.Name,
+      required this.Father_s_name,
+      required this.Address,
+      required this.date_of_employeement,
+      required this.education,
+      required this.Salary,
       required this.deleteFunction,
       super.key});
 
   @override
-  State<ToDotile2> createState() => _ToDotile2State();
+  State<ToDoEmployees> createState() => _ToDoEmployeesState();
 }
 
-class _ToDotile2State extends State<ToDotile2> with TickerProviderStateMixin {
+class _ToDoEmployeesState extends State<ToDoEmployees>
+    with TickerProviderStateMixin {
   var color = Colors.transparent;
   late AnimationController _controller;
   late Animation<double> _animation;
@@ -90,25 +91,28 @@ class _ToDotile2State extends State<ToDotile2> with TickerProviderStateMixin {
               child: Directionality(
                 textDirection: TextDirection.rtl,
                 child: Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(),
-                    child: Container(
-                      color: color,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          SizedBox(
-                            width: 40,
-                          ),
-                          Container(
-                              width: 50,
-                              child: Text(widget.counter.toString())),
-                          Container(
-                            padding: EdgeInsets.only(),
-                            alignment: Alignment.centerRight,
-                            width: 150,
+                  child: Container(
+                    color: color,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SizedBox(
+                          width: 25,
+                        ),
+                        Container(
+                            width: 25,
+                            child:
+                                Center(child: Text(widget.counter.toString()))),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(),
+                          alignment: Alignment.centerRight,
+                          width: 140,
+                          child: Center(
                             child: Text(
-                              widget.Product_Name.toString(),
+                              widget.Name.toString(),
                               style: TextStyle(
                                   fontFamily: 'Yekan',
                                   color: Colors.black,
@@ -116,13 +120,15 @@ class _ToDotile2State extends State<ToDotile2> with TickerProviderStateMixin {
                                   fontWeight: FontWeight.bold),
                             ),
                           ),
-                          SizedBox(
-                            width: 35,
-                          ),
-                          Container(
-                            width: 50,
+                        ),
+                        SizedBox(
+                          width: 25,
+                        ),
+                        Container(
+                          width: 110,
+                          child: Center(
                             child: Text(
-                              widget.Number_of_goods.toString(),
+                              widget.Father_s_name.toString(),
                               style: TextStyle(
                                   fontFamily: 'Yekan',
                                   color: Colors.black,
@@ -130,32 +136,34 @@ class _ToDotile2State extends State<ToDotile2> with TickerProviderStateMixin {
                                   fontWeight: FontWeight.bold),
                             ),
                           ),
-                          SizedBox(
-                            width: 50,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 50,),
-                            child: Container(
-                              width: 130,
-                              child: Center(
-                                child: Text(
-                                  widget.Barcode_number.toString(),
-                                  style: TextStyle(
-                                      fontFamily: 'Yekan',
-                                      color: Colors.black,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
+                        ),
+                        SizedBox(
+                          width: 50,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 50),
+                          child: Container(
+                            width: 140,
+                            child: Center(
+                              child: Text(
+                                widget.Address.toString(),
+                                style: TextStyle(
+                                    fontFamily: 'Yekan',
+                                    color: Colors.black,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold),
                               ),
                             ),
                           ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Container(
-                            width: 130,
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Container(
+                          width: 130,
+                          child: Center(
                             child: Text(
-                              widget.Expiration_date.toString(),
+                              widget.date_of_employeement.toString(),
                               style: TextStyle(
                                   fontFamily: 'Yekan',
                                   color: Colors.black,
@@ -163,13 +171,15 @@ class _ToDotile2State extends State<ToDotile2> with TickerProviderStateMixin {
                                   fontWeight: FontWeight.bold),
                             ),
                           ),
-                          SizedBox(
-                            width: 70,
-                          ),
-                          Container(
-                            width: 100,
+                        ),
+                        SizedBox(
+                          width: 70,
+                        ),
+                        Container(
+                          width: 100,
+                          child: Center(
                             child: Text(
-                              widget.provisions.toString(),
+                              widget.education.toString(),
                               style: TextStyle(
                                   fontFamily: 'Yekan',
                                   color: Colors.black,
@@ -177,13 +187,15 @@ class _ToDotile2State extends State<ToDotile2> with TickerProviderStateMixin {
                                   fontWeight: FontWeight.bold),
                             ),
                           ),
-                          SizedBox(
-                            width: 90,
-                          ),
-                          Container(
-                            width: 70,
+                        ),
+                        SizedBox(
+                          width: 80,
+                        ),
+                        Container(
+                          width: 90,
+                          child: Center(
                             child: Text(
-                              widget.price.toString(),
+                              widget.Salary.toString(),
                               style: TextStyle(
                                   fontFamily: 'Yekan',
                                   color: Colors.black,
@@ -191,8 +203,8 @@ class _ToDotile2State extends State<ToDotile2> with TickerProviderStateMixin {
                                   fontWeight: FontWeight.bold),
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                 ),

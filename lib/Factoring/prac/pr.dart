@@ -1,4 +1,4 @@
-import 'package:accubooks/whouse2.dart/data/database.dart';
+import '../../../whouse2.dart/data/database.dart';
 import 'package:flutter/material.dart';
 
 // void main() async {
