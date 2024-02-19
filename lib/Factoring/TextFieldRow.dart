@@ -1,6 +1,8 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:accubooks/Factoring/data/database.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import '../../whouse2.dart/data/database.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
@@ -14,6 +16,9 @@ class YourWidget extends StatefulWidget {
 }
 
 class _YourWidgetState extends State<YourWidget> {
+  final _myBox = Hive.box('storeFactor');
+  ToDoDatabsestoreFactor db2 = ToDoDatabsestoreFactor();
+
   int totalSum = 0;
   int counterme = 1;
   List<int> getTotals() {
@@ -24,14 +29,33 @@ class _YourWidgetState extends State<YourWidget> {
   String barcodeResult = "Scan a barcode";
   List<FocusNode> _barcodeFocusNodes = [FocusNode()];
   List<List<TextEditingController>> _controllersList = [
-    [
-      TextEditingController(),
-      TextEditingController(text: '1'),
-      TextEditingController(),
-      TextEditingController(),
-    ],
-  ];
+  [
+    TextEditingController(),
+    TextEditingController(text: '1'),
+    TextEditingController(),
+    TextEditingController(),
+  ]
+];
 
+void saveNewTask() {
+  setState(() {
+    for (int i = 0; i < _controllersList.length; i++) {
+      List<TextEditingController> controllers = _controllersList[i];
+      List<String> newTexts = [];
+      for (int j = 0; j < controllers.length; j++) {
+        newTexts.add(controllers[j].text);
+      }
+
+      // Print for debugging
+      print('Data to be saved: $newTexts');
+
+      db2.allInOne.add(newTexts);
+    }
+
+    Navigator.of(context).pop();
+    db2.updateDatabase();
+  });
+}
   List<int> totals = [0];
   List<int> rowNumbers = [1];
 

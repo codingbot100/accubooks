@@ -1,6 +1,6 @@
-import 'package:accubooks/Tools/employees/data/database.dart';
-import 'package:accubooks/Tools/employees/util/ToDotile2.dart';
-import 'package:accubooks/Tools/employees/util/dialog_box.dart';
+import 'package:accubooks/employees/data/database.dart';
+import 'package:accubooks/employees/util/ToDotile2.dart';
+import 'package:accubooks/employees/util/dialog_box.dart';
 
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';

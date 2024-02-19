@@ -72,6 +72,52 @@ class _Home_FactoringState extends State<Home_Factoring> {
                   ),
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.only(left: 20),
+                child: Row(
+                  children: [
+                    Container(
+                      height: 30,
+                      width: 100,
+                      decoration: BoxDecoration(
+                          border: Border.all(width: 0.5),
+                          color: Color.fromRGBO(248, 249, 251, 1),
+                          borderRadius: BorderRadius.circular(6.5)),
+                      child: MaterialButton(
+                          onPressed: () {},
+                          child: Text(
+                            "  ذخیره کردن ",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 16,
+                                fontFamily: 'YekanBakh',
+                                fontWeight: FontWeight.w600),
+                          )),
+                    ),
+                    SizedBox(
+                      width: 30,
+                    ),
+                    Container(
+                      height: 30,
+                      width: 100,
+                      decoration: BoxDecoration(
+                          border: Border.all(width: 0.5),
+                          color: Color.fromRGBO(248, 249, 251, 1),
+                          borderRadius: BorderRadius.circular(6.5)),
+                      child: MaterialButton(
+                          onPressed: () {},
+                          child: Text(
+                            " لغو  فاکتور  ",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 16,
+                                fontFamily: 'YekanBakh',
+                                fontWeight: FontWeight.w600),
+                          )),
+                    ),
+                  ],
+                ),
+              ),
               Divider(),
               Padding(
                 padding: const EdgeInsets.only(left: 30, top: 10, bottom: 10),

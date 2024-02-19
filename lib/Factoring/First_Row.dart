@@ -1,4 +1,4 @@
-import 'package:accubooks/Tools/employees/data/database.dart';
+import 'package:accubooks/employees/data/database.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
@@ -130,34 +130,6 @@ class _FirstRowState extends State<FirstRow> {
                 selectedItem = newValue!;
               });
             },
-          ),
-          Row(
-            children: [
-              Container(
-                height: 25,
-                width: 150,
-                child: TextField(
-                  style: TextStyle(
-                    fontFamily: 'Yekan',
-                    fontSize: 15,
-                    fontWeight: FontWeight.w600,
-                  ),
-                  textAlignVertical: TextAlignVertical.top,
-                  textAlign: TextAlign.right,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(borderSide: BorderSide()),
-                  ),
-                ),
-              ),
-              Text(
-                " : نام مشتری",
-                style: TextStyle(
-                  fontFamily: 'Yekan',
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ],
           ),
         ],
       ),
