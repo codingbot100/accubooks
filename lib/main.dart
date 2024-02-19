@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 
-void main() async {
+ main() async {
   await Hive.initFlutter();
   // open box
   // ignore: unused_local_variable

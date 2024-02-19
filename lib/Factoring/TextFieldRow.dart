@@ -1,12 +1,23 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:accubooks/whouse2.dart/data/database.dart';
 
 class YourWidget extends StatefulWidget {
+  final Function(int) onIntegerChanged;
+
+  YourWidget({Key? key, required this.onIntegerChanged}) : super(key: key);
   @override
   _YourWidgetState createState() => _YourWidgetState();
 }
 
 class _YourWidgetState extends State<YourWidget> {
+  int totalSum = 0;
+
+  List<int> getTotals() {
+    return totals;
+  }
+
   final ToDoDatabse2 database = ToDoDatabse2();
   List<List<TextEditingController>> _controllersList = [
     [
@@ -19,7 +30,6 @@ class _YourWidgetState extends State<YourWidget> {
 
   List<int> totals = [0];
   List<int> rowNumbers = [1];
-  int totalSum = 0;
 
   void calculateTotal(int rowIndex) {
     int value1 = int.tryParse(_controllersList[rowIndex][0].text) ?? 0;
@@ -29,6 +39,8 @@ class _YourWidgetState extends State<YourWidget> {
     setState(() {
       totals[rowIndex] = total;
       totalSum = totals.fold(0, (previous, current) => previous + current);
+      widget.onIntegerChanged(
+          totalSum); // Update the totalSum in the parent widget
     });
   }
 
@@ -92,7 +104,6 @@ class _YourWidgetState extends State<YourWidget> {
 
   @override
   void initState() {
-    super.initState();
     initializeNewRow();
     // Load data from the database when the widget initializes
     database.loadData();
@@ -108,7 +119,10 @@ class _YourWidgetState extends State<YourWidget> {
     calculateTotal(0);
 
     // Initialize a new row
-    searchItem(0); // Pass the index of the initial row
+    setState(() {
+      searchItem(0); // Pass the index of the initial row
+    });
+    super.initState();
   }
 
   @override
@@ -192,24 +206,6 @@ class _YourWidgetState extends State<YourWidget> {
               ],
             ),
           ),
-          Container(
-            height: 30,
-            width: 150,
-            decoration: BoxDecoration(
-              border: Border.all(
-                  width: 0.8, color: Color.fromARGB(255, 86, 85, 85)),
-              borderRadius: BorderRadius.circular(3.0),
-            ),
-            child: Center(
-                child: Text(
-              "$totalSum",
-              style: TextStyle(
-                fontFamily: 'Yekan',
-                fontSize: 17,
-                fontWeight: FontWeight.w900,
-              ),
-            )),
-          )
         ],
       ),
     );
