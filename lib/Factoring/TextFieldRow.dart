@@ -30,14 +30,13 @@ class YourWidget extends StatefulWidget {
   _YourWidgetState createState() => _YourWidgetState();
 }
 
-class _YourWidgetState extends State<YourWidget>
-    implements YourWidgetStateInterface {
+class _YourWidgetState extends State<YourWidget> {
   int numberFactor = 2;
   TimeOfDay currentTime = TimeOfDay.now();
   DateTime now = DateTime.now();
   int dayOfWeek = DateTime.now().weekday;
 
-  final _myBox = Hive.box('storeFactor');
+  final factoeBox = Hive.box('storeFactor');
   ToDoDatabsestoreFactor db2 = ToDoDatabsestoreFactor();
 
   int totalSum = 0;
@@ -57,6 +56,7 @@ class _YourWidgetState extends State<YourWidget>
       TextEditingController(),
     ]
   ];
+  late int counterText;
 
   void saveDataFromParent() {
     saveNewTask();
@@ -140,7 +140,7 @@ class _YourWidgetState extends State<YourWidget>
     if (_controllersList.every(
         (row) => row.every((controller) => controller.text.isNotEmpty))) {
       initializeNewRow();
-      searchItem(_controllersList.length - 1); // Pass the index of the new row
+      searchItem(_controllersList.length); // Pass the index of the new row
     }
   }
 
@@ -245,7 +245,7 @@ class _YourWidgetState extends State<YourWidget>
                       children: [
                         Container(
                           height: 30,
-                          width: 200,
+                          width: 180,
                           decoration: BoxDecoration(
                             border: Border.all(
                                 width: 0.8,
@@ -278,7 +278,7 @@ class _YourWidgetState extends State<YourWidget>
                         for (int i = 0; i < _controllersList[row].length; i++)
                           Container(
                             height: 33,
-                            width: 200,
+                            width: 180,
                             child: TextField(
                               style: TextStyle(
                                 fontFamily: 'Yekan',
@@ -309,7 +309,7 @@ class _YourWidgetState extends State<YourWidget>
                           ),
                         Container(
                           height: 30,
-                          width: 200,
+                          width: 180,
                           decoration: BoxDecoration(
                             border: Border.all(
                                 width: 0.8,
@@ -332,7 +332,7 @@ class _YourWidgetState extends State<YourWidget>
                 MaterialButton(
                   onPressed: () {
                     setState(() {
-                      saveNewTask();
+                      _showDialog(context);
                     });
                   },
                   child: Text("دخیره کردن "),
@@ -368,12 +368,52 @@ class _YourWidgetState extends State<YourWidget>
               offset: _controllersList[row][controllerIndex].text.length),
         );
       });
-    } else {
-      // Clear any error message or handle duplicate case as needed
     }
   }
-}
 
-abstract class YourWidgetStateInterface {
-  void saveDataFromParent();
+  void _showDialog(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("complete"),
+            titlePadding: EdgeInsets.only(left: 30),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text("لغو ذخیره ")),
+              TextButton(
+                  onPressed: () {
+                    _onSavePressed();
+                    Navigator.of(context).pop();
+
+                    setState(() {});
+                  },
+                  child: Text("دخیره کردن ")),
+            ],
+          );
+        });
+  }
+
+  void _onSavePressed() {
+    // Perform your logic after clicking "دخیره کردن" button
+    saveNewTask();
+
+    // Clear text controllers and set default values
+    setState(() {
+      _controllersList.forEach((controllers) {
+        controllers.forEach((controller) {
+          controller.clear(); // Clear the text in the controller
+
+          // Set default values if needed
+        });
+      });
+
+      // Initialize the first row with default values if needed
+      _controllersList[0][1].text = '1';
+      // Add more initialization if needed
+    });
+  }
 }

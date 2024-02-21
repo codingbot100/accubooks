@@ -1,3 +1,4 @@
+import 'package:accubooks/Factoring/prac/mybuttons.dart';
 import 'package:flutter/material.dart';
 
 main() {
@@ -6,16 +7,18 @@ main() {
 
 class firstPage extends StatefulWidget {
   const firstPage({super.key});
-
   @override
   State<firstPage> createState() => _firstPageState();
 }
 
 class _firstPageState extends State<firstPage> {
-  var txt = "samplet text";
-  void funchange() {
+  String topic = 'packages';
+  
+  int counter = 0;
+  Callback(VarTopic, int counterPluse) {
     setState(() {
-      txt = 'New Text ';
+      topic = VarTopic;
+      counter;
     });
   }
 
@@ -23,13 +26,32 @@ class _firstPageState extends State<firstPage> {
   Widget build(BuildContext context) {
     return MaterialApp(
         home: Scaffold(
+      appBar: AppBar(
+        title: Text("Learning Flutter"),
+      ),
       body: Column(children: [
-        Center(
-          child: Text(txt),
+        Container(
+          color: Colors.lightBlue,
+          width: 300,
+          height: 70,
+          margin: EdgeInsets.only(top: 50, left: 40, right: 40, bottom: 20),
+          child: Center(
+            child: Text("we are learning flutter  " + topic),
+          ),
         ),
-        ElevatedButton(
-          onPressed: () {},
-          child: Text("change"),
+        Container(
+          color: Colors.lightBlue,
+          width: 300,
+          height: 70,
+          margin: EdgeInsets.only(top: 50, left: 40, right: 40, bottom: 20),
+          child: Center(
+            child: Text("$counter"),
+          ),
+        ),
+        mybuttons(
+          topic: 'cubit',
+          callbackFunction: Callback,
+          counter: counter++,
         )
       ]),
     ));

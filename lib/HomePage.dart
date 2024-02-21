@@ -1,9 +1,11 @@
 import 'package:accubooks/Factoring/Home_Factoring.dart';
-import 'package:accubooks/Factoring/prac/pr.dart';
 import 'package:accubooks/employees/Ware_Home.dart';
+import 'package:accubooks/rep/Home_rep.dart';
 import '../whouse2.dart/Ware_Home.dart';
+import 'package:accubooks/widgets/NavigationSideBar.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -14,46 +16,115 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
-  late TabController _tabController;
-
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(length: 4, vsync: this);
-  }
-
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
-  }
+  List<Widget> iconsList = [
+    Icon(Iconsax.document),
+    Icon(
+      Icons.warehouse,
+    ),
+    Icon(Icons.receipt),
+    Icon(Icons.settings),
+  ];
+  int _selectedindex = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("حدید نرم افزار"),
-        bottom: TabBar(
-          controller: _tabController,
-          tabs: [
-            Tab(text: "محصولات",icon: Icon(Iconsax.document)),
-            Tab(text: "فروشات",icon: Icon(Icons.warehouse)),
-            Tab(text: "کارمندان", icon: Icon(Icons.receipt)),
-            Tab(text: "گزارشات", icon: Icon(Icons.settings)),
-          ],
+        backgroundColor: Color.fromRGBO(247, 247, 247, 1),
+        elevation: 0,
+        title: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Directionality(
+            textDirection: TextDirection.rtl,
+            child: ListTile(
+              title: Text("حدید نرم افزار"),
+            ),
+          ),
         ),
       ),
-      body: TabBarView(
-        controller: _tabController,
-        children: [
-          Home_Page(),
-           Home_Factoring(),
-          employees(),
-          InvoiceScreen(),
-        ],
+      body: Padding(
+        padding: const EdgeInsets.only(right: 10),
+        child: Column(
+          children: [
+            Container(
+              child: Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Expanded(
+                      child: Container(
+                        child: Center(
+                            child: _selectedindex == 0
+                                ? Home_Page()
+                                : _selectedindex == 1
+                                    ? Home_Factoring()
+                                    : _selectedindex == 2
+                                        ? employees()
+                                        : Home_rep()),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 30),
+                      child: Row(children: [
+                        Container(
+                          width: 220,
+                          child: NavigationSidebar(
+                            itemsIcons: iconsList,
+                            items: [
+                              ' محصولات',
+                              ' فروشات',
+                              ' کارمندان',
+                              ' گزارشات ',
+                            ],
+                            selectedIndex: _selectedindex,
+                            onItemSelected: (index) {
+                              setState(() {
+                                _selectedindex = index;
+                              });
+                              switch (_selectedindex) {
+                                case 0:
+                                  break;
+                                case 1:
+                                  break;
+                                case 2:
+                                  break;
+                                case 3:
+                                  break;
+                              }
+                            },
+                          ),
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(height: 40),
+                            AnimatedSmoothIndicator(
+                              duration: Duration(milliseconds: 400),
+                              axisDirection: Axis.vertical,
+                              activeIndex: _selectedindex,
+                              count: 4,
+                              effect: WormEffect(
+                                spacing: 24,
+                                radius: 4,
+                                dotWidth: 15,
+                                dotHeight: 2,
+                                paintStyle: PaintingStyle.fill,
+                                strokeWidth: 1.5,
+                                dotColor: Colors.transparent,
+                                activeDotColor: Colors.lightBlue,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ]),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 }
-
-

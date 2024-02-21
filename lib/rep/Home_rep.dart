@@ -1,3 +1,4 @@
+import 'package:accubooks/rep/TopBox.dart';
 import 'package:flutter/material.dart';
 
 class Home_rep extends StatefulWidget {
@@ -16,7 +17,10 @@ class _Home_repState extends State<Home_rep> {
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10.0),
-            color: Color.fromRGBO(248, 248, 251, 1),
+            color: Color.fromRGBO(245, 245, 255, 1),
+          ),
+          child: Column(
+            children: [TopBox()],
           ),
         ),
       ),

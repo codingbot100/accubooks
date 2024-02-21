@@ -6,35 +6,27 @@ import 'package:accubooks/Factoring/secondRow.dart';
 import 'package:flutter/material.dart';
 
 class Home_Factoring extends StatefulWidget {
+  // final Function callbackFunction;
+
   Home_Factoring({
     Key? key,
+    // required this.callbackFunction
   }) : super(key: key);
 
   @override
   State<Home_Factoring> createState() => _Home_FactoringState();
 }
 
-class _Home_FactoringState extends State<Home_Factoring> with AutomaticKeepAliveClientMixin<Home_Factoring>  {
+class _Home_FactoringState extends State<Home_Factoring>
+    with AutomaticKeepAliveClientMixin<Home_Factoring> {
   late YourWidget youWidgetState;
+
   int totalSumNew = 0;
   TextEditingController discount = TextEditingController();
   TextEditingController remainedMoNEY = TextEditingController();
   int? counterfactor;
 
-  bool _isActive = false;
-
-  void handleSavePressed() {
-    if (_isActive) {
-      (youWidgetState as YourWidgetStateInterface).saveDataFromParent();
-
-      print('Save button pressed!');
-    } else {
-      print('Error: Home_Factoring is not initialized or has been disposed.');
-    }
-  }
-
-     final Key firstRowKey = UniqueKey();
-
+  final Key firstRowKey = UniqueKey();
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +34,7 @@ class _Home_FactoringState extends State<Home_Factoring> with AutomaticKeepAlive
     return Scaffold(
       body: Padding(
         padding:
-            const EdgeInsets.only(left: 50, right: 50, top: 30, bottom: 30),
+            const EdgeInsets.only(left: 20, right: 20, top: 30, bottom: 30),
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20.0),
@@ -72,7 +64,7 @@ class _Home_FactoringState extends State<Home_Factoring> with AutomaticKeepAlive
                         ),
                       ),
                       FirstRow(
-                        key:firstRowKey,
+                        key: firstRowKey,
                         counter: counterfactor ?? 0,
                       ),
                       Divider(
@@ -94,9 +86,7 @@ class _Home_FactoringState extends State<Home_Factoring> with AutomaticKeepAlive
                                   counterfactor = factor;
                                 });
                               },
-                              onSavePressed: () {
-                                handleSavePressed();
-                              },
+                              onSavePressed: () {},
                               onIntegerChanged: (totalSum) async {
                                 setState(() {
                                   totalSumNew = totalSum;
@@ -121,9 +111,7 @@ class _Home_FactoringState extends State<Home_Factoring> with AutomaticKeepAlive
                           borderRadius: BorderRadius.circular(6.5)),
                       child: MaterialButton(
                           onPressed: () {
-                            setState(() {
-                              handleSavePressed();
-                            });
+                            setState(() {});
                           },
                           child: Text(
                             "  ذخیره کردن ",
@@ -302,7 +290,7 @@ class _Home_FactoringState extends State<Home_Factoring> with AutomaticKeepAlive
       ),
     );
   }
- @override
+
+  @override
   bool get wantKeepAlive => true;
- 
 }

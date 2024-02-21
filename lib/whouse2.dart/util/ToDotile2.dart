@@ -209,7 +209,11 @@ class _ToDotile2State extends State<ToDotile2> with TickerProviderStateMixin {
       SnackBar(
         content: Center(
           child: Directionality(
-              textDirection: TextDirection.rtl, child: Text(message)),
+              textDirection: TextDirection.rtl, child: Text(message, style: TextStyle(
+                                  fontFamily: 'Yekan',
+                                  color: Colors.black,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold),)),
         ),
         backgroundColor: color,
       ),

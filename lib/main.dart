@@ -9,7 +9,7 @@ main() async {
   // open box
   var box = await Hive.openBox('Mybox');
   var employees = await Hive.openBox('employees');
-  var storeFactor = await Hive.openBox('storeFactor');
+  var factoeBox = await Hive.openBox('storeFactor');
 
   WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());
