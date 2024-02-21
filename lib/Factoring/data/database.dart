@@ -19,6 +19,7 @@ class ToDoDatabsestoreFactor {
   void updateDatabase() {
     _myBox.put('TODOLIST2', allInOne);
   }
+
   void clearAllData() async {
     await _myBox.clear();
   }

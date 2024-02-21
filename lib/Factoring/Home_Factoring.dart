@@ -14,14 +14,31 @@ class Home_Factoring extends StatefulWidget {
   State<Home_Factoring> createState() => _Home_FactoringState();
 }
 
-class _Home_FactoringState extends State<Home_Factoring> {
+class _Home_FactoringState extends State<Home_Factoring> with AutomaticKeepAliveClientMixin<Home_Factoring>  {
+  late YourWidget youWidgetState;
   int totalSumNew = 0;
   TextEditingController discount = TextEditingController();
   TextEditingController remainedMoNEY = TextEditingController();
-  int counterfactor = 1;
+  int? counterfactor;
+
+  bool _isActive = false;
+
+  void handleSavePressed() {
+    if (_isActive) {
+      (youWidgetState as YourWidgetStateInterface).saveDataFromParent();
+
+      print('Save button pressed!');
+    } else {
+      print('Error: Home_Factoring is not initialized or has been disposed.');
+    }
+  }
+
+     final Key firstRowKey = UniqueKey();
+
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       body: Padding(
         padding:
@@ -54,7 +71,10 @@ class _Home_FactoringState extends State<Home_Factoring> {
                           ),
                         ),
                       ),
-                      FirstRow(),
+                      FirstRow(
+                        key:firstRowKey,
+                        counter: counterfactor ?? 0,
+                      ),
                       Divider(
                         thickness: 1,
                       ),
@@ -64,11 +84,24 @@ class _Home_FactoringState extends State<Home_Factoring> {
                       ),
                       Expanded(
                         child: SingleChildScrollView(
-                          child: YourWidget(onIntegerChanged: (totalSum) async {
-                            setState(() {
-                              totalSumNew = totalSum;
-                            });
-                          }),
+                          child: YourWidget(
+                              onStateReady: (state) {
+                                youWidgetState = state as YourWidget;
+                              },
+                              home_factoring: widget,
+                              onChangedfactor: (factor) async {
+                                setState(() {
+                                  counterfactor = factor;
+                                });
+                              },
+                              onSavePressed: () {
+                                handleSavePressed();
+                              },
+                              onIntegerChanged: (totalSum) async {
+                                setState(() {
+                                  totalSumNew = totalSum;
+                                });
+                              }),
                         ),
                       )
                     ],
@@ -87,7 +120,11 @@ class _Home_FactoringState extends State<Home_Factoring> {
                           color: Color.fromRGBO(248, 249, 251, 1),
                           borderRadius: BorderRadius.circular(6.5)),
                       child: MaterialButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            setState(() {
+                              handleSavePressed();
+                            });
+                          },
                           child: Text(
                             "  ذخیره کردن ",
                             style: TextStyle(
@@ -258,11 +295,14 @@ class _Home_FactoringState extends State<Home_Factoring> {
                   ],
                 ),
               ),
-              Text('$widget.now')
+              Text('$counterfactor')
             ],
           ),
         ),
       ),
     );
   }
+ @override
+  bool get wantKeepAlive => true;
+ 
 }

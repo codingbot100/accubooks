@@ -54,6 +54,11 @@ dependencies:
   persian_fonts: ^1.0.5
   barcode_scanner: ^3.6.2
   flutter_barcode_scanner: ^2.0.0
+  esc_pos_printer: ^4.1.0
+  esc_pos_utils: ^1.1.0
+  printing: ^5.9.3
+  usb_esc_printer_windows: ^0.0.2
+  esc_pos_utils_plus: ^2.0.1+6
 
 dev_dependencies:
   flutter_test:

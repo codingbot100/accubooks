@@ -7,7 +7,6 @@ import 'package:hive_flutter/hive_flutter.dart';
 main() async {
   await Hive.initFlutter();
   // open box
-  // ignore: unused_local_variable
   var box = await Hive.openBox('Mybox');
   var employees = await Hive.openBox('employees');
   var storeFactor = await Hive.openBox('storeFactor');

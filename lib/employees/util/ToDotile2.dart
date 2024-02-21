@@ -32,7 +32,6 @@ class _ToDoEmployeesState extends State<ToDoEmployees>
     with TickerProviderStateMixin {
   var color = Colors.transparent;
   late AnimationController _controller;
-  late Animation<double> _animation;
 
   @override
   void initState() {
@@ -42,11 +41,6 @@ class _ToDoEmployeesState extends State<ToDoEmployees>
       vsync: this,
       duration: Duration(milliseconds: 300),
     );
-
-    _animation = Tween<double>(
-      begin: 6.0,
-      end: 1.0,
-    ).animate(_controller);
 
     _controller.addListener(() {
       setState(() {});
@@ -61,7 +55,10 @@ class _ToDoEmployeesState extends State<ToDoEmployees>
         children: [
           Container(
             child: SlidableAction(
-              onPressed: widget.deleteFunction,
+              onPressed: (BuildContext) {
+                widget.deleteFunction!(BuildContext);
+                _showSnackBar(context, "لیست موفقانه پاک شد.");
+              },
               icon: Icons.delete,
               backgroundColor: const Color.fromARGB(255, 232, 17, 17),
               borderRadius: BorderRadius.circular(5.0),

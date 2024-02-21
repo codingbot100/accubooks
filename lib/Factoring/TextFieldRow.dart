@@ -1,5 +1,6 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, unused_field
 
+import 'package:accubooks/Factoring/Home_Factoring.dart';
 import 'package:accubooks/Factoring/data/database.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -8,15 +9,30 @@ import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
 class YourWidget extends StatefulWidget {
+  final Home_Factoring home_factoring;
   final Function(int) onIntegerChanged;
+  final Function(int) onChangedfactor;
+  final VoidCallback onSavePressed;
+  final void Function(_YourWidgetState)
+      onStateReady; // Callback for state reference
 
-  YourWidget({Key? key, required this.onIntegerChanged}) : super(key: key);
+  int factor = 1;
+
+  YourWidget(
+      {Key? key,
+      required this.home_factoring,
+      required this.onIntegerChanged,
+      required this.onSavePressed,
+      required this.onChangedfactor,
+      required this.onStateReady})
+      : super(key: key);
   @override
   _YourWidgetState createState() => _YourWidgetState();
 }
 
-class _YourWidgetState extends State<YourWidget> {
-  int numberFactor = 1;
+class _YourWidgetState extends State<YourWidget>
+    implements YourWidgetStateInterface {
+  int numberFactor = 2;
   TimeOfDay currentTime = TimeOfDay.now();
   DateTime now = DateTime.now();
   int dayOfWeek = DateTime.now().weekday;
@@ -42,6 +58,10 @@ class _YourWidgetState extends State<YourWidget> {
     ]
   ];
 
+  void saveDataFromParent() {
+    saveNewTask();
+  }
+
   void saveNewTask() {
     setState(() {
       for (int i = 0; i < _controllersList.length; i++) {
@@ -50,17 +70,32 @@ class _YourWidgetState extends State<YourWidget> {
         for (int j = 0; j < controllers.length; j++) {
           newTexts.add(controllers[j].text);
         }
-
-        // Print for debugging
-
-        db2.allInOne.add(newTexts);
         newTexts.add(totalSum.toString());
         newTexts.add(currentTime.toString());
         newTexts.add(now.toString());
         newTexts.add(dayOfWeek.toString());
         newTexts.add(numberFactor.toString());
 
-        print('Data to be saved: $newTexts');
+        // Check if widget.factor already exists in the list
+        bool factorExists = false;
+        for (List<String> existingTexts in db2.allInOne) {
+          if (existingTexts.contains(numberFactor.toString())) {
+            factorExists = true;
+            // Update existing information
+            existingTexts.clear();
+            existingTexts.addAll(newTexts);
+            print('Update: Data for factor ${numberFactor} updated: $newTexts');
+            break;
+          }
+        }
+
+        // If widget.factor doesn't exist, increment and add new information
+        if (!factorExists) {
+          newTexts.add(numberFactor.toString());
+          db2.allInOne.add(newTexts);
+          numberFactor++;
+          print('Save: New data for factor ${numberFactor} saved: $newTexts');
+        }
       }
     });
   }
@@ -78,6 +113,7 @@ class _YourWidgetState extends State<YourWidget> {
       totalSum = totals.fold(0, (previous, current) => previous + current);
       widget.onIntegerChanged(
           totalSum); // Update the totalSum in the parent widget
+      widget.onChangedfactor(numberFactor);
     });
   }
 
@@ -209,7 +245,7 @@ class _YourWidgetState extends State<YourWidget> {
                       children: [
                         Container(
                           height: 30,
-                          width: 150,
+                          width: 200,
                           decoration: BoxDecoration(
                             border: Border.all(
                                 width: 0.8,
@@ -242,7 +278,7 @@ class _YourWidgetState extends State<YourWidget> {
                         for (int i = 0; i < _controllersList[row].length; i++)
                           Container(
                             height: 33,
-                            width: 150,
+                            width: 200,
                             child: TextField(
                               style: TextStyle(
                                 fontFamily: 'Yekan',
@@ -273,7 +309,7 @@ class _YourWidgetState extends State<YourWidget> {
                           ),
                         Container(
                           height: 30,
-                          width: 150,
+                          width: 200,
                           decoration: BoxDecoration(
                             border: Border.all(
                                 width: 0.8,
@@ -336,4 +372,8 @@ class _YourWidgetState extends State<YourWidget> {
       // Clear any error message or handle duplicate case as needed
     }
   }
+}
+
+abstract class YourWidgetStateInterface {
+  void saveDataFromParent();
 }

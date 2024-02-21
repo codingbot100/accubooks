@@ -53,11 +53,9 @@ class _Home_PageState extends State<Home_Page> {
       Navigator.of(context).pop();
       _controllers.cast();
       db.updateDatabase();
-       _controllers.clear();
       filteredList = List.from(db.allInOne);
       // _controllers.clear();
     });
-   
   }
 
   // Create a new task
@@ -190,7 +188,7 @@ class _Home_PageState extends State<Home_Page> {
                                   fontWeight: FontWeight.w600),
                             )),
                       ),
-                      
+
                       Container(
                           width: 250,
                           height: 35,

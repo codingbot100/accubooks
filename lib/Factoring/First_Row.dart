@@ -1,23 +1,21 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:accubooks/employees/data/database.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
 
 class FirstRow extends StatefulWidget {
-  
-
+  int counter;
   // Constructor
-  FirstRow(
-      {Key? key,
-      })
-      : super(key: key);
+  FirstRow({Key? key, required this.counter}) : super(key: key);
 
   @override
   _FirstRowState createState() => _FirstRowState();
 }
 
 class _FirstRowState extends State<FirstRow> {
-  int numberFactor = 1;
+  late int numberFactor;
   TimeOfDay currentTime = TimeOfDay.now();
   DateTime now = DateTime.now();
   int dayOfWeek = DateTime.now().weekday;
@@ -28,13 +26,16 @@ class _FirstRowState extends State<FirstRow> {
 
   @override
   void initState() {
-    super.initState();
     selectedItem = seller.first; // Initialize selectedItem with the first item
+
     if (_myBox.get("TODOLIST2") == null) {
       db2.createinitialData();
     } else {
       db2.loadData();
     }
+
+    numberFactor = widget.counter;
+    super.initState();
   }
 
   @override
@@ -101,7 +102,7 @@ class _FirstRowState extends State<FirstRow> {
             width: 25,
           ),
           Text(
-            " شماره فاکتور:  $widget.numberFactor",
+            " شماره فاکتور:  $numberFactor",
             style: TextStyle(
               fontFamily: 'Yekan',
               fontSize: 18,
@@ -111,31 +112,33 @@ class _FirstRowState extends State<FirstRow> {
           SizedBox(
             width: 25,
           ),
-          DropdownButton<String>(
-            value: selectedItem,
-            items: (db2.allInOne.isNotEmpty)
-                ? (db2.allInOne as List)
-                    .map<DropdownMenuItem<String>>((dynamic item) {
-                    if (item is List && item.isNotEmpty) {
-                      String name = item[
-                          0]; // Assuming the name is the first element in the tuple
-                      return DropdownMenuItem<String>(
-                        value: name,
-                        child: Text(name),
-                      );
-                    }
-                    return DropdownMenuItem<String>(
-                      value: '',
-                      child: Text(''),
-                    );
-                  }).toList()
-                : [],
-            onChanged: (String? newValue) {
-              setState(() {
-                selectedItem = newValue!;
-              });
-            },
-          ),
+          // DropdownButton<String>(
+          //   value: selectedItem,
+          //   items: (db2.allInOne.isNotEmpty)
+          //       ? (db2.allInOne as List)
+          //           .map<DropdownMenuItem<String>>((dynamic item) {
+          //             if (item is List && item.isNotEmpty) {
+          //               String name = item[0];
+          //               return DropdownMenuItem<String>(
+          //                 value: name,
+          //                 child: Text(name),
+          //               );
+          //             }
+          //             return DropdownMenuItem<String>(
+          //               value: '',
+          //               child: Text(''),
+          //             );
+          //           })
+          //           .toList()
+          //           .toSet() // Convert list to set to remove duplicate instances
+          //           .toList() // Convert set back to list
+          //       : [],
+          //   onChanged: (String? newValue) {
+          //     setState(() {
+          //       selectedItem = newValue!;
+          //     });
+          //   },
+          // ),
         ],
       ),
     );

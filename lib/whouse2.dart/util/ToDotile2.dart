@@ -31,7 +31,6 @@ class ToDotile2 extends StatefulWidget {
 class _ToDotile2State extends State<ToDotile2> with TickerProviderStateMixin {
   var color = Colors.transparent;
   late AnimationController _controller;
-  late Animation<double> _animation;
 
   @override
   void initState() {
@@ -41,11 +40,6 @@ class _ToDotile2State extends State<ToDotile2> with TickerProviderStateMixin {
       vsync: this,
       duration: Duration(milliseconds: 300),
     );
-
-    _animation = Tween<double>(
-      begin: 6.0,
-      end: 1.0,
-    ).animate(_controller);
 
     _controller.addListener(() {
       setState(() {});
@@ -60,7 +54,10 @@ class _ToDotile2State extends State<ToDotile2> with TickerProviderStateMixin {
         children: [
           Container(
             child: SlidableAction(
-              onPressed: widget.deleteFunction,
+              onPressed: (BuildContext) {
+                widget.deleteFunction!(BuildContext);
+                _showSnackBar(context, "لیست موفقانه پاک شد.");
+              },
               icon: Icons.delete,
               backgroundColor: const Color.fromARGB(255, 232, 17, 17),
               borderRadius: BorderRadius.circular(5.0),
@@ -134,7 +131,9 @@ class _ToDotile2State extends State<ToDotile2> with TickerProviderStateMixin {
                             width: 50,
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(left: 50,),
+                            padding: const EdgeInsets.only(
+                              left: 50,
+                            ),
                             child: Container(
                               width: 130,
                               child: Center(
