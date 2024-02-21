@@ -16,6 +16,11 @@ class YourWidget extends StatefulWidget {
 }
 
 class _YourWidgetState extends State<YourWidget> {
+  int numberFactor = 1;
+  TimeOfDay currentTime = TimeOfDay.now();
+  DateTime now = DateTime.now();
+  int dayOfWeek = DateTime.now().weekday;
+
   final _myBox = Hive.box('storeFactor');
   ToDoDatabsestoreFactor db2 = ToDoDatabsestoreFactor();
 
@@ -29,33 +34,37 @@ class _YourWidgetState extends State<YourWidget> {
   String barcodeResult = "Scan a barcode";
   List<FocusNode> _barcodeFocusNodes = [FocusNode()];
   List<List<TextEditingController>> _controllersList = [
-  [
-    TextEditingController(),
-    TextEditingController(text: '1'),
-    TextEditingController(),
-    TextEditingController(),
-  ]
-];
+    [
+      TextEditingController(),
+      TextEditingController(text: '1'),
+      TextEditingController(),
+      TextEditingController(),
+    ]
+  ];
 
-void saveNewTask() {
-  setState(() {
-    for (int i = 0; i < _controllersList.length; i++) {
-      List<TextEditingController> controllers = _controllersList[i];
-      List<String> newTexts = [];
-      for (int j = 0; j < controllers.length; j++) {
-        newTexts.add(controllers[j].text);
+  void saveNewTask() {
+    setState(() {
+      for (int i = 0; i < _controllersList.length; i++) {
+        List<TextEditingController> controllers = _controllersList[i];
+        List<String> newTexts = [];
+        for (int j = 0; j < controllers.length; j++) {
+          newTexts.add(controllers[j].text);
+        }
+
+        // Print for debugging
+
+        db2.allInOne.add(newTexts);
+        newTexts.add(totalSum.toString());
+        newTexts.add(currentTime.toString());
+        newTexts.add(now.toString());
+        newTexts.add(dayOfWeek.toString());
+        newTexts.add(numberFactor.toString());
+
+        print('Data to be saved: $newTexts');
       }
+    });
+  }
 
-      // Print for debugging
-      print('Data to be saved: $newTexts');
-
-      db2.allInOne.add(newTexts);
-    }
-
-    Navigator.of(context).pop();
-    db2.updateDatabase();
-  });
-}
   List<int> totals = [0];
   List<int> rowNumbers = [1];
 
@@ -284,6 +293,14 @@ void saveNewTask() {
                       ],
                     ),
                   ),
+                MaterialButton(
+                  onPressed: () {
+                    setState(() {
+                      saveNewTask();
+                    });
+                  },
+                  child: Text("دخیره کردن "),
+                )
               ],
             ),
           ),

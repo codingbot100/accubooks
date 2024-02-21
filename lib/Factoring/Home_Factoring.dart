@@ -6,7 +6,9 @@ import 'package:accubooks/Factoring/secondRow.dart';
 import 'package:flutter/material.dart';
 
 class Home_Factoring extends StatefulWidget {
-  const Home_Factoring({super.key});
+  Home_Factoring({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<Home_Factoring> createState() => _Home_FactoringState();
@@ -16,6 +18,7 @@ class _Home_FactoringState extends State<Home_Factoring> {
   int totalSumNew = 0;
   TextEditingController discount = TextEditingController();
   TextEditingController remainedMoNEY = TextEditingController();
+  int counterfactor = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -254,7 +257,8 @@ class _Home_FactoringState extends State<Home_Factoring> {
                     )
                   ],
                 ),
-              )
+              ),
+              Text('$widget.now')
             ],
           ),
         ),

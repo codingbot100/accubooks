@@ -4,8 +4,13 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
 
 class FirstRow extends StatefulWidget {
+  
+
   // Constructor
-  FirstRow({Key? key}) : super(key: key);
+  FirstRow(
+      {Key? key,
+      })
+      : super(key: key);
 
   @override
   _FirstRowState createState() => _FirstRowState();
@@ -96,7 +101,7 @@ class _FirstRowState extends State<FirstRow> {
             width: 25,
           ),
           Text(
-            " شماره فاکتور:  $numberFactor",
+            " شماره فاکتور:  $widget.numberFactor",
             style: TextStyle(
               fontFamily: 'Yekan',
               fontSize: 18,
