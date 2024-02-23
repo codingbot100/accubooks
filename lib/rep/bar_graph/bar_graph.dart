@@ -38,7 +38,7 @@ class MybarGRAPH extends StatelessWidget {
 
     return BarChart(
       BarChartData(
-        maxY: 500000,
+        maxY: 200,
         minY: 1,
         barGroups: myBarData.barData
             .asMap()

@@ -9,7 +9,19 @@ class chart extends StatefulWidget {
 }
 
 class _chartState extends State<chart> {
-  List weeklySummary = [4.50, 2.5, 100.0, 90.0, 88, 33, 23, 90, 87, 67, 54];
+  List<double> weeklySummary = [
+    4.50,
+    2.5,
+    100.0,
+    90.0,
+    88,
+    33,
+    23,
+    90,
+    87,
+    67,
+    54
+  ];
 
   @override
   Widget build(BuildContext context) {

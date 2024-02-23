@@ -1,5 +1,5 @@
 class individualBar {
-  var  x;
-   var  y;
+  int x;
+  double y;
   individualBar({required this.x, required this.y});
 }
