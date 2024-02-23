@@ -73,20 +73,21 @@ class NavigationSidebar extends StatelessWidget {
                             return Directionality(
                               textDirection: TextDirection.rtl,
                               child: Container(
-                                height: 40,
+                                height: 50,
                                 child: ListTile(
-                                  minVerticalPadding: 5,
-                                  dense: true,
-                                  // hoverColor: Color.fromRGBO(45, 45, 45, 1),
-                                  // selectedColor: Color.fromRGBO(45, 45, 45, 1),
-                                  // selectedTileColor: Color.fromRGBO(45, 45, 45, 1),
+                                  minVerticalPadding: 10,
+                                  hoverColor: Color.fromRGBO(45, 45, 45, 1),
+                                  selectedColor: Color.fromRGBO(8, 6, 6, 1),
+                                  selectedTileColor:
+                                      Color.fromRGBO(45, 45, 45, 1),
                                   leading: itemsIcons[
                                       index], // Use the provided icon widget
                                   title: Text(
                                     items[index],
                                     style: TextStyle(
                                         color: Color(0xFF15111D),
-                                        fontSize: 15,
+                                        fontSize: 18,
+                                        fontFamily: 'YekanBakh',
                                         fontWeight: FontWeight.w700),
                                   ),
                                   onTap: () {

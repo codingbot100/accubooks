@@ -1,7 +1,9 @@
 import 'package:accubooks/whouse2.dart/data/database.dart';
+import 'package:accubooks/whouse2.dart/titleRows.dart';
 import 'package:accubooks/whouse2.dart/util/ToDotile2.dart';
 import 'package:accubooks/whouse2.dart/util/dialog_box.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hive/hive.dart';
 
@@ -19,7 +21,7 @@ class _Home_PageState extends State<Home_Page> {
 // reference the hive box
   final _myBox = Hive.box('Mybox');
   ToDoDatabse2 db = ToDoDatabse2();
-
+  final controller = PageController(initialPage: 1);
   @override
   void initState() {
     //if this is the first time ever opening the app , then create default data
@@ -34,6 +36,7 @@ class _Home_PageState extends State<Home_Page> {
   }
 
   List<TextEditingController> _controllers = [
+    TextEditingController(),
     TextEditingController(),
     TextEditingController(),
     TextEditingController(),
@@ -111,6 +114,13 @@ class _Home_PageState extends State<Home_Page> {
     );
   }
 
+  int pageNumber = 2;
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -129,16 +139,22 @@ class _Home_PageState extends State<Home_Page> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Directionality(
-                  textDirection: TextDirection.rtl,
-                  child: Container(
-                    // width: 700,
-                    child: ListTile(
-                      title: Text("لیست اجناس ",
-                          style: TextStyle(
-                              fontSize: 25,
-                              fontWeight: FontWeight.w900,
-                              fontFamily: 'YekanBakh')),
+                Padding(
+                  padding: const EdgeInsets.only(top: 25, bottom: 25),
+                  child: Directionality(
+                    textDirection: TextDirection.rtl,
+                    child: Container(
+                      child: ListTile(
+                        title: Text("لیست اجناس ",
+                            style: TextStyle(
+                                fontSize: 30,
+                                fontWeight: FontWeight.w900,
+                                fontFamily: 'YekanBakh')),
+                        trailing: FaIcon(
+                          FontAwesomeIcons.cubes,
+                          size: 60,
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -188,41 +204,43 @@ class _Home_PageState extends State<Home_Page> {
                                   fontWeight: FontWeight.w600),
                             )),
                       ),
-
                       Container(
                           width: 250,
                           height: 35,
                           child: Directionality(
                               textDirection: TextDirection.rtl,
                               child: TextField(
-                                controller: _searchController,
-                                cursorHeight: 20,
-                                textAlign: TextAlign.right,
-                                textAlignVertical: TextAlignVertical.bottom,
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    fontFamily: 'YekanBakh',
-                                    fontWeight: FontWeight.w800),
-                                decoration: InputDecoration(
-                                    suffixIcon: Icon(Icons.search),
-                                    hintText: 'جستجوی کالا...',
-                                    hintStyle: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 15,
-                                        fontFamily: 'YekanBakh'),
-                                    border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10.0))),
-                                onChanged: (value) {
-                                  setState(() {
-                                    filteredList = db.allInOne
-                                        .where((task) => task[0]
-                                            .toLowerCase()
-                                            .contains(value.toLowerCase()))
-                                        .toList();
-                                  });
-                                },
-                              ))),
+                                  controller: _searchController,
+                                  cursorHeight: 20,
+                                  textAlign: TextAlign.right,
+                                  textAlignVertical: TextAlignVertical.bottom,
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontFamily: 'YekanBakh',
+                                      fontWeight: FontWeight.w800),
+                                  decoration: InputDecoration(
+                                      suffixIcon: Icon(Icons.search),
+                                      hintText: 'جستجوی کالا...',
+                                      hintStyle: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 15,
+                                          fontFamily: 'YekanBakh'),
+                                      border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10.0))),
+                                  onChanged: (value) {
+                                    setState(() {
+                                      filteredList = db.allInOne
+                                          .where((task) =>
+                                              task[0].toLowerCase().contains(
+                                                  value.toLowerCase()) ||
+                                              task[4].toLowerCase().contains(
+                                                  value.toLowerCase()) ||
+                                              task[3].toLowerCase().contains(
+                                                  value.toLowerCase()))
+                                          .toList();
+                                    });
+                                  }))),
                     ],
                   ),
                 ),
@@ -239,105 +257,55 @@ class _Home_PageState extends State<Home_Page> {
                         ),
                         child: Column(
                           children: [
-                            Container(
-                              child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    Text(
-                                      "قیمت فروش",
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: 'YekanBakh'),
-                                    ),
-                                    SizedBox(
-                                      width: 25,
-                                    ),
-                                    Text(
-                                      "قیمت خرید",
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: 'YekanBakh'),
-                                    ),
-                                    SizedBox(
-                                      width: 25,
-                                    ),
-                                    Text('تاریخ انقضا',
-                                        style: TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold,
-                                            fontFamily: 'YekanBakh')),
-                                    SizedBox(
-                                      width: 25,
-                                    ),
-                                    Text('نمبر بارکد',
-                                        style: TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold,
-                                            fontFamily: 'YekanBakh')),
-                                    SizedBox(
-                                      width: 25,
-                                    ),
-                                    Text('تعداد کالا',
-                                        style: TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold,
-                                            fontFamily: 'YekanBakh')),
-                                    SizedBox(
-                                      width: 25,
-                                    ),
-                                    Text('نام کالا',
-                                        style: TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold,
-                                            fontFamily: 'YekanBakh')),
-                                    Text("شماره",
-                                        style: TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold,
-                                            fontFamily: 'YekanBakh')),
-                                  ]),
-                            ),
+                            titleRows(),
                             Divider(
                               thickness: 1,
                               color: Colors.blueAccent,
                             ),
                             Expanded(
-                              child: ListView.separated(
-                                separatorBuilder: (context, index) {
-                                  return Divider(
-                                    thickness: 1,
-                                  );
-                                },
-                                itemCount: filteredList.length,
-                                itemBuilder: ((context, index) {
-                                  int counter = index + 1;
-                                  return GestureDetector(
-                                    onTap: () => updateTask(index),
-                                    child: Directionality(
-                                      textDirection: TextDirection.rtl,
-                                      child: ToDotile2(
-                                        counter: counter,
-                                        Product_Name: filteredList[index][0],
-                                        Number_of_goods:
-                                            _parseInt(db.allInOne[index][1]),
-                                        Barcode_number:
-                                            _parseInt(db.allInOne[index][2]),
-                                        Expiration_date: db.allInOne[index][3],
-                                        provisions:
-                                            _parseDouble(db.allInOne[index][4]),
-                                        price:
-                                            _parseDouble(db.allInOne[index][5]),
-                                        deleteFunction: (context) =>
-                                            deleteTask(index),
+                              child: Container(
+                                height: double.infinity,
+                                child: ListView.separated(
+                                  separatorBuilder: (context, index) {
+                                    return Divider(
+                                      thickness: 1,
+                                    );
+                                  },
+                                  itemCount: filteredList.length,
+                                  itemBuilder: ((context, index) {
+                                    int counter = index + 1;
+                                    return Container(
+                                      key: ValueKey<String>(
+                                          filteredList[index][0]), // Add a key
+                                      child: GestureDetector(
+                                        onTap: () => updateTask(index),
+                                        child: Directionality(
+                                          textDirection: TextDirection.rtl,
+                                          child: ToDotile2(
+                                            counter: counter,
+                                            Product_Name: filteredList[index]
+                                                [0],
+                                            Number_of_goods: _parseInt(
+                                                db.allInOne[index][1]),
+                                            Barcode_number: _parseInt(
+                                                db.allInOne[index][2]),
+                                            Expiration_date: filteredList[index]
+                                                [3],
+                                            part: filteredList[index][4],
+                                            provisions: _parseDouble(
+                                                db.allInOne[index][5]),
+                                            price: _parseDouble(
+                                                db.allInOne[index][6]),
+                                            deleteFunction: (context) =>
+                                                deleteTask(index),
+                                          ),
+                                        ),
                                       ),
-                                    ),
-                                  );
-                                }),
+                                    );
+                                  }),
+                                ),
                               ),
-                            )
+                            ),
                           ],
                         ),
                       ),

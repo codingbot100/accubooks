@@ -35,7 +35,6 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-  carousel_slider: ^4.2.1
   smooth_page_indicator: ^1.1.0
   git: ^2.2.1
   get: ^4.6.6
@@ -45,21 +44,14 @@ dependencies:
   iconsax: ^0.0.8
   iconify: ^0.0.1
   font_awesome_icon_class: ^0.0.6
-  day_night_switch: ^1.0.4
   animated_theme_switcher: ^2.0.10
   shared_preferences: ^2.2.2
-  provider: ^6.1.1
-  day_night_switcher: ^0.2.0+1
   intl: ^0.19.0
-  persian_fonts: ^1.0.5
   barcode_scanner: ^3.6.2
   flutter_barcode_scanner: ^2.0.0
-  esc_pos_printer: ^4.1.0
-  esc_pos_utils: ^1.1.0
-  printing: ^5.9.3
-  usb_esc_printer_windows: ^0.0.2
-  esc_pos_utils_plus: ^2.0.1+6
+ 
   font_awesome_flutter: ^10.7.0
+  fl_chart: ^0.66.2
 
 dev_dependencies:
   flutter_test:

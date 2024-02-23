@@ -25,6 +25,7 @@ class _DialogeBox2State extends State<DialogeBox2> {
     "تعداد کالا",
     "نمبر بارکد",
     "تاریخ انقضا",
+    " کتگوری",
     "قیمت خرید",
     "قیمت فروش"
   ];
@@ -62,7 +63,7 @@ class _DialogeBox2State extends State<DialogeBox2> {
               SizedBox(height: 40),
               for (int i = 0; i < widget.controllers.length; i++)
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 30),
+                  padding: const EdgeInsets.only(bottom: 22),
                   child: Container(
                     height: 40,
                     child: i == 3
@@ -71,7 +72,7 @@ class _DialogeBox2State extends State<DialogeBox2> {
                             cursorOpacityAnimates: true,
                             controller: widget.controllers[i],
                             inputFormatters:
-                                i == 0 && widget.controllers[0].text != '0'
+                                i == 0 &&  widget.controllers[0].text != '0' || i == 4 && widget.controllers[4].text != '4'
                                     ? null
                                     : [FilteringTextInputFormatter.digitsOnly],
                             decoration: InputDecoration(

@@ -3,7 +3,7 @@
 import 'package:accubooks/Factoring/data/database.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:iconsax/iconsax.dart';
 
 class TopBox extends StatefulWidget {
   const TopBox({super.key});
@@ -35,7 +35,7 @@ class _TopBoxState extends State<TopBox> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Topbox(" مجموعه مالی", Icons.attach_money, 90000),
-          Topbox("فاکتور ها ", Icons.receipt, 90000),
+          Topbox("فاکتور ها ", Iconsax.document_1, 90000),
           Topbox("خرید اجناس بازار ", Icons.shopping_cart, 90000),
           Topbox("پرداخت قرض ها", Icons.account_balance_outlined, 90000),
           Topbox("مصارف داخلی  ", Icons.account_balance_sharp, 90000),
@@ -50,7 +50,7 @@ class _TopBoxState extends State<TopBox> {
       height: 200,
       decoration: BoxDecoration(
           border: Border.all(),
-          color: Colors.white,
+          color: Color.fromARGB(255, 255, 255, 255),
           borderRadius: BorderRadius.circular(15.0)),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,

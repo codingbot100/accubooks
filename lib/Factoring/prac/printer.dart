@@ -19,7 +19,12 @@ class ParentWidget extends StatefulWidget {
 }
 
 class _ParentWidgetState extends State<ParentWidget> {
-  late _ChildWidgetState childWidgetState;
+  List Dropvalues = ["one", 'two', "three", "four", "five"];
+  List DropMenu = [
+    'شوینده باب',
+    "حبوبات",
+    "شیرینی باب",
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -30,46 +35,26 @@ class _ParentWidgetState extends State<ParentWidget> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          ElevatedButton(
-              onPressed: () {
-                childWidgetState.incrementChildCounter();
-              },
-              child: Text("increment Child Counter")),
-          ChildWidget(parentReference: this)
+          DropdownButton(
+              icon: Icon(Icons.menu),
+              value: Dropvalues,
+              items: [
+                for (int index = 0; index < DropMenu.length; index++)
+                  DropdownMenuItem(
+                    value: DropMenu[index],
+                    child: Text("${DropMenu[index]}"),
+                  )
+              ],
+              onChanged: (me) {
+                List me = [];
+                if (me != null) {
+                  setState(() {
+                    Dropvalues = me;
+                  });
+                }
+              }),
         ],
       ),
     );
   }
 }
-
-class ChildWidget extends StatefulWidget {
-  final _ParentWidgetState parentReference;
-
-  const ChildWidget({Key? key, required this.parentReference})
-      : super(key: key);
-
-  @override
-  _ChildWidgetState createState() => _ChildWidgetState();
-}
-
-class _ChildWidgetState extends State<ChildWidget> {
-  int childCounter = 0;
-  void incrementChildCounter() {
-    setState(() {
-      childCounter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    widget.parentReference.childWidgetState = this;
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text('Child Counter: $childCounter'),
-      ],
-    );
-  }
-}
-
-

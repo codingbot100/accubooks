@@ -24,7 +24,7 @@ class _DialogeEmployessState extends State<DialogeEmployess> {
     "نام پدر ",
     "محل سکونت",
     "تاریخ استخدام",
-    " سطح تحصیل",
+    "وظیفه کارمند",
     " معاش",
   ];
 
@@ -41,7 +41,7 @@ class _DialogeEmployessState extends State<DialogeEmployess> {
           child: Column(
             children: [
               Text(
-                'کالا خود را ثبت کنید',
+                'مشخصات کارمند جدید را وارد کنید.',
                 style: TextStyle(
                   fontFamily: 'Yekan',
                   color: Colors.black,

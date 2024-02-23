@@ -1,26 +1,26 @@
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-class ToDoDatabsestoreFactor {
-  List allInOne = [];
+class ToDoDatabseDropDown {
+  List<String> listDrop = [];
 
 // reference our box
-  final _factoeBox = Hive.box('storeFactor');
+  final _DropBox = Hive.box('dropDatabase');
 
   //run this method if this is the 1st time ever opening this app
   void createinitialData() {
-    allInOne = [];
+    listDrop = ['One', 'Two', "Three"];
   }
 
   void loadData() {
-    allInOne = _factoeBox.get('TODOFacto');
+    listDrop = _DropBox.get('dropkey');
   }
 
   void updateDatabase() {
-    _factoeBox.put('TODOFacto', allInOne);
+    _DropBox.put('dropkey', listDrop);
   }
 
   void clearAllData() async {
-    await _factoeBox.clear();
+    await _DropBox.clear();
   }
 }

@@ -1,9 +1,11 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:accubooks/Factoring/First_Row.dart';
 import 'package:accubooks/Factoring/TextFieldRow.dart';
 import 'package:accubooks/Factoring/secondRow.dart';
+import 'package:accubooks/employees/data/database.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:intl/intl.dart';
 
 class Home_Factoring extends StatefulWidget {
   // final Function callbackFunction;
@@ -20,16 +22,37 @@ class Home_Factoring extends StatefulWidget {
 class _Home_FactoringState extends State<Home_Factoring>
     with AutomaticKeepAliveClientMixin<Home_Factoring> {
   late YourWidget youWidgetState;
-
   int totalSumNew = 0;
   TextEditingController discount = TextEditingController();
   TextEditingController remainedMoNEY = TextEditingController();
-  int? counterfactor;
+  int? counterfactor = 0;
+  late int numberFactor;
+  TimeOfDay currentTime = TimeOfDay.now();
+  DateTime now = DateTime.now();
+  int dayOfWeek = DateTime.now().weekday;
+  List<String> seller = ["احمد سدیس", "محمد کریم", "احمد فواد"];
+  late String selectedItem; // Use 'late' to mark it as mutable
+  ToDoDatabseEmployees db2 = ToDoDatabseEmployees();
+  final _myBox = Hive.box('employees');
 
   final Key firstRowKey = UniqueKey();
+  @override
+  void initState() {
+    selectedItem = seller.first; // Initialize selectedItem with the first item
+
+    if (_myBox.get("TODOLIST2") == null) {
+      db2.createinitialData();
+    } else {
+      db2.loadData();
+    }
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
+    String dayNameInPersian = getDayNameInPersian(dayOfWeek);
+
     super.build(context);
     return Scaffold(
       body: Padding(
@@ -63,9 +86,45 @@ class _Home_FactoringState extends State<Home_Factoring>
                           ),
                         ),
                       ),
-                      FirstRow(
-                        key: firstRowKey,
-                        counter: counterfactor ?? 0,
+                      Padding(
+                        padding: EdgeInsets.only(top: 40, right: 25),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Text(
+                              '${currentTime.format(context)} ',
+                              style: TextStyle(
+                                fontFamily: 'Yekan',
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            Row(
+                              children: [
+                                title("$dayNameInPersian"),
+                                title("  :  " "امروز"),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                title(
+                                  DateFormat("d,MM,yyy").format(DateTime.now()),
+                                ),
+                                SizedBox(
+                                  width: 4,
+                                ),
+                                title(": تاریخ امروز"),
+                              ],
+                            ),
+                            SizedBox(
+                              width: 25,
+                            ),
+                            title(" شماره فاکتور:  $counterfactor"),
+                            SizedBox(
+                              width: 25,
+                            ),
+                          ],
+                        ),
                       ),
                       Divider(
                         thickness: 1,
@@ -283,10 +342,41 @@ class _Home_FactoringState extends State<Home_Factoring>
                   ],
                 ),
               ),
-              Text('$counterfactor')
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  String getDayNameInPersian(int dayOfWeek) {
+    switch (dayOfWeek) {
+      case DateTime.saturday:
+        return 'شنبه';
+      case DateTime.sunday:
+        return 'یک‌شنبه';
+      case DateTime.monday:
+        return 'دوشنبه';
+      case DateTime.tuesday:
+        return 'سه‌شنبه';
+      case DateTime.wednesday:
+        return 'چهارشنبه';
+      case DateTime.thursday:
+        return 'پنج‌شنبه';
+      case DateTime.friday:
+        return 'جمعه';
+      default:
+        return '';
+    }
+  }
+
+  Widget title(String title) {
+    return Text(
+      title,
+      style: TextStyle(
+        fontFamily: 'Yekan',
+        fontSize: 18,
+        fontWeight: FontWeight.w600,
       ),
     );
   }

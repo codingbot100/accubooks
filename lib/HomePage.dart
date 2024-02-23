@@ -1,6 +1,7 @@
 import 'package:accubooks/Factoring/Home_Factoring.dart';
 import 'package:accubooks/employees/Ware_Home.dart';
 import 'package:accubooks/rep/Home_rep.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../whouse2.dart/Ware_Home.dart';
 import 'package:accubooks/widgets/NavigationSideBar.dart';
 import 'package:flutter/material.dart';
@@ -17,12 +18,13 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
   List<Widget> iconsList = [
-    Icon(Iconsax.document),
-    Icon(
-      Icons.warehouse,
+    Icon(Icons.shopping_cart, size: 30),
+    Icon(Icons.attach_money, size: 30),
+    FaIcon(
+      FontAwesomeIcons.users,
+      size: 30,
     ),
-    Icon(Icons.receipt),
-    Icon(Icons.settings),
+    Icon(Icons.analytics, size: 30),
   ];
   int _selectedindex = 0;
 
@@ -97,21 +99,21 @@ class _HomePageState extends State<HomePage>
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            SizedBox(height: 40),
+                            SizedBox(height: 70),
                             AnimatedSmoothIndicator(
-                              duration: Duration(milliseconds: 400),
+                              duration: Duration(milliseconds: 500),
                               axisDirection: Axis.vertical,
                               activeIndex: _selectedindex,
                               count: 4,
                               effect: WormEffect(
                                 spacing: 24,
                                 radius: 4,
-                                dotWidth: 15,
-                                dotHeight: 2,
+                                dotWidth: 25,
+                                dotHeight: 3,
                                 paintStyle: PaintingStyle.fill,
                                 strokeWidth: 1.5,
                                 dotColor: Colors.transparent,
-                                activeDotColor: Colors.lightBlue,
+                                activeDotColor: Colors.black,
                               ),
                             ),
                           ],

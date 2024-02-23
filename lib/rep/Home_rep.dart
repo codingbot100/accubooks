@@ -1,4 +1,5 @@
 import 'package:accubooks/rep/TopBox.dart';
+import 'package:accubooks/rep/chart.dart';
 import 'package:flutter/material.dart';
 
 class Home_rep extends StatefulWidget {
@@ -20,7 +21,10 @@ class _Home_repState extends State<Home_rep> {
             color: Color.fromRGBO(245, 245, 255, 1),
           ),
           child: Column(
-            children: [TopBox()],
+            children: [
+              TopBox(),
+              // Expanded(child: Container(child: chart()))
+            ],
           ),
         ),
       ),

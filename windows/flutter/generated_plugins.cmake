@@ -3,12 +3,9 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
-  charset_converter
-  printing
 )
 
 list(APPEND FLUTTER_FFI_PLUGIN_LIST
-  usb_esc_printer_windows
 )
 
 set(PLUGIN_BUNDLED_LIBRARIES)

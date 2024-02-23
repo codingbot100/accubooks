@@ -57,58 +57,26 @@ class _FirstRowState extends State<FirstRow> {
           ),
           Row(
             children: [
-              Text(
-                "$dayNameInPersian",
-                style: TextStyle(
-                  fontFamily: 'Yekan',
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              Text(
-                "  :  " "امروز",
-                style: TextStyle(
-                  fontFamily: 'Yekan',
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                ),
-              )
+              title("$dayNameInPersian"),
+              title("  :  " "امروز"),
             ],
           ),
           Row(
             children: [
-              Text(
+              title(
                 DateFormat("d,MM,yyy").format(DateTime.now()),
-                style: TextStyle(
-                  fontFamily: 'Yekan',
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                ),
               ),
               SizedBox(
                 width: 4,
               ),
-              Text(
-                ": تاریخ امروز",
-                style: TextStyle(
-                  fontFamily: 'Yekan',
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
+              title(": تاریخ امروز"),
             ],
           ),
           SizedBox(
             width: 25,
           ),
-          Text(
-            " شماره فاکتور:  $numberFactor",
-            style: TextStyle(
-              fontFamily: 'Yekan',
-              fontSize: 18,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
+          title(" شماره فاکتور:  $numberFactor"),
+
           SizedBox(
             width: 25,
           ),
@@ -164,5 +132,16 @@ class _FirstRowState extends State<FirstRow> {
       default:
         return '';
     }
+  }
+
+  Widget title(String title) {
+    return Text(
+      title,
+      style: TextStyle(
+        fontFamily: 'Yekan',
+        fontSize: 18,
+        fontWeight: FontWeight.w600,
+      ),
+    );
   }
 }

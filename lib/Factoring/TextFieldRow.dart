@@ -31,13 +31,14 @@ class YourWidget extends StatefulWidget {
 }
 
 class _YourWidgetState extends State<YourWidget> {
-  int numberFactor = 2;
+  int numberFactor = 1;
   TimeOfDay currentTime = TimeOfDay.now();
   DateTime now = DateTime.now();
   int dayOfWeek = DateTime.now().weekday;
+  final _yourBox = Hive.box('yourBox');
 
-  final factoeBox = Hive.box('storeFactor');
-  ToDoDatabsestoreFactor db2 = ToDoDatabsestoreFactor();
+  final _factoeBox = Hive.box('storeFactor');
+  ToDoDatabsestoreFactor dbfactor = ToDoDatabsestoreFactor();
 
   int totalSum = 0;
   int counterme = 1;
@@ -56,14 +57,12 @@ class _YourWidgetState extends State<YourWidget> {
       TextEditingController(),
     ]
   ];
-  late int counterText;
-
-  void saveDataFromParent() {
-    saveNewTask();
-  }
 
   void saveNewTask() {
     setState(() {
+      // Increment numberFactor only once per button press
+      ++numberFactor;
+
       for (int i = 0; i < _controllersList.length; i++) {
         List<TextEditingController> controllers = _controllersList[i];
         List<String> newTexts = [];
@@ -74,27 +73,28 @@ class _YourWidgetState extends State<YourWidget> {
         newTexts.add(currentTime.toString());
         newTexts.add(now.toString());
         newTexts.add(dayOfWeek.toString());
-        newTexts.add(numberFactor.toString());
 
         // Check if widget.factor already exists in the list
         bool factorExists = false;
-        for (List<String> existingTexts in db2.allInOne) {
-          if (existingTexts.contains(numberFactor.toString())) {
+        int existingIndex = -1;
+        for (int index = 0; index < dbfactor.allInOne.length; index++) {
+          if (dbfactor.allInOne[index].contains(numberFactor.toString())) {
             factorExists = true;
-            // Update existing information
-            existingTexts.clear();
-            existingTexts.addAll(newTexts);
-            print('Update: Data for factor ${numberFactor} updated: $newTexts');
+            existingIndex = index;
             break;
           }
         }
 
-        // If widget.factor doesn't exist, increment and add new information
+        // If widget.factor doesn't exist, add new information
         if (!factorExists) {
           newTexts.add(numberFactor.toString());
-          db2.allInOne.add(newTexts);
-          numberFactor++;
+          dbfactor.allInOne.add(newTexts);
           print('Save: New data for factor ${numberFactor} saved: $newTexts');
+        } else {
+          // If widget.factor exists, update existing information
+          dbfactor.allInOne[existingIndex] = newTexts;
+          print('Update: Data for factor ${numberFactor} updated: $newTexts');
+          Hive.box('storeFactor').put('numberFactor', numberFactor);
         }
       }
     });
@@ -196,6 +196,11 @@ class _YourWidgetState extends State<YourWidget> {
 
   @override
   void initState() {
+    if (_yourBox.get("TODOFacto") == null) {
+      dbfactor.createinitialData();
+    } else {
+      dbfactor.loadData();
+    }
     // Load data from the database when the widget initializes
     database.loadData();
 
@@ -230,6 +235,8 @@ class _YourWidgetState extends State<YourWidget> {
 
   @override
   Widget build(BuildContext context) {
+    print('AllInOne contents: ${dbfactor.allInOne}');
+
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -336,6 +343,12 @@ class _YourWidgetState extends State<YourWidget> {
                     });
                   },
                   child: Text("دخیره کردن "),
+                ),
+                MaterialButton(
+                  onPressed: () {
+                    print('AllInOne contents: ${dbfactor.allInOne}');
+                  },
+                  child: Text("دخیره کردن "),
                 )
               ],
             ),
@@ -405,7 +418,7 @@ class _YourWidgetState extends State<YourWidget> {
     setState(() {
       _controllersList.forEach((controllers) {
         controllers.forEach((controller) {
-          controller.clear(); // Clear the text in the controller
+          // Clear the text in the controller
 
           // Set default values if needed
         });

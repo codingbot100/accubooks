@@ -10,7 +10,9 @@ class ToDotile2 extends StatefulWidget {
   final int Barcode_number;
   final String Expiration_date;
   final num provisions;
+  final String part;
   final num price;
+
   final int counter;
 
   ToDotile2(
@@ -20,6 +22,7 @@ class ToDotile2 extends StatefulWidget {
       required this.Barcode_number,
       required this.Expiration_date,
       required this.provisions,
+      required this.part,
       required this.price,
       required this.deleteFunction,
       super.key});
@@ -92,104 +95,33 @@ class _ToDotile2State extends State<ToDotile2> with TickerProviderStateMixin {
                     child: Container(
                       color: color,
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           SizedBox(
-                            width: 40,
+                            width: 33,
                           ),
-                          Container(
-                              width: 50,
-                              child: Text(widget.counter.toString())),
-                          Container(
-                            padding: EdgeInsets.only(),
-                            alignment: Alignment.centerRight,
-                            width: 150,
-                            child: Text(
-                              widget.Product_Name.toString(),
-                              style: TextStyle(
-                                  fontFamily: 'Yekan',
-                                  color: Colors.black,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
+                          title(widget.counter.toString(), 50),
+                          title(widget.Product_Name.toString(), 190),
                           SizedBox(
-                            width: 35,
+                            width: 17,
                           ),
-                          Container(
-                            width: 50,
-                            child: Text(
-                              widget.Number_of_goods.toString(),
-                              style: TextStyle(
-                                  fontFamily: 'Yekan',
-                                  color: Colors.black,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
+                          title(widget.Number_of_goods.toString(), 50),
                           SizedBox(
-                            width: 50,
+                            width: 25,
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                              left: 50,
-                            ),
-                            child: Container(
-                              width: 130,
-                              child: Center(
-                                child: Text(
-                                  widget.Barcode_number.toString(),
-                                  style: TextStyle(
-                                      fontFamily: 'Yekan',
-                                      color: Colors.black,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            ),
+                          title(widget.Barcode_number.toString(), 170),
+                          SizedBox(
+                            width: 19,
                           ),
+                          title(widget.Expiration_date.toString(), 90),
                           SizedBox(
                             width: 10,
                           ),
-                          Container(
-                            width: 130,
-                            child: Text(
-                              widget.Expiration_date.toString(),
-                              style: TextStyle(
-                                  fontFamily: 'Yekan',
-                                  color: Colors.black,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 70,
-                          ),
-                          Container(
-                            width: 100,
-                            child: Text(
-                              widget.provisions.toString(),
-                              style: TextStyle(
-                                  fontFamily: 'Yekan',
-                                  color: Colors.black,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
+                          title(widget.part.toString(), 170),
+                          title(widget.provisions.toString(), 100),
                           SizedBox(
                             width: 90,
                           ),
-                          Container(
-                            width: 70,
-                            child: Text(
-                              widget.price.toString(),
-                              style: TextStyle(
-                                  fontFamily: 'Yekan',
-                                  color: Colors.black,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
+                          title(widget.price.toString(), 70),
                         ],
                       ),
                     ),
@@ -203,17 +135,38 @@ class _ToDotile2State extends State<ToDotile2> with TickerProviderStateMixin {
     );
   }
 
+  Widget title(String inText, double width) {
+    return Center(
+      child: Container(
+        alignment: Alignment.center,
+        width: width,
+        child: Text(
+          inText,
+          style: TextStyle(
+              fontFamily: 'Yekan',
+              color: Colors.black,
+              fontSize: 16,
+              fontWeight: FontWeight.bold),
+        ),
+      ),
+    );
+  }
+
   void _showSnackBar(BuildContext context, String message,
       [Color color = Colors.green]) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Center(
           child: Directionality(
-              textDirection: TextDirection.rtl, child: Text(message, style: TextStyle(
-                                  fontFamily: 'Yekan',
-                                  color: Colors.black,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold),)),
+              textDirection: TextDirection.rtl,
+              child: Text(
+                message,
+                style: TextStyle(
+                    fontFamily: 'Yekan',
+                    color: Colors.black,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold),
+              )),
         ),
         backgroundColor: color,
       ),

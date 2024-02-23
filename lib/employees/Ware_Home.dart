@@ -3,6 +3,7 @@ import 'package:accubooks/employees/util/ToDotile2.dart';
 import 'package:accubooks/employees/util/dialog_box.dart';
 
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hive/hive.dart';
 
@@ -126,8 +127,7 @@ class _employeesState extends State<employees> {
                 borderRadius: BorderRadius.circular(10.0)),
             width: double.infinity,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Padding(
                   padding: const EdgeInsets.only(top: 30),
@@ -159,26 +159,13 @@ class _employeesState extends State<employees> {
                         //             fontWeight: FontWeight.w600),
                         //       )),
                         // ),
-                        trailing: Container(
-                          height: 30,
-                          decoration: BoxDecoration(
-                              border: Border.all(width: 0.5),
-                              color: Color.fromRGBO(248, 249, 251, 1),
-                              borderRadius: BorderRadius.circular(6.5)),
-                          child: MaterialButton(
-                              onPressed: () => createNewTask(),
-                              child: Text(
-                                "+ " + "" " کارمند  جدید",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 16,
-                                    fontFamily: 'YekanBakh',
-                                    fontWeight: FontWeight.w600),
-                              )),
+                        trailing: FaIcon(
+                          FontAwesomeIcons.users,
+                          size: 60,
                         ),
                         title: Text("لیست کارکنان ",
                             style: TextStyle(
-                                fontSize: 30,
+                                fontSize: 35,
                                 fontWeight: FontWeight.w900,
                                 fontFamily: 'YekanBakh')),
                       ),
@@ -187,6 +174,24 @@ class _employeesState extends State<employees> {
                 ),
                 SizedBox(
                   height: 30,
+                ),
+                Container(
+                  margin: EdgeInsets.only(right: 980, bottom: 30),
+                  height: 30,
+                  decoration: BoxDecoration(
+                      border: Border.all(width: 0.5),
+                      color: Color.fromRGBO(248, 249, 251, 1),
+                      borderRadius: BorderRadius.circular(6.5)),
+                  child: MaterialButton(
+                      onPressed: () => createNewTask(),
+                      child: Text(
+                        "+ " + "" " کارمند  جدید",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 16,
+                            fontFamily: 'YekanBakh',
+                            fontWeight: FontWeight.w600),
+                      )),
                 ),
                 Expanded(
                   child: Container(
@@ -203,60 +208,28 @@ class _employeesState extends State<employees> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceAround,
                                   children: [
-                                    Text(
-                                      "معاش",
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: 'YekanBakh'),
-                                    ),
+                                    title("معاش"),
                                     SizedBox(
                                       width: 25,
                                     ),
-                                    Text(
-                                      " سطح تحصیل",
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: 'YekanBakh'),
-                                    ),
+                                    title("وظیفه کارمند"),
                                     SizedBox(
                                       width: 25,
                                     ),
-                                    Text('تاریخ استخدام',
-                                        style: TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold,
-                                            fontFamily: 'YekanBakh')),
+                                    title("تاریخ استخدام"),
                                     SizedBox(
                                       width: 25,
                                     ),
-                                    Text('محل سکونت',
-                                        style: TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold,
-                                            fontFamily: 'YekanBakh')),
+                                   title("محل سکونت"),
                                     SizedBox(
                                       width: 25,
                                     ),
-                                    Text(' نام پدر ',
-                                        style: TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold,
-                                            fontFamily: 'YekanBakh')),
+                                    title("نام پدر"),
                                     SizedBox(
                                       width: 25,
                                     ),
-                                    Text('نام کارمند',
-                                        style: TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold,
-                                            fontFamily: 'YekanBakh')),
-                                    Text("شماره",
-                                        style: TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold,
-                                            fontFamily: 'YekanBakh')),
+                                    title("نام کارمند"),
+                                    title("شماره")
                                   ]),
                             ),
                             Divider(
@@ -307,5 +280,12 @@ class _employeesState extends State<employees> {
       )),
     );
   }
-  
+
+  Widget title(String title) {
+    return Text("شماره",
+        style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'YekanBakh'));
+  }
 }
