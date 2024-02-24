@@ -41,7 +41,7 @@ class _FirstRowState extends State<FirstRow> {
   @override
   Widget build(BuildContext context) {
     String dayNameInPersian = getDayNameInPersian(dayOfWeek);
-
+    
     return Padding(
       padding: EdgeInsets.only(top: 40, right: 25),
       child: Row(

@@ -1,8 +1,6 @@
 // ignore_for_file: deprecated_member_use
 
-import 'package:accubooks/Factoring/data/database.dart';
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:iconsax/iconsax.dart';
 
 class TopBox extends StatefulWidget {
@@ -15,17 +13,7 @@ class TopBox extends StatefulWidget {
 int num = 4;
 
 class _TopBoxState extends State<TopBox> {
-  ToDoDatabsestoreFactor db = ToDoDatabsestoreFactor();
-  final _myBox = Hive.box('storeFactor');
-  @override
-  void initState() {
-    if (_myBox.get('TODOLIST2') == null) {
-      db.createinitialData();
-    } else {
-      db.loadData();
-    }
-    super.initState();
-  }
+  
 
   @override
   Widget build(BuildContext context) {

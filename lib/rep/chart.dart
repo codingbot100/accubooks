@@ -26,7 +26,6 @@ class _chartState extends State<chart> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 255, 255, 255),
       body: Center(
         child: SizedBox(
           height: 400,

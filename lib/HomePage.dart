@@ -1,11 +1,11 @@
 import 'package:accubooks/Factoring/Home_Factoring.dart';
+import 'package:accubooks/backfactor.dart/Home_backFactor.dart';
 import 'package:accubooks/employees/Ware_Home.dart';
 import 'package:accubooks/rep/Home_rep.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../whouse2.dart/Ware_Home.dart';
 import 'package:accubooks/widgets/NavigationSideBar.dart';
 import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class HomePage extends StatefulWidget {
@@ -24,6 +24,7 @@ class _HomePageState extends State<HomePage>
       FontAwesomeIcons.users,
       size: 30,
     ),
+    Icon(Icons.analytics, size: 30),
     Icon(Icons.analytics, size: 30),
   ];
   int _selectedindex = 0;
@@ -62,7 +63,11 @@ class _HomePageState extends State<HomePage>
                                     ? Home_Factoring()
                                     : _selectedindex == 2
                                         ? employees()
-                                        : Home_rep()),
+                                        : _selectedindex == 3
+                                            ? Home_rep()
+                                            : _selectedindex == 4
+                                                ? home_backFactor()
+                                                : home_backFactor()),
                       ),
                     ),
                     Padding(
@@ -77,6 +82,7 @@ class _HomePageState extends State<HomePage>
                               ' فروشات',
                               ' کارمندان',
                               ' گزارشات ',
+                              'فاکتور ها  '
                             ],
                             selectedIndex: _selectedindex,
                             onItemSelected: (index) {
@@ -92,6 +98,8 @@ class _HomePageState extends State<HomePage>
                                   break;
                                 case 3:
                                   break;
+                                case 4:
+                                  break;
                               }
                             },
                           ),
@@ -104,7 +112,7 @@ class _HomePageState extends State<HomePage>
                               duration: Duration(milliseconds: 500),
                               axisDirection: Axis.vertical,
                               activeIndex: _selectedindex,
-                              count: 4,
+                              count: 5,
                               effect: WormEffect(
                                 spacing: 24,
                                 radius: 4,

@@ -68,7 +68,7 @@ class NavigationSidebar extends StatelessWidget {
                       ),
                       Expanded(
                         child: ListView.builder(
-                          itemCount: 4,
+                          itemCount: 5,
                           itemBuilder: (context, index) {
                             return Directionality(
                               textDirection: TextDirection.rtl,

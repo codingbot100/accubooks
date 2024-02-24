@@ -2,8 +2,10 @@
 
 import 'package:accubooks/Factoring/Home_Factoring.dart';
 import 'package:accubooks/Factoring/data/database.dart';
+import 'package:accubooks/Factoring/data/sharedDatabase.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:intl/intl.dart';
 import '../../whouse2.dart/data/database.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
@@ -15,6 +17,7 @@ class YourWidget extends StatefulWidget {
   final VoidCallback onSavePressed;
   final void Function(_YourWidgetState)
       onStateReady; // Callback for state reference
+  var name_customer;
 
   int factor = 1;
 
@@ -24,22 +27,24 @@ class YourWidget extends StatefulWidget {
       required this.onIntegerChanged,
       required this.onSavePressed,
       required this.onChangedfactor,
-      required this.onStateReady})
+      required this.onStateReady,
+      required this.name_customer})
       : super(key: key);
   @override
   _YourWidgetState createState() => _YourWidgetState();
 }
 
 class _YourWidgetState extends State<YourWidget> {
+  String name_cos = '';
+  int _numberFactor = 1;
   int numberFactor = 1;
   TimeOfDay currentTime = TimeOfDay.now();
   DateTime now = DateTime.now();
   int dayOfWeek = DateTime.now().weekday;
   final _yourBox = Hive.box('yourBox');
-
+  SharedPreferencesHelper shareddb = SharedPreferencesHelper();
   final _factoeBox = Hive.box('storeFactor');
   ToDoDatabsestoreFactor dbfactor = ToDoDatabsestoreFactor();
-
   int totalSum = 0;
   int counterme = 1;
   List<int> getTotals() {
@@ -58,45 +63,20 @@ class _YourWidgetState extends State<YourWidget> {
     ]
   ];
 
-  void saveNewTask() {
+  Future<void> saveList() async {
+    await SharedPreferencesHelper.saveList(shareddb.itemList);
+    await SharedPreferencesHelper.saveNumberFactor(
+        _numberFactor); // ذخیره کردن numberFactor
+  }
+
+  Future<void> loadList() async {
+    List<List<String>> loadedList = await SharedPreferencesHelper.getList();
+    int loadedFactor = await SharedPreferencesHelper.loadNumberFactor();
+
     setState(() {
-      // Increment numberFactor only once per button press
-      ++numberFactor;
-
-      for (int i = 0; i < _controllersList.length; i++) {
-        List<TextEditingController> controllers = _controllersList[i];
-        List<String> newTexts = [];
-        for (int j = 0; j < controllers.length; j++) {
-          newTexts.add(controllers[j].text);
-        }
-        newTexts.add(totalSum.toString());
-        newTexts.add(currentTime.toString());
-        newTexts.add(now.toString());
-        newTexts.add(dayOfWeek.toString());
-
-        // Check if widget.factor already exists in the list
-        bool factorExists = false;
-        int existingIndex = -1;
-        for (int index = 0; index < dbfactor.allInOne.length; index++) {
-          if (dbfactor.allInOne[index].contains(numberFactor.toString())) {
-            factorExists = true;
-            existingIndex = index;
-            break;
-          }
-        }
-
-        // If widget.factor doesn't exist, add new information
-        if (!factorExists) {
-          newTexts.add(numberFactor.toString());
-          dbfactor.allInOne.add(newTexts);
-          print('Save: New data for factor ${numberFactor} saved: $newTexts');
-        } else {
-          // If widget.factor exists, update existing information
-          dbfactor.allInOne[existingIndex] = newTexts;
-          print('Update: Data for factor ${numberFactor} updated: $newTexts');
-          Hive.box('storeFactor').put('numberFactor', numberFactor);
-        }
-      }
+      shareddb.itemList = loadedList;
+      numberFactor = loadedFactor;
+      ; // بازیابی numberFactor
     });
   }
 
@@ -196,6 +176,7 @@ class _YourWidgetState extends State<YourWidget> {
 
   @override
   void initState() {
+    loadList();
     if (_yourBox.get("TODOFacto") == null) {
       dbfactor.createinitialData();
     } else {
@@ -230,8 +211,64 @@ class _YourWidgetState extends State<YourWidget> {
     for (int i = 1; i < _controllersList.length; i++) {
       _barcodeFocusNodes.add(FocusNode());
     }
+
+    // loadList();
     super.initState();
+    name_cos = widget.name_customer.toString();
   }
+
+  void addtoItems() {
+  setState(() {
+    int nextFactor = _numberFactor + 1;
+
+    for (int i = 0; i < _controllersList.length; i++) {
+      List<TextEditingController> controllers = _controllersList[i];
+      List<String> nextTexts = [];
+
+      for (int j = 0; j < controllers.length; j++) {
+        nextTexts.add(controllers[j].text);
+      }
+
+      nextTexts.add(totalSum.toString());
+      nextTexts.add(currentTime.format(context).toString());
+      nextTexts.add(DateFormat("d,MM,yyy").format(DateTime.now()).toString());
+      nextTexts.add(dayOfWeek.toString());
+
+      // Remove additional characters from the customer name
+      String customerName = widget.name_customer.toString();
+      customerName = customerName.replaceAll('┤', '').replaceAll('├', '');
+      nextTexts.add(customerName);
+
+      bool factorExists = false;
+      int existingIndex = -1;
+
+      // Check if factor already exists in itemList
+      for (int index = 0; index < shareddb.itemList.length; index++) {
+        if (shareddb.itemList[index].contains(nextFactor.toString())) {
+          factorExists = true;
+          existingIndex = index;
+          break;
+        }
+      }
+
+      if (!factorExists) {
+        nextTexts.add(nextFactor.toString());
+        shareddb.itemList.add(nextTexts);
+        print('Save: New data for factor $nextFactor saved: $nextTexts');
+      } else {
+        // If widget.factor exists, update existing information
+        shareddb.itemList[existingIndex] = nextTexts;
+        print('Update: Data for factor $nextFactor updated: $nextTexts');
+      }
+    }
+
+    setState(() {
+      numberFactor = nextFactor;
+    });
+  });
+
+  saveList(); // Save the list and numberFactor
+}
 
   @override
   Widget build(BuildContext context) {
@@ -339,17 +376,18 @@ class _YourWidgetState extends State<YourWidget> {
                 MaterialButton(
                   onPressed: () {
                     setState(() {
-                      _showDialog(context);
+                      addtoItems();
                     });
                   },
                   child: Text("دخیره کردن "),
                 ),
                 MaterialButton(
                   onPressed: () {
-                    print('AllInOne contents: ${dbfactor.allInOne}');
+                    // shareddb.clearList();
+                    print('itemsList contents: ${shareddb.itemList}');
                   },
-                  child: Text("دخیره کردن "),
-                )
+                  child: Text(" لغو "),
+                ),
               ],
             ),
           ),
@@ -412,7 +450,6 @@ class _YourWidgetState extends State<YourWidget> {
 
   void _onSavePressed() {
     // Perform your logic after clicking "دخیره کردن" button
-    saveNewTask();
 
     // Clear text controllers and set default values
     setState(() {

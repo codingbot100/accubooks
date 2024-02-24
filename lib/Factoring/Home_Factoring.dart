@@ -25,6 +25,8 @@ class _Home_FactoringState extends State<Home_Factoring>
   int totalSumNew = 0;
   TextEditingController discount = TextEditingController();
   TextEditingController remainedMoNEY = TextEditingController();
+  TextEditingController Name_customer = TextEditingController();
+
   int? counterfactor = 0;
   late int numberFactor;
   TimeOfDay currentTime = TimeOfDay.now();
@@ -36,6 +38,7 @@ class _Home_FactoringState extends State<Home_Factoring>
   final _myBox = Hive.box('employees');
 
   final Key firstRowKey = UniqueKey();
+  callme() {}
   @override
   void initState() {
     selectedItem = seller.first; // Initialize selectedItem with the first item
@@ -87,9 +90,11 @@ class _Home_FactoringState extends State<Home_Factoring>
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.only(top: 40, right: 25),
+                        padding: EdgeInsets.only(
+                          top: 40,
+                        ),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
                               '${currentTime.format(context)} ',
@@ -120,9 +125,34 @@ class _Home_FactoringState extends State<Home_Factoring>
                               width: 25,
                             ),
                             title(" شماره فاکتور:  $counterfactor"),
-                            SizedBox(
-                              width: 25,
-                            ),
+                            Row(
+                              children: [
+                                Container(
+                                  height: 33,
+                                  width: 180,
+                                  child: TextField(
+                                    controller: Name_customer,
+                                    style: TextStyle(
+                                      fontFamily: 'Yekan',
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.w900,
+                                    ),
+                                    cursorHeight: 0,
+                                    textAlignVertical: TextAlignVertical.top,
+                                    textAlign: TextAlign.center,
+                                    decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                                width: 0.8,
+                                                color: Colors.grey))),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                title(": " + 'نام مشتری')
+                              ],
+                            )
                           ],
                         ),
                       ),
@@ -136,21 +166,23 @@ class _Home_FactoringState extends State<Home_Factoring>
                       Expanded(
                         child: SingleChildScrollView(
                           child: YourWidget(
-                              onStateReady: (state) {
-                                youWidgetState = state as YourWidget;
-                              },
-                              home_factoring: widget,
-                              onChangedfactor: (factor) async {
-                                setState(() {
-                                  counterfactor = factor;
-                                });
-                              },
-                              onSavePressed: () {},
-                              onIntegerChanged: (totalSum) async {
-                                setState(() {
-                                  totalSumNew = totalSum;
-                                });
-                              }),
+                            onStateReady: (state) {
+                              youWidgetState = state as YourWidget;
+                            },
+                            home_factoring: widget,
+                            onChangedfactor: (factor) async {
+                              setState(() {
+                                counterfactor = factor;
+                              });
+                            },
+                            onSavePressed: () {},
+                            onIntegerChanged: (totalSum) async {
+                              setState(() {
+                                totalSumNew = totalSum;
+                              });
+                            },
+                            name_customer: Name_customer,
+                          ),
                         ),
                       )
                     ],
@@ -170,7 +202,9 @@ class _Home_FactoringState extends State<Home_Factoring>
                           borderRadius: BorderRadius.circular(6.5)),
                       child: MaterialButton(
                           onPressed: () {
-                            setState(() {});
+                            setState(() {
+                              // callme()
+                            });
                           },
                           child: Text(
                             "  ذخیره کردن ",
