@@ -48,10 +48,26 @@ class _Home_FactoringState extends State<Home_Factoring>
     } else {
       db2.loadData();
     }
+        loadData();
 
     super.initState();
   }
+   int selectedIndex = 0;
+  ToDoDatabseEmployees database = ToDoDatabseEmployees();
+  List<dynamic> dataList = [];
+  void loadData() {
+    database.loadData();
+    setState(() {
+      dataList = List.from(database.allInOne);
+    });
+  }
 
+  void addNewNameToList(String newName) {
+    setState(() {
+      dataList.add([newName]);
+      selectedIndex = dataList.length - 1;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     String dayNameInPersian = getDayNameInPersian(dayOfWeek);
@@ -125,6 +141,48 @@ class _Home_FactoringState extends State<Home_Factoring>
                               width: 25,
                             ),
                             title(" شماره فاکتور:  $counterfactor"),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                DropdownButton<int>(
+                                  value: selectedIndex,
+                                  items:
+                                      List.generate(dataList.length, (index) {
+                                    return DropdownMenuItem<int>(
+                                      value: index,
+                                      child: Text(
+                                        dataList[index][0],
+                                        style: TextStyle(
+                                          fontFamily: 'Yekan',
+                                          fontSize: 17,
+                                          fontWeight: FontWeight.w900,
+                                        ),
+                                      ), // Assuming the name is at index 0
+                                    );
+                                  }),
+                                  onChanged: (value) {
+                                    setState(() {
+                                      selectedIndex = value!;
+                                    });
+                                    // Do something with the selected index
+                                    print('Selected Index: $value');
+                                    // You can use this value to access the data in your list.
+                                    // For example: dataList[value]
+                                  },
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  ": " + "فروشنده ",
+                                  style: TextStyle(
+                                    fontFamily: 'Yekan',
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.w900,
+                                  ),
+                                ),
+                              ],
+                            ),
                             Row(
                               children: [
                                 Container(

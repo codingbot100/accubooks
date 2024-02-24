@@ -168,70 +168,108 @@ class _home_backFactorState extends State<home_backFactor> {
       child: Container(
         key: key,
         decoration: BoxDecoration(borderRadius: BorderRadius.circular(12)),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Container(
-              width: 60,
-              child: Center(
-                child: Text(
-                  '$counter',
-                  style: TextStyle(
-                    fontFamily: 'Yekan',
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                height: 30,
+                width: 180,
+                decoration: BoxDecoration(
+                    border: Border.all(
+                        width: 0.8, color: Color.fromARGB(255, 86, 85, 85)),
+                    borderRadius: BorderRadius.circular(3.0)),
+                child: Center(
+                  child: Text(
+                    '$counter',
+                    style: TextStyle(
+                      fontFamily: 'Yekan',
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
               ),
-            ),
-            Container(
-              width: 130,
-              child: Text(
-                db.itemList.isNotEmpty ? db.itemList[index][8] : "No Name",
-                style: TextStyle(
-                  fontFamily: 'Yekan',
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
+              Container(
+                height: 30,
+                width: 180,
+                decoration: BoxDecoration(
+                    border: Border.all(
+                        width: 0.8, color: Color.fromARGB(255, 86, 85, 85)),
+                    borderRadius: BorderRadius.circular(3.0)),
+                child: Center(
+                  child: Text(
+                    db.itemList.isNotEmpty ? db.itemList[index][8] : "No Name",
+                    style: TextStyle(
+                      fontFamily: 'Yekan',
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                 ),
               ),
-            ),
-            Container(
-              width: 60,
-              child: Text(
-                "$counter",
-                // db.itemList.isNotEmpty ? db.itemList[index][2] : "No Name",
-                style: TextStyle(
-                  fontFamily: 'Yekan',
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
+              Container(
+                height: 30,
+                width: 180,
+                decoration: BoxDecoration(
+                    border: Border.all(
+                        width: 0.8, color: Color.fromARGB(255, 86, 85, 85)),
+                    borderRadius: BorderRadius.circular(3.0)),
+                child: Center(
+                  child: Text(
+                    "$counter",
+                    // db.itemList.isNotEmpty ? db.itemList[index][2] : "No Name",
+                    style: TextStyle(
+                      fontFamily: 'Yekan',
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                 ),
               ),
-            ),
-            Container(
-              width: 100,
-              child: Text(
-                db.itemList.isNotEmpty ? db.itemList[index][6] : "No Name",
-                style: TextStyle(
-                  fontFamily: 'Yekan',
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
+              Container(
+                height: 30,
+                width: 180,
+                decoration: BoxDecoration(
+                    border: Border.all(
+                        width: 0.8, color: Color.fromARGB(255, 86, 85, 85)),
+                    borderRadius: BorderRadius.circular(3.0)),
+                child: Center(
+                  child: Text(
+                    db.itemList.isNotEmpty ? db.itemList[index][6] : "No Name",
+                    style: TextStyle(
+                      fontFamily: 'Yekan',
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                 ),
               ),
-            ),
-            Container(
-              width: 100,
-              child: Text(
-                db.itemList.isNotEmpty ? db.itemList[index][4] : "No Name",
-                style: TextStyle(
-                  fontFamily: 'Yekan',
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
+              Container(
+                height: 30,
+                width: 180,
+                decoration: BoxDecoration(
+                    border: Border.all(
+                        width: 0.8, color: Color.fromARGB(255, 86, 85, 85)),
+                    borderRadius: BorderRadius.circular(3.0)),
+                child: Center(
+                  child: Text(
+                    db.itemList.isNotEmpty ? db.itemList[index][4] : "No Name",
+                    style: TextStyle(
+                      fontFamily: 'Yekan',
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                 ),
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ),
       ),
     );
   }
 }
+
