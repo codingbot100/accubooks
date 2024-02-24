@@ -2,14 +2,15 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferencesHelper {
-    List<List<String>> itemList = [];
+  List<List<String>> itemList = [];
 
   static const String _keyList = 'your_list_key';
   static const String _keyNumberFactor = 'your_number_factor_key';
 
   static Future<void> saveList(List<List<String>> yourList) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final List<String> stringList = yourList.map((list) => json.encode(list)).toList();
+    final List<String> stringList =
+        yourList.map((list) => json.encode(list)).toList();
     await prefs.setStringList(_keyList, stringList);
   }
 
@@ -35,7 +36,7 @@ class SharedPreferencesHelper {
 
   static Future<int> loadNumberFactor() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getInt(_keyNumberFactor) ?? 1; // بازیابی 1 اگر مقدار وجود نداشته باشد
+    return prefs.getInt(_keyNumberFactor) ?? 1;
   }
 
   static Future<int> getNextFactorNumber() async {
@@ -44,7 +45,10 @@ class SharedPreferencesHelper {
     await saveNumberFactor(nextFactorNumber);
     return nextFactorNumber;
   }
-   void clearList() {
-    itemList.clear();
-  }
+
+ Future<void> clearList() async {
+  itemList.clear();
+  await saveList(itemList); // Save the cleared list
+  await saveNumberFactor(1); // Reset the number factor to the default value
+}
 }

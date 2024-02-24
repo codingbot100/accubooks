@@ -112,7 +112,7 @@ class _HomePageState extends State<HomePage>
                               duration: Duration(milliseconds: 500),
                               axisDirection: Axis.vertical,
                               activeIndex: _selectedindex,
-                              count: 5,
+                              count: 4,
                               effect: WormEffect(
                                 spacing: 24,
                                 radius: 4,

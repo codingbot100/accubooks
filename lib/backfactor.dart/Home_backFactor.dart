@@ -1,4 +1,5 @@
 import 'package:accubooks/Factoring/data/sharedDatabase.dart';
+import 'package:accubooks/backfactor.dart/page_detail.dart';
 import 'package:flutter/material.dart';
 
 main() {
@@ -110,6 +111,11 @@ class _home_backFactorState extends State<home_backFactor> {
                       ),
                     ),
                     Divider(),
+                    TextButton(
+                        onPressed: () async {
+                          await db.clearList();
+                        },
+                        child: Text("clear")),
                     Expanded(
                       child: Container(
                         width: 1100,
@@ -118,7 +124,7 @@ class _home_backFactorState extends State<home_backFactor> {
                         child: ListView.builder(
                             itemBuilder: (context, index) {
                               return factorList(
-                                  index, db.itemList[index][7].toString());
+                                  index, db.itemList[index][0].toString());
                             },
                             itemCount: db.itemList.length),
                       ),
@@ -147,17 +153,41 @@ class _home_backFactorState extends State<home_backFactor> {
   Widget factorList(int index, String text) {
     int counter = index + 1;
     Key key = UniqueKey(); // UniqueKey for each widget
-    return Container(
-      key: key,
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(12)),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Container(
-            width: 60,
-            child: Center(
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => page_detail(
+              numberFactor: counter,
+               TodayDate:db.itemList[index][6],
+                day: db.itemList[index][6], 
+                customer_name: db.itemList[index][8],
+                 barcode: counter,
+                  siglePrice: db.itemList[index][6] ,
+                   totalPrice: db.itemList[index][6] )));
+      },
+      child: Container(
+        key: key,
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(12)),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Container(
+              width: 60,
+              child: Center(
+                child: Text(
+                  '$counter',
+                  style: TextStyle(
+                    fontFamily: 'Yekan',
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+            ),
+            Container(
+              width: 130,
               child: Text(
-                '$counter',
+                db.itemList.isNotEmpty ? db.itemList[index][8] : "No Name",
                 style: TextStyle(
                   fontFamily: 'Yekan',
                   fontSize: 18,
@@ -165,52 +195,42 @@ class _home_backFactorState extends State<home_backFactor> {
                 ),
               ),
             ),
-          ),
-          Container(
-            width: 130,
-            child: Text(
-              db.itemList.isNotEmpty ? db.itemList[index][2] : "No Name",
-              style: TextStyle(
-                fontFamily: 'Yekan',
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
+            Container(
+              width: 60,
+              child: Text(
+                "$counter",
+                // db.itemList.isNotEmpty ? db.itemList[index][2] : "No Name",
+                style: TextStyle(
+                  fontFamily: 'Yekan',
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
             ),
-          ),
-          Container(
-            width: 60,
-            child: Text(
-              db.itemList.isNotEmpty ? db.itemList[index][3] : "No Name",
-              style: TextStyle(
-                fontFamily: 'Yekan',
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
+            Container(
+              width: 100,
+              child: Text(
+                db.itemList.isNotEmpty ? db.itemList[index][6] : "No Name",
+                style: TextStyle(
+                  fontFamily: 'Yekan',
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
             ),
-          ),
-          Container(
-            width: 100,
-            child: Text(
-              db.itemList.isNotEmpty ? db.itemList[index][6] : "No Name",
-              style: TextStyle(
-                fontFamily: 'Yekan',
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
+            Container(
+              width: 100,
+              child: Text(
+                db.itemList.isNotEmpty ? db.itemList[index][4] : "No Name",
+                style: TextStyle(
+                  fontFamily: 'Yekan',
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
-            ),
-          ),
-          Container(
-            width: 100,
-            child: Text(
-              text, // Use the TextEditingController's text
-              style: TextStyle(
-                fontFamily: 'Yekan',
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }

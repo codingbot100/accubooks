@@ -218,57 +218,42 @@ class _YourWidgetState extends State<YourWidget> {
   }
 
   void addtoItems() {
-  setState(() {
-    int nextFactor = _numberFactor + 1;
-
-    for (int i = 0; i < _controllersList.length; i++) {
-      List<TextEditingController> controllers = _controllersList[i];
-      List<String> nextTexts = [];
-
-      for (int j = 0; j < controllers.length; j++) {
-        nextTexts.add(controllers[j].text);
-      }
-
-      nextTexts.add(totalSum.toString());
-      nextTexts.add(currentTime.format(context).toString());
-      nextTexts.add(DateFormat("d,MM,yyy").format(DateTime.now()).toString());
-      nextTexts.add(dayOfWeek.toString());
-
-      // Remove additional characters from the customer name
-      String customerName = widget.name_customer.toString();
-      customerName = customerName.replaceAll('┤', '').replaceAll('├', '');
-      nextTexts.add(customerName);
-
-      bool factorExists = false;
-      int existingIndex = -1;
-
-      // Check if factor already exists in itemList
-      for (int index = 0; index < shareddb.itemList.length; index++) {
-        if (shareddb.itemList[index].contains(nextFactor.toString())) {
-          factorExists = true;
-          existingIndex = index;
-          break;
-        }
-      }
-
-      if (!factorExists) {
-        nextTexts.add(nextFactor.toString());
-        shareddb.itemList.add(nextTexts);
-        print('Save: New data for factor $nextFactor saved: $nextTexts');
-      } else {
-        // If widget.factor exists, update existing information
-        shareddb.itemList[existingIndex] = nextTexts;
-        print('Update: Data for factor $nextFactor updated: $nextTexts');
-      }
-    }
-
     setState(() {
-      numberFactor = nextFactor;
-    });
-  });
+      int nextFactor = _numberFactor + 1;
 
-  saveList(); // Save the list and numberFactor
-}
+      for (int i = 0; i < _controllersList.length; i++) {
+        List<TextEditingController> controllers = _controllersList[i];
+        List<String> nextTexts = [];
+
+        for (int j = 0; j < controllers.length; j++) {
+          nextTexts.add(controllers[j].text);
+        }
+
+        nextTexts.add(totalSum.toString());
+        nextTexts.add(currentTime.format(context).toString());
+        nextTexts.add(DateFormat("d,MM,yyy").format(DateTime.now()).toString());
+        nextTexts.add(dayOfWeek.toString());
+
+        // Extract text from the customer name TextEditingController
+        String customerName = widget.name_customer.text;
+        nextTexts.add(customerName);
+
+        // Factor number
+        nextTexts.add(nextFactor.toString());
+
+        // Store each factor's information in shareddb.itemList
+        shareddb.itemList.add(List.from(nextTexts));
+
+        print('Save: New data for factor $nextFactor saved: $nextTexts');
+      }
+
+      setState(() {
+        numberFactor = nextFactor;
+      });
+    });
+
+    saveList(); // Save the list and numberFactor
+  }
 
   @override
   Widget build(BuildContext context) {
