@@ -9,7 +9,7 @@ import 'package:intl/intl.dart';
 import '../../whouse2.dart/data/database.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
-import 'package:jalali_calendar/jalali_calendar.dart';
+
 class YourWidget extends StatefulWidget {
   final Home_Factoring home_factoring;
   final Function(int) onIntegerChanged;
@@ -18,7 +18,7 @@ class YourWidget extends StatefulWidget {
   final void Function(_YourWidgetState)
       onStateReady; // Callback for state reference
   var name_customer;
-
+  final String seller_name;
   int factor = 1;
 
   YourWidget(
@@ -28,7 +28,8 @@ class YourWidget extends StatefulWidget {
       required this.onSavePressed,
       required this.onChangedfactor,
       required this.onStateReady,
-      required this.name_customer})
+      required this.name_customer,
+      required this.seller_name})
       : super(key: key);
   @override
   _YourWidgetState createState() => _YourWidgetState();
@@ -47,6 +48,8 @@ class _YourWidgetState extends State<YourWidget> {
   ToDoDatabsestoreFactor dbfactor = ToDoDatabsestoreFactor();
   int totalSum = 0;
   int counterme = 1;
+  String selectedDropdownValue = ''; // Add this line
+
   List<int> getTotals() {
     return totals;
   }
@@ -219,6 +222,17 @@ class _YourWidgetState extends State<YourWidget> {
 
   void addtoItems() {
     setState(() {
+      List Barcodes = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
+      Map ali = {
+        "name_of_customer": "ahmad",
+        "name_of_seller": "",
+        "facotor_id": "",
+        "date": "",
+        "day": "",
+        "time": "",
+        "barcodes": Barcodes,
+        "numeberOfGoods": "",
+      };
       int nextFactor = _numberFactor + 1;
 
       for (int i = 0; i < _controllersList.length; i++) {
@@ -233,7 +247,8 @@ class _YourWidgetState extends State<YourWidget> {
         nextTexts.add(currentTime.format(context).toString());
         nextTexts.add(DateFormat("d,MM,yyy").format(DateTime.now()).toString());
 
-        nextTexts.add(dayOfWeek.toString()); // Use the dayOfWeek variable
+        String dayOfWeekInPersian = getDayNameInPersian(DateTime.now().weekday);
+        nextTexts.add(dayOfWeekInPersian);
 
         // Extract text from the customer name TextEditingController
         String customerName = widget.name_customer.text;
@@ -241,7 +256,7 @@ class _YourWidgetState extends State<YourWidget> {
 
         // Factor number
         nextTexts.add(nextFactor.toString());
-
+        nextTexts.add(widget.seller_name);
         // Store each factor's information in shareddb.itemList
         shareddb.itemList.add(List.from(nextTexts));
 

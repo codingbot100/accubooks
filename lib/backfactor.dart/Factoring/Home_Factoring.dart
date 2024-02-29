@@ -17,7 +17,7 @@ class back_Home_Factoring extends StatefulWidget {
   var barcode;
   final String siglePrice;
   final String name_goods;
-
+  final String seller_name;
   // final Function callbackFunction;
 
   back_Home_Factoring(
@@ -30,7 +30,8 @@ class back_Home_Factoring extends StatefulWidget {
       required this.siglePrice,
       required this.name_goods,
       required this.time,
-      required this.numbersOfGoods})
+      required this.numbersOfGoods,
+      required this.seller_name})
       : super(key: key);
 
   @override
@@ -142,7 +143,7 @@ class _back_Home_FactoringState extends State<back_Home_Factoring>
                               ),
                               Row(
                                 children: [
-                                  title("$dayNameInPersian"),
+                                  title(widget.day),
                                   title("  :  " "روز"),
                                 ],
                               ),
@@ -164,7 +165,7 @@ class _back_Home_FactoringState extends State<back_Home_Factoring>
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    widget.customer_name,
+                                    widget.seller_name,
                                     style: TextStyle(
                                       fontFamily: 'Yekan',
                                       fontSize: 17,

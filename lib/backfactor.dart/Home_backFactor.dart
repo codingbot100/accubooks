@@ -155,35 +155,31 @@ class _home_backFactorState extends State<home_backFactor> {
     Key key = UniqueKey(); // UniqueKey for each widget
     return GestureDetector(
       onTap: () {
-        //numberFactor: counter,
-        //  TodayDate:db.itemList[index][6],
-        //   day: db.itemList[index][6],
-        //   customer_name: db.itemList[index][8],
-        //    barcode: counter,
-        //     siglePrice: db.itemList[index][6] ,
-        //      totalPrice: db.itemList[index][6]
         Navigator.push(
             context,
             MaterialPageRoute(
                 builder: (context) => back_Home_Factoring(
-                      time: db.itemList[index][5],
-                      numberFactor: counter,
-                      TodayDate: db.itemList[index][6],
-                      day: db.itemList[index][9],
-                      name_goods: db.itemList[index][2],
-                      customer_name: db.itemList[index][8],
-                      barcode: counter,
-                      siglePrice: db.itemList[index][6],
-                      numbersOfGoods: db.itemList[index][3],
-                    )));
-                    
-        print(db.itemList[index][4]);
+                    time: db.itemList[index][5],
+                    numberFactor: counter,
+                    TodayDate: db.itemList[index][6],
+                    day: db.itemList[index][7],
+                    name_goods: db.itemList[index][2],
+                    customer_name: db.itemList[index][8],
+                    barcode: counter,
+                    siglePrice: db.itemList[index][6],
+                    numbersOfGoods: db.itemList[index][3],
+                    seller_name: db.itemList[index][10])));
+
+        // print(db.itemList[index][7]);
 
         // time 5
         //date 6
         //تعداذ 3
         // نام کالا 2
         // facotor number 1
+        //نام مشتری 8
+        //روز به 7
+        //10 نام فروشنده
 
         // setState(() {
         //   Navigator.push(

@@ -27,6 +27,7 @@ class TextFieldRow extends StatefulWidget {
   final String customer_name;
   final int barcode;
   final String siglePrice;
+  
   TextFieldRow(
       {Key? key,
       required this.onIntegerChanged,
@@ -217,7 +218,6 @@ class _TextFieldRowState extends State<TextFieldRow> {
       }); // Calculate total initially
       calculateTotal(0);
 
-      // Initialize a new row
       setState(() {
         searchItem(0); // Pass the index of the initial row
       });

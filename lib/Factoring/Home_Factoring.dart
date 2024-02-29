@@ -23,6 +23,9 @@ class _Home_FactoringState extends State<Home_Factoring>
     with AutomaticKeepAliveClientMixin<Home_Factoring> {
   late YourWidget youWidgetState;
   int totalSumNew = 0;
+
+  int selectedIndexDropDown = 0; // Assuming the default index is 0
+  String selectedName = ''; // Add this line
   TextEditingController discount = TextEditingController();
   TextEditingController remainedMoNEY = TextEditingController();
   TextEditingController Name_customer = TextEditingController();
@@ -48,11 +51,12 @@ class _Home_FactoringState extends State<Home_Factoring>
     } else {
       db2.loadData();
     }
-        loadData();
+    loadData();
 
     super.initState();
   }
-   int selectedIndex = 0;
+
+  int selectedIndex = 0;
   ToDoDatabseEmployees database = ToDoDatabseEmployees();
   List<dynamic> dataList = [];
   void loadData() {
@@ -68,6 +72,7 @@ class _Home_FactoringState extends State<Home_Factoring>
       selectedIndex = dataList.length - 1;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     String dayNameInPersian = getDayNameInPersian(dayOfWeek);
@@ -145,29 +150,31 @@ class _Home_FactoringState extends State<Home_Factoring>
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 DropdownButton<int>(
-                                  value: selectedIndex,
+                                  value: selectedIndexDropDown,
                                   items:
                                       List.generate(dataList.length, (index) {
                                     return DropdownMenuItem<int>(
                                       value: index,
                                       child: Text(
-                                        dataList[index][0],
+                                        dataList[index][
+                                            0], // Assuming the name is at index 0
                                         style: TextStyle(
                                           fontFamily: 'Yekan',
                                           fontSize: 17,
                                           fontWeight: FontWeight.w900,
                                         ),
-                                      ), // Assuming the name is at index 0
+                                      ),
                                     );
                                   }),
                                   onChanged: (value) {
                                     setState(() {
-                                      selectedIndex = value!;
+                                      selectedIndexDropDown = value!;
+                                      selectedName = dataList[value][
+                                          0]; // Assuming the name is at index 0
                                     });
-                                    // Do something with the selected index
+                                    // Do something with the selected index and name
                                     print('Selected Index: $value');
-                                    // You can use this value to access the data in your list.
-                                    // For example: dataList[value]
+                                    print('Selected Name: $selectedName');
                                   },
                                 ),
                                 SizedBox(
@@ -224,6 +231,7 @@ class _Home_FactoringState extends State<Home_Factoring>
                       Expanded(
                         child: SingleChildScrollView(
                           child: YourWidget(
+                            seller_name: selectedName,
                             onStateReady: (state) {
                               youWidgetState = state as YourWidget;
                             },
