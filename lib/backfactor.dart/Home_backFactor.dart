@@ -1,5 +1,5 @@
 import 'package:accubooks/Factoring/data/sharedDatabase.dart';
-import 'package:accubooks/backfactor.dart/page_detail.dart';
+import 'package:accubooks/backfactor.dart/Factoring/Home_Factoring.dart';
 import 'package:flutter/material.dart';
 
 main() {
@@ -155,121 +155,112 @@ class _home_backFactorState extends State<home_backFactor> {
     Key key = UniqueKey(); // UniqueKey for each widget
     return GestureDetector(
       onTap: () {
+        //numberFactor: counter,
+        //  TodayDate:db.itemList[index][6],
+        //   day: db.itemList[index][6],
+        //   customer_name: db.itemList[index][8],
+        //    barcode: counter,
+        //     siglePrice: db.itemList[index][6] ,
+        //      totalPrice: db.itemList[index][6]
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => page_detail(
-              numberFactor: counter,
-               TodayDate:db.itemList[index][6],
-                day: db.itemList[index][6], 
-                customer_name: db.itemList[index][8],
-                 barcode: counter,
-                  siglePrice: db.itemList[index][6] ,
-                   totalPrice: db.itemList[index][6] )));
+            context,
+            MaterialPageRoute(
+                builder: (context) => back_Home_Factoring(
+                      time: db.itemList[index][5],
+                      numberFactor: counter,
+                      TodayDate: db.itemList[index][6],
+                      day: db.itemList[index][9],
+                      name_goods: db.itemList[index][2],
+                      customer_name: db.itemList[index][8],
+                      barcode: counter,
+                      siglePrice: db.itemList[index][6],
+                      numbersOfGoods: db.itemList[index][3],
+                    )));
+                    
+        print(db.itemList[index][4]);
+
+        // time 5
+        //date 6
+        //تعداذ 3
+        // نام کالا 2
+        // facotor number 1
+
+        // setState(() {
+        //   Navigator.push(
+        //       context,
+        //       MaterialPageRoute(
+        //           builder: (context) => Test(
+        //               name: db.itemList[index][8],
+        //               barcode: counter.toString())));
+        // });
       },
       child: Container(
         key: key,
         decoration: BoxDecoration(borderRadius: BorderRadius.circular(12)),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                height: 30,
-                width: 180,
-                decoration: BoxDecoration(
-                    border: Border.all(
-                        width: 0.8, color: Color.fromARGB(255, 86, 85, 85)),
-                    borderRadius: BorderRadius.circular(3.0)),
-                child: Center(
-                  child: Text(
-                    '$counter',
-                    style: TextStyle(
-                      fontFamily: 'Yekan',
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                    ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Container(
+              width: 60,
+              child: Center(
+                child: Text(
+                  '$counter',
+                  style: TextStyle(
+                    fontFamily: 'Yekan',
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
               ),
-              Container(
-                height: 30,
-                width: 180,
-                decoration: BoxDecoration(
-                    border: Border.all(
-                        width: 0.8, color: Color.fromARGB(255, 86, 85, 85)),
-                    borderRadius: BorderRadius.circular(3.0)),
-                child: Center(
-                  child: Text(
-                    db.itemList.isNotEmpty ? db.itemList[index][8] : "No Name",
-                    style: TextStyle(
-                      fontFamily: 'Yekan',
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
+            ),
+            Container(
+              width: 130,
+              child: Text(
+                db.itemList.isNotEmpty ? db.itemList[index][8] : "No Name",
+                style: TextStyle(
+                  fontFamily: 'Yekan',
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
-              Container(
-                height: 30,
-                width: 180,
-                decoration: BoxDecoration(
-                    border: Border.all(
-                        width: 0.8, color: Color.fromARGB(255, 86, 85, 85)),
-                    borderRadius: BorderRadius.circular(3.0)),
-                child: Center(
-                  child: Text(
-                    "$counter",
-                    // db.itemList.isNotEmpty ? db.itemList[index][2] : "No Name",
-                    style: TextStyle(
-                      fontFamily: 'Yekan',
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
+            ),
+            Container(
+              width: 60,
+              child: Text(
+                "$counter",
+                // db.itemList.isNotEmpty ? db.itemList[index][2] : "No Name",
+                style: TextStyle(
+                  fontFamily: 'Yekan',
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
-              Container(
-                height: 30,
-                width: 180,
-                decoration: BoxDecoration(
-                    border: Border.all(
-                        width: 0.8, color: Color.fromARGB(255, 86, 85, 85)),
-                    borderRadius: BorderRadius.circular(3.0)),
-                child: Center(
-                  child: Text(
-                    db.itemList.isNotEmpty ? db.itemList[index][6] : "No Name",
-                    style: TextStyle(
-                      fontFamily: 'Yekan',
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
+            ),
+            Container(
+              width: 100,
+              child: Text(
+                db.itemList.isNotEmpty ? db.itemList[index][6] : "No Name",
+                style: TextStyle(
+                  fontFamily: 'Yekan',
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
-              Container(
-                height: 30,
-                width: 180,
-                decoration: BoxDecoration(
-                    border: Border.all(
-                        width: 0.8, color: Color.fromARGB(255, 86, 85, 85)),
-                    borderRadius: BorderRadius.circular(3.0)),
-                child: Center(
-                  child: Text(
-                    db.itemList.isNotEmpty ? db.itemList[index][4] : "No Name",
-                    style: TextStyle(
-                      fontFamily: 'Yekan',
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
+            ),
+            Container(
+              width: 100,
+              child: Text(
+                db.itemList.isNotEmpty ? db.itemList[index][4] : "No Name",
+                style: TextStyle(
+                  fontFamily: 'Yekan',
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
                 ),
-              )
-            ],
-          ),
+              ),
+            )
+          ],
         ),
       ),
     );
   }
 }
-

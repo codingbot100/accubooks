@@ -18,12 +18,16 @@ class NavigationSidebar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 30, bottom: 30),
+      padding: const EdgeInsets.only(
+          // top: 30, bottom: 30
+          ),
       child: Expanded(
         child: Container(
           decoration: BoxDecoration(
-              color: Color.fromRGBO(247, 247, 247, 1),
-              borderRadius: BorderRadius.circular(20.0)),
+              color: Color.fromRGBO(244, 242, 248, 1),
+              borderRadius: BorderRadius.circular(0
+                  // 20.0
+                  )),
           width: 100,
           child: Row(
             children: [
@@ -76,10 +80,9 @@ class NavigationSidebar extends StatelessWidget {
                                 height: 50,
                                 child: ListTile(
                                   minVerticalPadding: 10,
-                                  hoverColor: Color.fromRGBO(45, 45, 45, 1),
-                                  selectedColor: Color.fromRGBO(8, 6, 6, 1),
-                                  selectedTileColor:
-                                      Color.fromRGBO(45, 45, 45, 1),
+                                  // hoverColor: Color.fromRGBO(45, 45, 45, 1),
+                                  // selectedColor: Color.fromRGBO(8, 6, 6, 1),
+                                  selectedTileColor: Color.fromRGBO(7, 7, 7, 1),
                                   leading: itemsIcons[
                                       index], // Use the provided icon widget
                                   title: Text(

@@ -1,3 +1,7 @@
+// ignore_for_file: dead_code
+
+import 'package:accubooks/Factoring/data/sharedDatabase.dart';
+import 'package:accubooks/LostDateGoods/whouse2.dart/Ware_Home.dart';
 import 'package:accubooks/whouse2.dart/data/database.dart';
 import 'package:accubooks/whouse2.dart/titleRows.dart';
 import 'package:accubooks/whouse2.dart/util/ToDotile2.dart';
@@ -21,6 +25,7 @@ class _Home_PageState extends State<Home_Page> {
 // reference the hive box
   final _myBox = Hive.box('Mybox');
   ToDoDatabse2 db = ToDoDatabse2();
+  SharedPreferencesHelper _sharedPref = SharedPreferencesHelper();
   final controller = PageController(initialPage: 1);
   @override
   void initState() {
@@ -57,6 +62,7 @@ class _Home_PageState extends State<Home_Page> {
       _controllers.cast();
       db.updateDatabase();
       filteredList = List.from(db.allInOne);
+
       // _controllers.clear();
     });
   }
@@ -98,7 +104,7 @@ class _Home_PageState extends State<Home_Page> {
               for (int i = 0; i < _controllers.length; i++) {
                 db.allInOne[index][i] = _controllers[i].text;
               }
-
+              print(db.allInOne);
               // Clear the controllers
               _controllers.forEach((controller) => controller.clear());
 
@@ -311,6 +317,27 @@ class _Home_PageState extends State<Home_Page> {
                       ),
                     ),
                   ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Container(
+                      width: 120,
+                      height: 40,
+                      decoration: BoxDecoration(
+                          border: Border.all(width: 0.5),
+                          color: Color.fromRGBO(248, 249, 251, 1),
+                          borderRadius: BorderRadius.circular(6.5)),
+                      child: MaterialButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => LostDateGoods()));
+                          },
+                          child: Text('اجناس کم تاریخ')),
+                    ),
+                  ],
                 ),
               ],
             ),

@@ -1,40 +1,54 @@
 // ignore_for_file: must_be_immutable, unused_field
 
-import 'package:accubooks/Factoring/Home_Factoring.dart';
 import 'package:accubooks/Factoring/data/database.dart';
 import 'package:accubooks/Factoring/data/sharedDatabase.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
 import '../../whouse2.dart/data/database.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
-import 'package:jalali_calendar/jalali_calendar.dart';
-class YourWidget extends StatefulWidget {
-  final Home_Factoring home_factoring;
+
+class TextFieldRow extends StatefulWidget {
   final Function(int) onIntegerChanged;
   final Function(int) onChangedfactor;
   final VoidCallback onSavePressed;
-  final void Function(_YourWidgetState)
+  final void Function(_TextFieldRowState)
       onStateReady; // Callback for state reference
   var name_customer;
-
   int factor = 1;
-
-  YourWidget(
+  final String numberofGoods;
+  final int numberFactor;
+  final String name_goods;
+  final String TodayDate;
+  final String day;
+  var time;
+  final String customer_name;
+  final int barcode;
+  final String siglePrice;
+  TextFieldRow(
       {Key? key,
-      required this.home_factoring,
       required this.onIntegerChanged,
       required this.onSavePressed,
       required this.onChangedfactor,
       required this.onStateReady,
-      required this.name_customer})
+      required this.name_customer,
+      required this.numberFactor,
+      required this.TodayDate,
+      required this.day,
+      required this.customer_name,
+      required this.barcode,
+      required this.siglePrice,
+      required this.name_goods,
+      required this.numberofGoods})
       : super(key: key);
   @override
-  _YourWidgetState createState() => _YourWidgetState();
+  _TextFieldRowState createState() => _TextFieldRowState();
 }
 
-class _YourWidgetState extends State<YourWidget> {
+class _TextFieldRowState extends State<TextFieldRow> {
+  late int numberofGoods;
   String name_cos = '';
   int _numberFactor = 1;
   int numberFactor = 1;
@@ -211,10 +225,13 @@ class _YourWidgetState extends State<YourWidget> {
     for (int i = 1; i < _controllersList.length; i++) {
       _barcodeFocusNodes.add(FocusNode());
     }
+    _controllersList[0][3].text = widget.barcode.toString();
+    name_cos = widget.name_customer.toString();
 
     // loadList();
+    numberofGoods = int.parse(widget.numberofGoods);
+    _controllersList[0][1].text = numberofGoods.toString();
     super.initState();
-    name_cos = widget.name_customer.toString();
   }
 
   void addtoItems() {
@@ -232,8 +249,7 @@ class _YourWidgetState extends State<YourWidget> {
         nextTexts.add(totalSum.toString());
         nextTexts.add(currentTime.format(context).toString());
         nextTexts.add(DateFormat("d,MM,yyy").format(DateTime.now()).toString());
-
-        nextTexts.add(dayOfWeek.toString()); // Use the dayOfWeek variable
+        nextTexts.add(dayOfWeek.toString());
 
         // Extract text from the customer name TextEditingController
         String customerName = widget.name_customer.text;
@@ -259,7 +275,6 @@ class _YourWidgetState extends State<YourWidget> {
   @override
   Widget build(BuildContext context) {
     print('AllInOne contents: ${dbfactor.allInOne}');
-    String dayNameInPersian = getDayNameInPersian(dayOfWeek);
 
     return SingleChildScrollView(
       child: Column(
@@ -323,7 +338,9 @@ class _YourWidgetState extends State<YourWidget> {
                                 calculateTotal(row);
 
                                 addNewRowIfNeeded();
+
                                 barcodeResult = _controllersList[row][i].text;
+
                                 setState(() {
                                   onChangedController3(row, i);
                                 });
@@ -371,9 +388,9 @@ class _YourWidgetState extends State<YourWidget> {
                 MaterialButton(
                   onPressed: () {
                     // shareddb.clearList();
-                    print(dayNameInPersian);
+                    print('itemsList contents: ${shareddb.itemList}');
                   },
-                  child: Text(" لغو "),
+                  child: Text(" ${widget.barcode} "),
                 ),
               ],
             ),
@@ -421,7 +438,7 @@ class _YourWidgetState extends State<YourWidget> {
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  child: Text("لغو ذخیره ")),
+                  child: Text("لغو  ")),
               TextButton(
                   onPressed: () {
                     _onSavePressed();
@@ -433,27 +450,6 @@ class _YourWidgetState extends State<YourWidget> {
             ],
           );
         });
-  }
-
-  String getDayNameInPersian(int dayOfWeek) {
-    switch (dayOfWeek) {
-      case DateTime.saturday:
-        return 'شنبه';
-      case DateTime.sunday:
-        return 'یک‌شنبه';
-      case DateTime.monday:
-        return 'دوشنبه';
-      case DateTime.tuesday:
-        return 'سه‌شنبه';
-      case DateTime.wednesday:
-        return 'چهارشنبه';
-      case DateTime.thursday:
-        return 'پنج‌شنبه';
-      case DateTime.friday:
-        return 'جمعه';
-      default:
-        return '';
-    }
   }
 
   void _onSavePressed() {

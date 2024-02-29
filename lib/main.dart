@@ -6,14 +6,13 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 main() async {
   await Hive.initFlutter();
-  
+    WidgetsFlutterBinding.ensureInitialized();
   // open box
   var box = await Hive.openBox('Mybox');
   var employees = await Hive.openBox('employees');
   var factoeBox = await Hive.openBox('storeFactor');
   var yourBox = await Hive.openBox("yourBox");
   var dropbox = await Hive.openBox("dropDatabase");
-  WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());
 }
 

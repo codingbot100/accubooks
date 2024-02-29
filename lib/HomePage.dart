@@ -32,21 +32,23 @@ class _HomePageState extends State<HomePage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color.fromRGBO(247, 247, 247, 1),
-        elevation: 0,
-        title: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Directionality(
-            textDirection: TextDirection.rtl,
-            child: ListTile(
-              title: Text("حدید نرم افزار"),
-            ),
-          ),
-        ),
-      ),
+      // appBar: AppBar(
+      //   backgroundColor: Color.fromRGBO(247, 247, 247, 1),
+      //   elevation: 0,
+      //   title: Padding(
+      //     padding: const EdgeInsets.all(8.0),
+      //     child: Directionality(
+      //       textDirection: TextDirection.rtl,
+      //       child: ListTile(
+      //         title: Text("حدید نرم افزار"),
+      //       ),
+      //     ),
+      //   ),
+      // ),
       body: Padding(
-        padding: const EdgeInsets.only(right: 10),
+        padding: const EdgeInsets.only(
+            // right: 10
+            ),
         child: Column(
           children: [
             Container(
@@ -70,8 +72,32 @@ class _HomePageState extends State<HomePage>
                                                 : home_backFactor()),
                       ),
                     ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(height: 8),
+                        AnimatedSmoothIndicator(
+                          duration: Duration(milliseconds: 500),
+                          axisDirection: Axis.vertical,
+                          activeIndex: _selectedindex,
+                          count: 5,
+                          effect: WormEffect(
+                            spacing: 25,
+                            radius: 4,
+                            dotWidth: 26,
+                            dotHeight: 3,
+                            paintStyle: PaintingStyle.fill,
+                            strokeWidth: 1.5,
+                            dotColor: Colors.transparent,
+                            activeDotColor: Colors.black,
+                          ),
+                        ),
+                      ],
+                    ),
                     Padding(
-                      padding: const EdgeInsets.only(right: 30),
+                      padding: const EdgeInsets.only(
+                          // right: 30
+                          ),
                       child: Row(children: [
                         Container(
                           width: 220,
@@ -103,28 +129,6 @@ class _HomePageState extends State<HomePage>
                               }
                             },
                           ),
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SizedBox(height: 70),
-                            AnimatedSmoothIndicator(
-                              duration: Duration(milliseconds: 500),
-                              axisDirection: Axis.vertical,
-                              activeIndex: _selectedindex,
-                              count: 4,
-                              effect: WormEffect(
-                                spacing: 24,
-                                radius: 4,
-                                dotWidth: 25,
-                                dotHeight: 3,
-                                paintStyle: PaintingStyle.fill,
-                                strokeWidth: 1.5,
-                                dotColor: Colors.transparent,
-                                activeDotColor: Colors.black,
-                              ),
-                            ),
-                          ],
                         ),
                       ]),
                     ),

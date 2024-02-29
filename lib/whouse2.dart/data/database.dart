@@ -3,6 +3,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 class ToDoDatabse2 {
   List allInOne = [];
+   List LostDateGoods = [];
 
 // reference our box
   final _myBox = Hive.box('mybox');
@@ -12,14 +13,33 @@ class ToDoDatabse2 {
     allInOne = [];
   }
 
+
   void loadData() {
     allInOne = _myBox.get('TODOLIST2');
   }
+ 
 
   void updateDatabase() {
     _myBox.put('TODOLIST2', allInOne);
   }
+  
   void clearAllData() async {
+    await _myBox.clear();
+  }
+     //LostDataGoods
+
+      void createinitialDataLostDate() {
+      LostDateGoods = [];
+     }
+   
+     void loadDataLostDateGoods() {
+    allInOne = _myBox.get('LOSTDATEGoods');
+  }
+
+   void updateDatabaseLostDateGoods() {
+    _myBox.put('LOSTDATEGoods', LostDateGoods); //
+  }
+  void clearLostDateGoods() async {
     await _myBox.clear();
   }
 }
