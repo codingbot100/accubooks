@@ -1,27 +1,27 @@
 // import 'dart:convert';
 // import 'package:shared_preferences/shared_preferences.dart';
 
-// class SharedPreferencesHelper {
-//   List<List<String>> itemList = [];
+// class SharedPreferencesHelper2 {
+//   List<Map<String, dynamic>> itemList2 = [];
 
 //   static const String _keyList = 'your_list_key';
 //   static const String _keyNumberFactor = 'your_number_factor_key';
 
-//   static Future<void> saveList(List<List<String>> yourList) async {
+//   static Future<void> saveList(List<Map<String, dynamic>> yourList) async {
 //     final SharedPreferences prefs = await SharedPreferences.getInstance();
 //     final List<String> stringList =
-//         yourList.map((list) => json.encode(list)).toList();
+//         yourList.map((map) => json.encode(map)).toList();
 //     await prefs.setStringList(_keyList, stringList);
 //   }
 
-//   static Future<List<List<String>>> getList() async {
+//   static Future<List<Map<String, dynamic>>> getList() async {
 //     final SharedPreferences prefs = await SharedPreferences.getInstance();
 //     final List<String>? stringList = prefs.getStringList(_keyList);
 
 //     if (stringList != null) {
-//       final List<List<String>> yourList = stringList.map((string) {
-//         final dynamic decodedList = json.decode(string);
-//         return List<String>.from(decodedList);
+//       final List<Map<String, dynamic>> yourList = stringList.map((string) {
+//         final dynamic decodedMap = json.decode(string);
+//         return Map<String, dynamic>.from(decodedMap);
 //       }).toList();
 //       return yourList;
 //     } else {
@@ -45,10 +45,4 @@
 //     await saveNumberFactor(nextFactorNumber);
 //     return nextFactorNumber;
 //   }
-
-//  Future<void> clearList() async {
-//   itemList.clear();
-//   await saveList(itemList); // Save the cleared list
-//   await saveNumberFactor(1); // Reset the number factor to the default value
-// }
 // }
