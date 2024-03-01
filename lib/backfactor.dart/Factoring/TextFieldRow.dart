@@ -19,13 +19,11 @@ class TextFieldRow extends StatefulWidget {
   int factor = 1;
   final String numberofGoods;
   final int numberFactor;
-  final String name_goods;
   final String TodayDate;
   final String day;
   var time;
   final String customer_name;
-  final int barcode;
-  final String siglePrice;
+  final String barcode;
   
   TextFieldRow(
       {Key? key,
@@ -39,8 +37,6 @@ class TextFieldRow extends StatefulWidget {
       required this.day,
       required this.customer_name,
       required this.barcode,
-      required this.siglePrice,
-      required this.name_goods,
       required this.numberofGoods})
       : super(key: key);
   @override
@@ -224,9 +220,13 @@ class _TextFieldRowState extends State<TextFieldRow> {
     for (int i = 1; i < _controllersList.length; i++) {
       _barcodeFocusNodes.add(FocusNode());
     }
-    _controllersList[0][3].text = widget.barcode.toString();
-    name_cos = widget.name_customer.toString();
-
+     _controllersList[0][3].text = widget.barcode.join('');
+     
+     numberofGoods = int.parse(widget.numberofGoods);
+     _controllersList[0][1].text = numberofGoods.toString();
+     _controllersList[0][3].text = widget.barcode.toString();
+     name_cos = widget.name_customer.toString();
+   
     // loadList();
     numberofGoods = int.parse(widget.numberofGoods);
     _controllersList[0][1].text = numberofGoods.toString();

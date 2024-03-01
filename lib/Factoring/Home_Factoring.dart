@@ -79,6 +79,7 @@ class _Home_FactoringState extends State<Home_Factoring>
 
     super.build(context);
     return Scaffold(
+      
       body: Padding(
         padding:
             const EdgeInsets.only(left: 20, right: 20, top: 30, bottom: 30),

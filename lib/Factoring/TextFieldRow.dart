@@ -246,72 +246,74 @@ class _YourWidgetState extends State<YourWidget> {
   }
 
   void addtoItems() {
-    setState(() {
-      List<String> barcodeList = [];
-      List<String> quantityList = [];
-      List<String> timeList = [];
-      List<String> dateList = [];
-      List<String> dayOfWeekList = [];
-      List<String> customerNameList = [];
-      List<String> factorNumberList = [];
-      List<String> sellerNameList = [];
+  setState(() {
+    List<String> barcodeList = [];
+    List<String> quantityList = [];
+    List<String> timeList = [];
+    List<String> dateList = [];
+    List<String> dayOfWeekList = [];
+    List<String> customerNameList = [];
+    List<String> factorNumberList = [];
+    List<String> sellerNameList = [];
+    List<String> customer_name = [];
+    List<String> singlePrice = [];
 
-      int nextFactor = _numberFactor + 1;
 
-      for (int i = 0; i < _controllersList.length; i++) {
-        List<TextEditingController> controllers = _controllersList[i];
-        String barcode = controllers[1].text;
-        String quantity = controllers[3].text;
 
-        // Update barcodeList and quantityList for each new value
-        barcodeList.add(barcode);
-        quantityList.add(quantity);
+    int nextFactor = _numberFactor + 1;
 
-        // Check if the combination of fields excluding barcode and quantity already exists
-        bool combinationExists = timeList
-                .any((e) => e == currentTime.format(context).toString()) &&
-            dateList.any((e) =>
-                e ==
-                DateFormat("d,MM,yyy").format(DateTime.now()).toString()) &&
-            dayOfWeekList
-                .any((e) => e == getDayNameInPersian(DateTime.now().weekday)) &&
-            customerNameList.any((e) => e == widget.name_customer.text) &&
-            factorNumberList.any((e) => e == nextFactor.toString()) &&
-            sellerNameList.any((e) => e == widget.seller_name);
+    for (int i = 0; i < _controllersList.length; i++) {
+      List<TextEditingController> controllers = _controllersList[i];
+      String barcode = controllers[1].text;
+      String quantity = controllers[3].text;
+      String customer_NameList = controllers[2].text;
 
-        if (!combinationExists) {
-          // Add the rest of the values only if the combination does not exist
-          timeList.add(currentTime.format(context).toString());
-          dateList
-              .add(DateFormat("d,MM,yyy").format(DateTime.now()).toString());
-          dayOfWeekList.add(getDayNameInPersian(DateTime.now().weekday));
-          customerNameList.add(widget.name_customer.text);
-          factorNumberList.add(nextFactor.toString());
-          sellerNameList.add(widget.seller_name);
-        }
+      barcodeList.add(barcode);
+      quantityList.add(quantity);
+      
+      bool combinationExists =
+          customer_name.any((element) => e == )
+          timeList.any((e) => e == currentTime.format(context).toString()) &&
+          dateList.any((e) =>
+              e == DateFormat("d,MM,yyy").format(DateTime.now()).toString()) &&
+          dayOfWeekList.any((e) =>
+              e == getDayNameInPersian(DateTime.now().weekday)) &&
+          customerNameList.any((e) => e == widget.name_customer.text) &&
+          factorNumberList.any((e) => e == nextFactor.toString()) &&
+          sellerNameList.any((e) => e == widget.seller_name );
+          
+
+      if (!combinationExists) {
+        timeList.add(currentTime.format(context).toString());
+        dateList.add(DateFormat("d,MM,yyy").format(DateTime.now()).toString());
+        dayOfWeekList.add(getDayNameInPersian(DateTime.now().weekday));
+        customerNameList.add(widget.name_customer.text);
+        factorNumberList.add(nextFactor.toString());
+        sellerNameList.add(widget.seller_name);
       }
+    }
 
-      List<List<String>> allDataForFactor = [
-        barcodeList,
-        quantityList,
-        timeList,
-        dateList,
-        dayOfWeekList,
-        customerNameList,
-        factorNumberList,
-        sellerNameList,
-      ];
+    List<String> singleData = [
+      barcodeList.toString(),
+      quantityList.toString(),
+      timeList.toString(),
+      dateList.toString(),
+      dayOfWeekList.toString(),
+      customerNameList.toString(),
+      factorNumberList.toString(),
+      sellerNameList.toString(),
+    ];
 
-      // Add the accumulated values to the itemList
-      shareddb.itemList.addAll(allDataForFactor);
+    shareddb.itemList.add(singleData);
 
-      setState(() {
-        numberFactor = nextFactor;
-      });
+    setState(() {
+      numberFactor = nextFactor;
     });
+  });
 
-    saveList(); // Save the list and numberFactor
-  }
+  saveList(); // Save the list and numberFactor
+}
+
 
   Future<void> saveList() async {
     await SharedPreferencesHelper.saveList(shareddb.itemList);

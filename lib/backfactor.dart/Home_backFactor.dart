@@ -2,34 +2,31 @@ import 'package:accubooks/Factoring/data/sharedDatabase.dart';
 import 'package:accubooks/backfactor.dart/Factoring/Home_Factoring.dart';
 import 'package:flutter/material.dart';
 
-main() {
-  runApp(home_backFactor());
-}
-
-class home_backFactor extends StatefulWidget {
-  const home_backFactor({super.key});
+class saved_home_factor12 extends StatefulWidget {
+  const saved_home_factor12({super.key});
 
   @override
-  State<home_backFactor> createState() => _home_backFactorState();
+  State<saved_home_factor12> createState() => _saved_home_factor12State();
 }
 
-class _home_backFactorState extends State<home_backFactor> {
+class _saved_home_factor12State extends State<saved_home_factor12> {
   TextEditingController _searchController = TextEditingController();
   SharedPreferencesHelper db = SharedPreferencesHelper();
 
-  Future<void> loadList() async {
-    List<List<String>> loadedList = await SharedPreferencesHelper.getList();
-    int loadedFactor = await SharedPreferencesHelper.loadNumberFactor();
-
-    setState(() {
-      db.itemList = loadedList;
-    });
-  }
+  List<List<String>> itemList = []; // The list to hold the retrieved data
 
   @override
   void initState() {
-    loadList();
+    loadListData();
     super.initState();
+  }
+
+  Future<void> loadListData() async {
+    // Retrieve the data from SharedPreferences
+    itemList = await SharedPreferencesHelper.getList();
+
+    // Update the widget with the retrieved data
+    setState(() {});
   }
 
   @override
@@ -41,222 +38,249 @@ class _home_backFactorState extends State<home_backFactor> {
         decoration: BoxDecoration(borderRadius: BorderRadius.circular(12)),
         child: Scaffold(
           backgroundColor: Color.fromRGBO(248, 248, 251, 1),
-          body: Expanded(
-            child: Container(
-              decoration:
-                  BoxDecoration(borderRadius: BorderRadius.circular(12)),
-              width: 1100,
-              // height: 500,
-              child: Directionality(
-                textDirection: TextDirection.rtl,
-                child: Column(
-                  children: [
-                    Padding(
-                      padding:
-                          const EdgeInsets.only(right: 20, top: 20, bottom: 30),
-                      child: Row(children: [
-                        Text("لیست فاکتور ها",
-                            style: TextStyle(
-                                fontSize: 30,
-                                fontWeight: FontWeight.w900,
-                                fontFamily: 'YekanBakh'))
-                      ]),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 20, bottom: 40),
-                      child: Row(
+          body: itemList.isEmpty
+              ? Center(
+                  child: Text(
+                    "",
+                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.w700),
+                  ),
+                )
+              : Expanded(
+                  child: Container(
+                    decoration:
+                        BoxDecoration(borderRadius: BorderRadius.circular(12)),
+                    width: 1100,
+                    // height: 500,
+                    child: Directionality(
+                      textDirection: TextDirection.rtl,
+                      child: Column(
                         children: [
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                right: 20, top: 20, bottom: 30),
+                            child: Row(children: [
+                              Text("لیست فاکتور ها",
+                                  style: TextStyle(
+                                      fontSize: 30,
+                                      fontWeight: FontWeight.w900,
+                                      fontFamily: 'YekanBakh'))
+                            ]),
+                          ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.only(right: 20, bottom: 40),
+                            child: Row(
+                              children: [
+                                Container(
+                                    width: 250,
+                                    height: 35,
+                                    child: Directionality(
+                                        textDirection: TextDirection.rtl,
+                                        child: TextField(
+                                            controller: _searchController,
+                                            cursorHeight: 20,
+                                            textAlign: TextAlign.right,
+                                            textAlignVertical:
+                                                TextAlignVertical.bottom,
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                fontFamily: 'YekanBakh',
+                                                fontWeight: FontWeight.w800),
+                                            decoration: InputDecoration(
+                                                suffixIcon: Icon(Icons.search),
+                                                hintText: 'جستجوی کالا...',
+                                                hintStyle: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 15,
+                                                    fontFamily: 'YekanBakh'),
+                                                border: OutlineInputBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10.0))),
+                                            onChanged: (value) {}))),
+                              ],
+                            ),
+                          ),
                           Container(
-                              width: 250,
-                              height: 35,
-                              child: Directionality(
-                                  textDirection: TextDirection.rtl,
-                                  child: TextField(
-                                      controller: _searchController,
-                                      cursorHeight: 20,
-                                      textAlign: TextAlign.right,
-                                      textAlignVertical:
-                                          TextAlignVertical.bottom,
-                                      style: TextStyle(
-                                          fontSize: 16,
-                                          fontFamily: 'YekanBakh',
-                                          fontWeight: FontWeight.w800),
-                                      decoration: InputDecoration(
-                                          suffixIcon: Icon(Icons.search),
-                                          hintText: 'جستجوی کالا...',
-                                          hintStyle: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 15,
-                                              fontFamily: 'YekanBakh'),
-                                          border: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(10.0))),
-                                      onChanged: (value) {}))),
+                            child: Directionality(
+                              textDirection: TextDirection.ltr,
+                              child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    title('تاریخ خرید'),
+                                    title("نمبر فاکتور"),
+                                    title('نام خریدار'),
+                                    title("شماره"),
+                                  ]),
+                            ),
+                          ),
+                          Divider(
+                            thickness: 1,
+                            color: Colors.blueAccent,
+                          ),
+                          // TextButton(
+                          //     onPressed: () async {
+                          //       await db.clearList();
+                          //     },
+                          //     child: Text("clear")),
+                          Expanded(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(12)),
+                              child: ListView.separated(
+                                separatorBuilder: (context, index) {
+                                  return Divider(
+                                    color: Colors.black,
+                                    thickness: 0.5,
+                                  );
+                                },
+                                itemBuilder: (context, index) {
+                                  int counter = index + 1;
+
+                                  return GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    back_Home_Factoring(
+                                                      time: itemList[index][2]
+                                                          .replaceAll('[', '')
+                                                          .replaceAll(']', ''),
+                                                      numberFactor: counter,
+                                                      TodayDate: itemList[index]
+                                                              [3]
+                                                          .replaceAll('[', '')
+                                                          .replaceAll(']', ''),
+                                                      day: itemList[index][4]
+                                                          .replaceAll('[', '')
+                                                          .replaceAll(']', ''),
+                                                      customer_name: itemList[
+                                                              index][5]
+                                                          .replaceAll('[', '')
+                                                          .replaceAll(']', ''),
+                                                      barcode: itemList[index]
+                                                              [1]
+                                                          .replaceAll('[', '')
+                                                          .replaceAll(']', ''),
+                                                      numbersOfGoods: itemList[
+                                                              index][0]
+                                                          .replaceAll('[', '')
+                                                          .replaceAll(']', ''),
+                                                      seller_name: itemList[
+                                                              index][7]
+                                                          .replaceAll('[', '')
+                                                          .replaceAll(']', ''),
+                                                    )));
+                                      });
+                                    },
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Container(
+                                          width: 100,
+                                          child: Center(
+                                            child: Text(
+                                              textAlign: TextAlign.justify,
+                                              '$counter',
+                                              style: TextStyle(
+                                                fontFamily: 'Yekan',
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Container(
+                                          width: 100,
+                                          child: Center(
+                                            child: Text(
+                                              textAlign: TextAlign.justify,
+                                              //5
+                                              // تعداد 0
+                                              //شماره بار کد 1
+                                              //ساعت 2
+                                              //تاریخ 3
+                                              //روز 4
+                                              //فروشنده 7
+                                              // خریدار 5
+                                              itemList[index][5]
+                                                  .replaceAll('[', '')
+                                                  .replaceAll(']', ''),
+                                              style: TextStyle(
+                                                fontFamily: 'Yekan',
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Container(
+                                          width: 100,
+                                          child: Center(
+                                            child: Text(
+                                              textAlign: TextAlign.justify,
+                                              '$counter',
+                                              style: TextStyle(
+                                                fontFamily: 'Yekan',
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Container(
+                                          width: 100,
+                                          child: Center(
+                                            child: Text(
+                                              textAlign: TextAlign.justify,
+                                              itemList[index][3]
+                                                  .replaceAll('[', '')
+                                                  .replaceAll(']', ''),
+                                              style: TextStyle(
+                                                fontFamily: 'Yekan',
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                                itemCount: itemList.length,
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),
-                    Container(
-                      width: 950,
-                      child: Directionality(
-                        textDirection: TextDirection.ltr,
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              SizedBox(width: 100, child: title('مجموعه پول')),
-                              title('تاریخ خرید'),
-                              title("نمبر فاکتور"),
-                              title('نام خریدار'),
-                              title("شماره"),
-                            ]),
-                      ),
-                    ),
-                    Divider(),
-                    TextButton(
-                        onPressed: () async {
-                          await db.clearList();
-                        },
-                        child: Text("clear")),
-                    Expanded(
-                      child: Container(
-                        width: 1100,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12)),
-                        child: ListView.builder(
-                            itemBuilder: (context, index) {
-                              return factorList(
-                                  index, db.itemList[index][0].toString());
-                            },
-                            itemCount: db.itemList.length),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
-              ),
-            ),
-          ),
         ),
       ),
     );
   }
 
   Widget title(String title) {
-    return Text(
-      title,
-      style: TextStyle(
-        fontFamily: 'Yekan',
-        fontSize: 18,
-        fontWeight: FontWeight.w600,
-      ),
-    );
-  }
-
-  Widget factorList(int index, String text) {
-    int counter = index + 1;
-    Key key = UniqueKey(); // UniqueKey for each widget
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => back_Home_Factoring(
-                    time: db.itemList[index][5],
-                    numberFactor: counter,
-                    TodayDate: db.itemList[index][6],
-                    day: db.itemList[index][7],
-                    name_goods: db.itemList[index][2],
-                    customer_name: db.itemList[index][8],
-                    barcode: counter,
-                    siglePrice: db.itemList[index][6],
-                    numbersOfGoods: db.itemList[index][3],
-                    seller_name: db.itemList[index][9])));
-
-        // print(db.itemList[index][7]);
-
-        // time 5
-        //date 6
-        //تعداذ 3
-        // نام کالا 2
-        // facotor number 1
-        //نام مشتری 8
-        //روز به 7
-        //10 نام فروشنده
-
-        // setState(() {
-        //   Navigator.push(
-        //       context,
-        //       MaterialPageRoute(
-        //           builder: (context) => Test(
-        //               name: db.itemList[index][8],
-        //               barcode: counter.toString())));
-        // });
-      },
-      child: Container(
-        key: key,
-        decoration: BoxDecoration(borderRadius: BorderRadius.circular(12)),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Container(
-              width: 60,
-              child: Center(
-                child: Text(
-                  '$counter',
-                  style: TextStyle(
-                    fontFamily: 'Yekan',
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ),
-            ),
-            Container(
-              width: 130,
-              child: Text(
-                db.itemList.isNotEmpty ? db.itemList[index][8] : "No Name",
-                style: TextStyle(
-                  fontFamily: 'Yekan',
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
-            Container(
-              width: 60,
-              child: Text(
-                "$counter",
-                // db.itemList.isNotEmpty ? db.itemList[index][2] : "No Name",
-                style: TextStyle(
-                  fontFamily: 'Yekan',
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
-            Container(
-              width: 100,
-              child: Text(
-                db.itemList.isNotEmpty ? db.itemList[index][6] : "No Name",
-                style: TextStyle(
-                  fontFamily: 'Yekan',
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
-            Container(
-              width: 100,
-              child: Text(
-                db.itemList.isNotEmpty ? db.itemList[index][4] : "No Name",
-                style: TextStyle(
-                  fontFamily: 'Yekan',
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            )
-          ],
+    return Container(
+      width: 100,
+      child: Center(
+        child: Text(
+          title,
+          style: TextStyle(
+            fontFamily: 'Yekan',
+            fontSize: 22,
+            fontWeight: FontWeight.w600,
+          ),
         ),
       ),
     );
   }
+
+  //
 }

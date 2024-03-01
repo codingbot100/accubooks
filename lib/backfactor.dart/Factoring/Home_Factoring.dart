@@ -2,7 +2,6 @@
 
 import 'package:accubooks/Factoring/TextFieldRow.dart';
 import 'package:accubooks/Factoring/secondRow.dart';
-import 'package:accubooks/backfactor.dart/Factoring/TextFieldRow.dart';
 import 'package:accubooks/employees/data/database.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -14,9 +13,7 @@ class back_Home_Factoring extends StatefulWidget {
   var time;
   final String numbersOfGoods;
   final String customer_name;
-  var barcode;
-  final String siglePrice;
-  final String name_goods;
+  final String barcode;
   final String seller_name;
   // final Function callbackFunction;
 
@@ -27,8 +24,6 @@ class back_Home_Factoring extends StatefulWidget {
       required this.day,
       required this.customer_name,
       required this.barcode,
-      required this.siglePrice,
-      required this.name_goods,
       required this.time,
       required this.numbersOfGoods,
       required this.seller_name})
@@ -212,34 +207,74 @@ class _back_Home_FactoringState extends State<back_Home_Factoring>
                           thickness: 1,
                         ),
                         Expanded(
-                          child: SingleChildScrollView(
-                            child: TextFieldRow(
-                              numberofGoods: widget.numbersOfGoods,
-                              onStateReady: (state) {
-                                youWidgetState = state as YourWidget;
-                              },
-                              onChangedfactor: (factor) async {
-                                setState(() {
-                                  counterfactor = factor;
-                                });
-                              },
-                              onSavePressed: () {},
-                              onIntegerChanged: (totalSum) async {
-                                setState(() {
-                                  totalSumNew = totalSum;
-                                });
-                              },
-                              numberFactor: numberFactor,
-                              barcode: widget.barcode,
-                              TodayDate: widget.TodayDate,
-                              day: widget.day,
-                              customer_name: widget.customer_name,
-                              siglePrice: widget.siglePrice,
-                              name_customer: widget.customer_name,
-                              name_goods: widget.name_goods,
-                            ),
-                          ),
+                          child: ListView.builder(
+                              itemCount: 5,
+                              itemBuilder: ((context, index) {
+                                int counter = index + 1;
+                                return Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Container(
+                                      width: 100,
+                                      child: Center(
+                                        child: Text(
+                                          textAlign: TextAlign.justify,
+                                          widget.barcode[index]
+                                              .replaceAll('[', '')
+                                              .replaceAll(']', ''),
+                                          style: TextStyle(
+                                            fontFamily: 'Yekan',
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      width: 100,
+                                      child: Center(
+                                        child: Text(
+                                          textAlign: TextAlign.justify,
+                                          '$counter',
+                                          style: TextStyle(
+                                            fontFamily: 'Yekan',
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              })),
                         )
+                        // Expanded(
+                        //   child: SingleChildScrollView(
+                        //     child: TextFieldRow(
+                        //       numberofGoods: widget.numbersOfGoods,
+                        //       onStateReady: (state) {
+                        //         youWidgetState = state as YourWidget;
+                        //       },
+                        //       onChangedfactor: (factor) async {
+                        //         setState(() {
+                        //           counterfactor = factor;
+                        //         });
+                        //       },
+                        //       onSavePressed: () {},
+                        //       onIntegerChanged: (totalSum) async {
+                        //         setState(() {
+                        //           totalSumNew = totalSum;
+                        //         });
+                        //       },
+                        //       numberFactor: numberFactor,
+                        //       barcode: widget.barcode,
+                        //       TodayDate: widget.TodayDate,
+                        //       day: widget.day,
+                        //       customer_name: widget.customer_name,
+                        //       name_customer: widget.customer_name,
+                        //     ),
+                        //   ),
+                        // )
                       ],
                     ),
                   ),
