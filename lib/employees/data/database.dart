@@ -9,7 +9,14 @@ class ToDoDatabseEmployees {
 
   //run this method if this is the 1st time ever opening this app
   void createinitialData() {
-    allInOne = [];
+    allInOne = [
+      23000,
+      "مدیر",
+      2024 - 2 - 29,
+      "چهار راه زمان جان ",
+      "عزیزاحمد",
+      "احمد سدیس"
+    ];
   }
 
   void loadData() {
@@ -19,6 +26,7 @@ class ToDoDatabseEmployees {
   void updateDatabase() {
     _myBox.put('TODOLIST2', allInOne);
   }
+
   void clearAllData() async {
     await _myBox.clear();
   }

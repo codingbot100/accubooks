@@ -2,7 +2,9 @@
 
 import 'package:accubooks/Factoring/Home_Factoring.dart';
 import 'package:accubooks/Factoring/data/database.dart';
+import 'package:accubooks/Factoring/data/saveFactorData.dart';
 import 'package:accubooks/Factoring/data/sharedDatabase.dart';
+import 'package:accubooks/Factoring/factorData.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
@@ -39,6 +41,7 @@ class _YourWidgetState extends State<YourWidget> {
   String name_cos = '';
   int _numberFactor = 1;
   int numberFactor = 1;
+  final _saveFactor = Hive.box('drop');
   TimeOfDay currentTime = TimeOfDay.now();
   DateTime now = DateTime.now();
   int dayOfWeek = DateTime.now().weekday;
@@ -46,12 +49,12 @@ class _YourWidgetState extends State<YourWidget> {
   SharedPreferencesHelper shareddb = SharedPreferencesHelper();
   final _factoeBox = Hive.box('storeFactor');
   ToDoDatabsestoreFactor dbfactor = ToDoDatabsestoreFactor();
-  // SharedPreferencesHelper2 shareddb2 = SharedPreferencesHelper2();
-
+  save_factor_database saveFactor = save_factor_database();
   int totalSum = 0;
   int counterme = 1;
   String selectedDropdownValue = ''; // Add this line
-
+  List<String> BarcodesList = [];
+  List<String> number_S_GOODList = [];
   List<int> getTotals() {
     return totals;
   }
@@ -67,25 +70,6 @@ class _YourWidgetState extends State<YourWidget> {
       TextEditingController(),
     ]
   ];
-
-  Future<void> saveList() async {
-    await SharedPreferencesHelper.saveList(shareddb.itemList);
-    // await SharedPreferencesHelper2.saveList(shareddb2.itemList2);
-
-    await SharedPreferencesHelper.saveNumberFactor(
-        _numberFactor); // ذخیره کردن numberFactor
-  }
-
-  Future<void> loadList() async {
-    List<List<String>> loadedList = await SharedPreferencesHelper.getList();
-    int loadedFactor = await SharedPreferencesHelper.loadNumberFactor();
-
-    setState(() {
-      shareddb.itemList = loadedList;
-      numberFactor = loadedFactor;
-      ; // بازیابی numberFactor
-    });
-  }
 
   List<int> totals = [0];
   List<int> rowNumbers = [1];
@@ -224,12 +208,12 @@ class _YourWidgetState extends State<YourWidget> {
     name_cos = widget.name_customer.toString();
   }
 
-  void addtosaveFactor() {
+  void addtosaveFactor() async {
     setState(() {
-      List<String> Barcodes = [];
+      List Barcodes = [];
       String dayOfWeekInPersian = getDayNameInPersian(DateTime.now().weekday);
       String customerName = widget.name_customer.text;
-      List<String> number_S_GOOD = [];
+      List number_S_GOOD = [];
 
       Map<String, dynamic> itemsOfFacor = {
         "name_of_customer": customerName,
@@ -239,68 +223,108 @@ class _YourWidgetState extends State<YourWidget> {
         "day": dayOfWeekInPersian,
         "time": currentTime.format(context).toString(),
         "barcodes": Barcodes,
-        "numeberOfGoods": number_S_GOOD,
       };
 
       // Check if a factor with the same number exists in the list
       int existingFactorIndex = -1;
-      for (int i = 0; i < shareddb.itemList.length; i++) {
-        // if (shareddb2.itemList2[i][2] == _numberFactor.toString()) {
-        //   existingFactorIndex = i;
-        //   break;
-        // }
+      for (int i = 0; i < saveFactor.factorAll.length; i++) {
+        if (saveFactor.factorAll[i]["facotor_id"] == _numberFactor) {
+          existingFactorIndex = i;
+          break;
+        }
       }
 
       if (existingFactorIndex != -1) {
         // Factor with the same number exists, update it
-        shareddb.itemList[existingFactorIndex] = List.from(itemsOfFacor.values);
+        saveFactor.factorAll[existingFactorIndex] = itemsOfFacor;
       } else {
         // Factor with the same number does not exist, add a new one
-        shareddb.itemList.add(List.from(itemsOfFacor.values));
+        saveFactor.factorAll.add(itemsOfFacor);
+        saveFactor.updateDatabase();
       }
-
-      // Save the list and numberFactor
-      saveList();
     });
   }
 
   void addtoItems() {
     setState(() {
+      List<String> barcodeList = [];
+      List<String> quantityList = [];
+      List<String> productNameList = [];
+      List<String> totalList = [];
+      List<String> timeList = [];
+      List<String> dateList = [];
+      List<String> dayOfWeekList = [];
+      List<String> customerNameList = [];
+      List<String> factorNumberList = [];
+      List<String> sellerNameList = [];
+
       int nextFactor = _numberFactor + 1;
 
       for (int i = 0; i < _controllersList.length; i++) {
         List<TextEditingController> controllers = _controllersList[i];
-        List<String> nextTexts = [];
 
-        for (int j = 0; j < controllers.length; j++) {
-          nextTexts.add(controllers[j].text);
+        String barcode = controllers[1].text;
+        String quantity = controllers[3].text;
+        String productName = controllers[3]
+            .text; // Assuming productName should not be duplicated for the same factor
+
+        if (!barcodeList.contains(barcode)) {
+          barcodeList.add(barcode);
+          quantityList.add(quantity);
+          productNameList.add(productName);
+          timeList.add(currentTime.format(context).toString());
+          dateList
+              .add(DateFormat("d,MM,yyy").format(DateTime.now()).toString());
+          dayOfWeekList.add(getDayNameInPersian(DateTime.now().weekday));
+          customerNameList.add(widget.name_customer.text);
+          factorNumberList.add(nextFactor.toString());
+          sellerNameList.add(widget.seller_name);
         }
-        nextTexts.add(totalSum.toString());
-        nextTexts.add(currentTime.format(context).toString());
-        nextTexts.add(DateFormat("d,MM,yyy").format(DateTime.now()).toString());
-        String dayOfWeekInPersian = getDayNameInPersian(DateTime.now().weekday);
-        nextTexts.add(dayOfWeekInPersian);
-
-        String customerName = widget.name_customer.text;
-        nextTexts.add(customerName);
-
-        // Factor number
-        nextTexts.add(nextFactor.toString());
-        nextTexts.add(widget.seller_name);
-        shareddb.itemList.add(List.from(nextTexts));
-        print('Save: New data for factor $nextFactor saved: $nextTexts');
       }
+
+      List<List<String>> allDataForFactor = [
+        barcodeList,
+        quantityList,
+        productNameList,
+        totalList,
+        timeList,
+        dateList,
+        dayOfWeekList,
+        customerNameList,
+        factorNumberList,
+        sellerNameList,
+      ];
+
+      // Add the accumulated values to the itemList
+      shareddb.itemList.addAll(allDataForFactor);
 
       setState(() {
         numberFactor = nextFactor;
       });
     });
+
     saveList(); // Save the list and numberFactor
+  }
+
+  Future<void> saveList() async {
+    await SharedPreferencesHelper.saveList(shareddb.itemList);
+    await SharedPreferencesHelper.saveNumberFactor(_numberFactor);
+  }
+
+  Future<void> loadList() async {
+    List<List<String>> loadedList = await SharedPreferencesHelper.getList();
+
+    int loadedFactor = await SharedPreferencesHelper.loadNumberFactor();
+
+    setState(() {
+      shareddb.itemList = loadedList;
+      numberFactor = loadedFactor;
+      ; // بازیابی numberFactor
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    print('AllInOne contents: ${dbfactor.allInOne}');
     String dayNameInPersian = getDayNameInPersian(dayOfWeek);
 
     return SingleChildScrollView(
@@ -310,6 +334,13 @@ class _YourWidgetState extends State<YourWidget> {
             padding: const EdgeInsets.all(8.0),
             child: Column(
               children: [
+                MaterialButton(
+                    child: Text("dsafsdaf"),
+                    onPressed: () {
+                      setState(() {
+                        shareddb.clearList();
+                      });
+                    }),
                 for (int row = 0; row < _controllersList.length; row++)
                   Padding(
                     padding: const EdgeInsets.only(bottom: 8),
@@ -406,7 +437,7 @@ class _YourWidgetState extends State<YourWidget> {
                   onPressed: () {
                     setState(() {
                       addtoItems();
-                      addtosaveFactor();
+                      // addtosaveFactor();
                     });
                   },
                   child: Text("دخیره کردن "),

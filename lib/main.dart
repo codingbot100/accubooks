@@ -13,6 +13,7 @@ main() async {
   var factoeBox = await Hive.openBox('storeFactor');
   var yourBox = await Hive.openBox("yourBox");
   var dropbox = await Hive.openBox("dropDatabase");
+  var saveFactor = await Hive.openBox("drop");
   runApp(MyApp());
 }
 

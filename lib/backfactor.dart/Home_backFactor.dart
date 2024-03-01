@@ -168,7 +168,7 @@ class _home_backFactorState extends State<home_backFactor> {
                     barcode: counter,
                     siglePrice: db.itemList[index][6],
                     numbersOfGoods: db.itemList[index][3],
-                    seller_name: db.itemList[index][10])));
+                    seller_name: db.itemList[index][9])));
 
         // print(db.itemList[index][7]);
 
