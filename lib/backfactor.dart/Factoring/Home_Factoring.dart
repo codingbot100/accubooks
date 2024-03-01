@@ -3,7 +3,9 @@
 import 'package:accubooks/Factoring/TextFieldRow.dart';
 import 'package:accubooks/Factoring/secondRow.dart';
 import 'package:accubooks/employees/data/database.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class back_Home_Factoring extends StatefulWidget {
@@ -15,6 +17,9 @@ class back_Home_Factoring extends StatefulWidget {
   final String customer_name;
   final String barcode;
   final String seller_name;
+  final String Product;
+  final String Price;
+  final List itemList;
   // final Function callbackFunction;
 
   back_Home_Factoring(
@@ -26,7 +31,10 @@ class back_Home_Factoring extends StatefulWidget {
       required this.barcode,
       required this.time,
       required this.numbersOfGoods,
-      required this.seller_name})
+      required this.seller_name,
+      required this.Product,
+      required this.Price,
+      required this.itemList})
       : super(key: key);
 
   @override
@@ -87,6 +95,28 @@ class _back_Home_FactoringState extends State<back_Home_Factoring>
   @override
   Widget build(BuildContext context) {
     String dayNameInPersian = getDayNameInPersian(dayOfWeek);
+    List<String> numberofGoods = widget.numbersOfGoods
+        .replaceAll('[', '')
+        .replaceAll(']', '')
+        .split(', ')
+        .where((item) => item.isNotEmpty)
+        .toList();
+    List<String> productItems = widget.Product.replaceAll('[', '')
+        .replaceAll(']', '')
+        .split(', ')
+        .where((item) => item.isNotEmpty)
+        .toList();
+    List<String> barcodeItem = widget.barcode
+        .replaceAll('[', '')
+        .replaceAll(']', '')
+        .split(', ')
+        .where((item) => item.isNotEmpty)
+        .toList();
+    List<String> price = widget.Price.replaceAll('[', '')
+        .replaceAll(']', '')
+        .split(', ')
+        .where((item) => item.isNotEmpty)
+        .toList();
 
     super.build(context);
     return Scaffold(
@@ -126,7 +156,7 @@ class _back_Home_FactoringState extends State<back_Home_Factoring>
                             top: 40,
                           ),
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Text(
                                 '${widget.time} ',
@@ -151,13 +181,10 @@ class _back_Home_FactoringState extends State<back_Home_Factoring>
                                   title(": تاریخ "),
                                 ],
                               ),
-                              SizedBox(
-                                width: 25,
-                              ),
                               title(" شماره فاکتور:  ${widget.numberFactor}"),
                               Row(
                                 mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                    MainAxisAlignment.spaceAround,
                                 children: [
                                   Text(
                                     widget.seller_name,
@@ -207,74 +234,46 @@ class _back_Home_FactoringState extends State<back_Home_Factoring>
                           thickness: 1,
                         ),
                         Expanded(
-                          child: ListView.builder(
-                              itemCount: 5,
-                              itemBuilder: ((context, index) {
-                                int counter = index + 1;
-                                return Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    Container(
-                                      width: 100,
-                                      child: Center(
-                                        child: Text(
-                                          textAlign: TextAlign.justify,
-                                          widget.barcode[index]
-                                              .replaceAll('[', '')
-                                              .replaceAll(']', ''),
-                                          style: TextStyle(
-                                            fontFamily: 'Yekan',
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w600,
-                                          ),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                  child: ListView.builder(
+                                itemCount: productItems.length,
+                                itemBuilder: (context, index) {
+                                  int counter = index + 1;
+
+                                  return Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 10, bottom: 8),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Directionality(
+                                            textDirection: TextDirection.ltr,
+                                            child: listFactor(
+                                                "افغانی" "  " + price[index])),
+                                        listFactor(
+                                          price[index],
                                         ),
-                                      ),
-                                    ),
-                                    Container(
-                                      width: 100,
-                                      child: Center(
-                                        child: Text(
-                                          textAlign: TextAlign.justify,
-                                          '$counter',
-                                          style: TextStyle(
-                                            fontFamily: 'Yekan',
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w600,
-                                          ),
+                                        listFactor(
+                                          numberofGoods[index],
                                         ),
-                                      ),
+                                        listFactor(
+                                          productItems[index],
+                                        ),
+                                        listFactor(
+                                          barcodeItem[index],
+                                        ),
+                                        listFactor('$counter')
+                                      ],
                                     ),
-                                  ],
-                                );
-                              })),
+                                  );
+                                },
+                              )),
+                            ],
+                          ),
                         )
-                        // Expanded(
-                        //   child: SingleChildScrollView(
-                        //     child: TextFieldRow(
-                        //       numberofGoods: widget.numbersOfGoods,
-                        //       onStateReady: (state) {
-                        //         youWidgetState = state as YourWidget;
-                        //       },
-                        //       onChangedfactor: (factor) async {
-                        //         setState(() {
-                        //           counterfactor = factor;
-                        //         });
-                        //       },
-                        //       onSavePressed: () {},
-                        //       onIntegerChanged: (totalSum) async {
-                        //         setState(() {
-                        //           totalSumNew = totalSum;
-                        //         });
-                        //       },
-                        //       numberFactor: numberFactor,
-                        //       barcode: widget.barcode,
-                        //       TodayDate: widget.TodayDate,
-                        //       day: widget.day,
-                        //       customer_name: widget.customer_name,
-                        //       name_customer: widget.customer_name,
-                        //     ),
-                        //   ),
-                        // )
                       ],
                     ),
                   ),
@@ -292,9 +291,7 @@ class _back_Home_FactoringState extends State<back_Home_Factoring>
                             borderRadius: BorderRadius.circular(6.5)),
                         child: MaterialButton(
                             onPressed: () {
-                              setState(() {
-                                // callme()
-                              });
+                              setState(() {});
                             },
                             child: Text(
                               "  ذخیره کردن ",
@@ -499,6 +496,26 @@ class _back_Home_FactoringState extends State<back_Home_Factoring>
       default:
         return '';
     }
+  }
+
+  Widget listFactor(String list) {
+    return Container(
+      height: 30,
+      width: 180,
+      decoration: BoxDecoration(
+        border: Border.all(width: 0.8, color: Color.fromARGB(255, 86, 85, 85)),
+        borderRadius: BorderRadius.circular(3.0),
+      ),
+      child: Center(
+          child: Text(
+        list,
+        style: TextStyle(
+          fontFamily: 'Yekan',
+          fontSize: 17,
+          fontWeight: FontWeight.w900,
+        ),
+      )),
+    );
   }
 
   Widget title(String title) {

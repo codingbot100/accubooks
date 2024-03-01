@@ -246,74 +246,76 @@ class _YourWidgetState extends State<YourWidget> {
   }
 
   void addtoItems() {
-  setState(() {
-    List<String> barcodeList = [];
-    List<String> quantityList = [];
-    List<String> timeList = [];
-    List<String> dateList = [];
-    List<String> dayOfWeekList = [];
-    List<String> customerNameList = [];
-    List<String> factorNumberList = [];
-    List<String> sellerNameList = [];
-    List<String> customer_name = [];
-    List<String> singlePrice = [];
-
-
-
-    int nextFactor = _numberFactor + 1;
-
-    for (int i = 0; i < _controllersList.length; i++) {
-      List<TextEditingController> controllers = _controllersList[i];
-      String barcode = controllers[1].text;
-      String quantity = controllers[3].text;
-      String customer_NameList = controllers[2].text;
-
-      barcodeList.add(barcode);
-      quantityList.add(quantity);
-      
-      bool combinationExists =
-          customer_name.any((element) => e == )
-          timeList.any((e) => e == currentTime.format(context).toString()) &&
-          dateList.any((e) =>
-              e == DateFormat("d,MM,yyy").format(DateTime.now()).toString()) &&
-          dayOfWeekList.any((e) =>
-              e == getDayNameInPersian(DateTime.now().weekday)) &&
-          customerNameList.any((e) => e == widget.name_customer.text) &&
-          factorNumberList.any((e) => e == nextFactor.toString()) &&
-          sellerNameList.any((e) => e == widget.seller_name );
-          
-
-      if (!combinationExists) {
-        timeList.add(currentTime.format(context).toString());
-        dateList.add(DateFormat("d,MM,yyy").format(DateTime.now()).toString());
-        dayOfWeekList.add(getDayNameInPersian(DateTime.now().weekday));
-        customerNameList.add(widget.name_customer.text);
-        factorNumberList.add(nextFactor.toString());
-        sellerNameList.add(widget.seller_name);
-      }
-    }
-
-    List<String> singleData = [
-      barcodeList.toString(),
-      quantityList.toString(),
-      timeList.toString(),
-      dateList.toString(),
-      dayOfWeekList.toString(),
-      customerNameList.toString(),
-      factorNumberList.toString(),
-      sellerNameList.toString(),
-    ];
-
-    shareddb.itemList.add(singleData);
-
     setState(() {
-      numberFactor = nextFactor;
+      List<String> barcodeList = [];
+      List<String> quantityList = [];
+      List<String> timeList = [];
+      List<String> dateList = [];
+      List<String> dayOfWeekList = [];
+      List<String> customerNameList = [];
+      List<String> factorNumberList = [];
+      List<String> sellerNameList = [];
+      List<String> priceList = [];
+      List<String> ProductList = [];
+      int nextFactor = _numberFactor + 1;
+
+      for (int i = 0; i < _controllersList.length; i++) {
+        List<TextEditingController> controllers = _controllersList[i];
+        String price = controllers[0].text;
+        String barcode = controllers[1].text;
+        String quantity = controllers[3].text;
+        String producet = controllers[2].text;
+
+        barcodeList.add(barcode);
+        quantityList.add(quantity);
+        priceList.add(price);
+        ProductList.add(producet);
+        bool combinationExists = timeList
+                .any((e) => e == currentTime.format(context).toString()) &&
+            dateList.any((e) =>
+                e ==
+                DateFormat("d,MM,yyy").format(DateTime.now()).toString()) &&
+            dayOfWeekList
+                .any((e) => e == getDayNameInPersian(DateTime.now().weekday)) &&
+            customerNameList.any((e) => e == widget.name_customer.text) &&
+            factorNumberList.any((e) => e == nextFactor.toString()) &&
+            sellerNameList.any((e) => e == widget.seller_name);
+        ProductList.any((e) => e == producet);
+
+        if (!combinationExists) {
+          timeList.add(currentTime.format(context).toString());
+          dateList
+              .add(DateFormat("d,MM,yyy").format(DateTime.now()).toString());
+          dayOfWeekList.add(getDayNameInPersian(DateTime.now().weekday));
+          customerNameList.add(widget.name_customer.text);
+          factorNumberList.add(nextFactor.toString());
+          sellerNameList.add(widget.seller_name);
+          // ProductList.add(producet);
+        }
+      }
+
+      List<String> singleData = [
+        barcodeList.toString(),
+        quantityList.toString(),
+        timeList.toString(),
+        dateList.toString(),
+        dayOfWeekList.toString(),
+        customerNameList.toString(),
+        factorNumberList.toString(),
+        sellerNameList.toString(),
+        priceList.toString(),
+        ProductList.toString(),
+      ];
+
+      shareddb.itemList.add(singleData);
+
+      setState(() {
+        numberFactor = nextFactor;
+      });
     });
-  });
 
-  saveList(); // Save the list and numberFactor
-}
-
+    saveList(); // Save the list and numberFactor
+  }
 
   Future<void> saveList() async {
     await SharedPreferencesHelper.saveList(shareddb.itemList);
@@ -343,13 +345,13 @@ class _YourWidgetState extends State<YourWidget> {
             padding: const EdgeInsets.all(8.0),
             child: Column(
               children: [
-                MaterialButton(
-                    child: Text("dsafsdaf"),
-                    onPressed: () {
-                      setState(() {
-                        shareddb.clearList();
-                      });
-                    }),
+                // MaterialButton(
+                //     child: Text("dsafsdaf"),
+                //     onPressed: () {
+                //       setState(() {
+                //         shareddb.clearList();
+                //       });
+                //     }),
                 for (int row = 0; row < _controllersList.length; row++)
                   Padding(
                     padding: const EdgeInsets.only(bottom: 8),

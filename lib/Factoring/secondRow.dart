@@ -14,7 +14,7 @@ class _Second_RowState extends State<Second_Row> {
     "تعداد کالا",
     "نام کالا",
     "نمبر بارکد",
-    "کالا شماره"
+    "کالای شماره"
   ];
   @override
   Widget build(BuildContext context) {

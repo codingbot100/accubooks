@@ -79,7 +79,6 @@ class _Home_FactoringState extends State<Home_Factoring>
 
     super.build(context);
     return Scaffold(
-      
       body: Padding(
         padding:
             const EdgeInsets.only(left: 20, right: 20, top: 30, bottom: 30),
@@ -116,7 +115,7 @@ class _Home_FactoringState extends State<Home_Factoring>
                           top: 40,
                         ),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             Text(
                               '${currentTime.format(context)} ',
@@ -143,14 +142,12 @@ class _Home_FactoringState extends State<Home_Factoring>
                                 title(": تاریخ امروز"),
                               ],
                             ),
-                            SizedBox(
-                              width: 25,
-                            ),
                             title(" شماره فاکتور:  $counterfactor"),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 DropdownButton<int>(
+                                  hint: Text('نام خود '),
                                   value: selectedIndexDropDown,
                                   items:
                                       List.generate(dataList.length, (index) {
@@ -269,9 +266,7 @@ class _Home_FactoringState extends State<Home_Factoring>
                           borderRadius: BorderRadius.circular(6.5)),
                       child: MaterialButton(
                           onPressed: () {
-                            setState(() {
-                              // callme()
-                            });
+                            setState(() {});
                           },
                           child: Text(
                             "  ذخیره کردن ",

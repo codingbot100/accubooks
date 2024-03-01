@@ -146,6 +146,7 @@ class _saved_home_factor12State extends State<saved_home_factor12> {
                                             MaterialPageRoute(
                                                 builder: (context) =>
                                                     back_Home_Factoring(
+                                                      itemList: itemList,
                                                       time: itemList[index][2]
                                                           .replaceAll('[', '')
                                                           .replaceAll(']', ''),
@@ -173,6 +174,9 @@ class _saved_home_factor12State extends State<saved_home_factor12> {
                                                               index][7]
                                                           .replaceAll('[', '')
                                                           .replaceAll(']', ''),
+                                                      Product: itemList[index]
+                                                          [9],
+                                                      Price: itemList[index][8],
                                                     )));
                                       });
                                     },
@@ -207,6 +211,7 @@ class _saved_home_factor12State extends State<saved_home_factor12> {
                                               //روز 4
                                               //فروشنده 7
                                               // خریدار 5
+                                              // قیمت فی 0
                                               itemList[index][5]
                                                   .replaceAll('[', '')
                                                   .replaceAll(']', ''),
