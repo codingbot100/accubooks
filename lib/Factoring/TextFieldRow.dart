@@ -249,8 +249,6 @@ class _YourWidgetState extends State<YourWidget> {
     setState(() {
       List<String> barcodeList = [];
       List<String> quantityList = [];
-      List<String> productNameList = [];
-      List<String> totalList = [];
       List<String> timeList = [];
       List<String> dateList = [];
       List<String> dayOfWeekList = [];
@@ -262,16 +260,27 @@ class _YourWidgetState extends State<YourWidget> {
 
       for (int i = 0; i < _controllersList.length; i++) {
         List<TextEditingController> controllers = _controllersList[i];
-
         String barcode = controllers[1].text;
         String quantity = controllers[3].text;
-        String productName = controllers[3]
-            .text; // Assuming productName should not be duplicated for the same factor
 
-        if (!barcodeList.contains(barcode)) {
-          barcodeList.add(barcode);
-          quantityList.add(quantity);
-          productNameList.add(productName);
+        // Update barcodeList and quantityList for each new value
+        barcodeList.add(barcode);
+        quantityList.add(quantity);
+
+        // Check if the combination of fields excluding barcode and quantity already exists
+        bool combinationExists = timeList
+                .any((e) => e == currentTime.format(context).toString()) &&
+            dateList.any((e) =>
+                e ==
+                DateFormat("d,MM,yyy").format(DateTime.now()).toString()) &&
+            dayOfWeekList
+                .any((e) => e == getDayNameInPersian(DateTime.now().weekday)) &&
+            customerNameList.any((e) => e == widget.name_customer.text) &&
+            factorNumberList.any((e) => e == nextFactor.toString()) &&
+            sellerNameList.any((e) => e == widget.seller_name);
+
+        if (!combinationExists) {
+          // Add the rest of the values only if the combination does not exist
           timeList.add(currentTime.format(context).toString());
           dateList
               .add(DateFormat("d,MM,yyy").format(DateTime.now()).toString());
@@ -285,8 +294,6 @@ class _YourWidgetState extends State<YourWidget> {
       List<List<String>> allDataForFactor = [
         barcodeList,
         quantityList,
-        productNameList,
-        totalList,
         timeList,
         dateList,
         dayOfWeekList,
