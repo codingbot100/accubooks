@@ -468,6 +468,7 @@ class _back_Home_FactoringState extends State<back_Home_Factoring>
             ),
           ),
         ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
         floatingActionButton: FloatingActionButton(
             onPressed: () {
               setState(() {
