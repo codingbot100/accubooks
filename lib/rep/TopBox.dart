@@ -13,8 +13,6 @@ class TopBox extends StatefulWidget {
 int num = 4;
 
 class _TopBoxState extends State<TopBox> {
-  
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -33,54 +31,57 @@ class _TopBoxState extends State<TopBox> {
   }
 
   Widget Topbox(String PartName, var IconName, var income) {
-    return Container(
-      width: 170,
-      height: 200,
-      decoration: BoxDecoration(
-          border: Border.all(),
-          color: Color.fromARGB(255, 255, 255, 255),
-          borderRadius: BorderRadius.circular(15.0)),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Icon(
-            IconName,
-            size: 50,
-          ),
-          Center(
-            child: Text(
-              PartName,
-              style: TextStyle(
-                  fontFamily: 'Yekan',
-                  color: Colors.black,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold),
+    return Padding(
+      padding: const EdgeInsets.all(15.0),
+      child: Container(
+        width: 170,
+        height: 200,
+        decoration: BoxDecoration(
+            border: Border.all(),
+            color: Color.fromARGB(255, 255, 255, 255),
+            borderRadius: BorderRadius.circular(15.0)),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Icon(
+              IconName,
+              size: 50,
             ),
-          ),
-          Center(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "افغانی ",
-                  style: TextStyle(
-                      fontFamily: 'Yekan',
-                      color: Colors.black,
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold),
-                ),
-                Text(
-                  "$income",
-                  style: TextStyle(
-                      fontFamily: 'Yekan',
-                      color: Colors.black,
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold),
-                ),
-              ],
+            Center(
+              child: Text(
+                PartName,
+                style: TextStyle(
+                    fontFamily: 'Yekan',
+                    color: Colors.black,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold),
+              ),
             ),
-          )
-        ],
+            Center(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "افغانی ",
+                    style: TextStyle(
+                        fontFamily: 'Yekan',
+                        color: Colors.black,
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    "$income",
+                    style: TextStyle(
+                        fontFamily: 'Yekan',
+                        color: Colors.black,
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

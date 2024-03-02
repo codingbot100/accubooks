@@ -4,7 +4,6 @@ import 'package:accubooks/Factoring/Home_Factoring.dart';
 import 'package:accubooks/Factoring/data/database.dart';
 import 'package:accubooks/Factoring/data/saveFactorData.dart';
 import 'package:accubooks/Factoring/data/sharedDatabase.dart';
-import 'package:accubooks/Factoring/factorData.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
@@ -22,6 +21,7 @@ class YourWidget extends StatefulWidget {
   var name_customer;
   final String seller_name;
   int factor = 1;
+  final VoidCallback? onAddToItem;
 
   YourWidget(
       {Key? key,
@@ -31,8 +31,15 @@ class YourWidget extends StatefulWidget {
       required this.onChangedfactor,
       required this.onStateReady,
       required this.name_customer,
-      required this.seller_name})
+      required this.seller_name,
+      this.onAddToItem})
       : super(key: key);
+
+  void callAddToItems() {
+    _YourWidgetState state = _YourWidgetState();
+    state.addtoItems();
+  }
+
   @override
   _YourWidgetState createState() => _YourWidgetState();
 }
@@ -161,18 +168,23 @@ class _YourWidgetState extends State<YourWidget> {
 
     if (!mounted) return;
     setState(() {
-      barcodeResult = result ?? "Scan failed!";
+      barcodeResult = result;
     });
   }
 
   @override
   void initState() {
+    super.initState();
+
+    // Perform any asynchronous operations directly or use Future.delayed
+    // For example, loading data from the database
     loadList();
     if (_yourBox.get("TODOFacto") == null) {
       dbfactor.createinitialData();
     } else {
       dbfactor.loadData();
     }
+
     // Load data from the database when the widget initializes
     database.loadData();
 
@@ -189,60 +201,23 @@ class _YourWidgetState extends State<YourWidget> {
         }
       }
 
+      // Calculate total initially
       setState(() {
         _controllersList[0][1].text = '1';
-      }); // Calculate total initially
-      calculateTotal(0);
+        calculateTotal(0);
+      });
 
       // Initialize a new row
       setState(() {
         searchItem(0); // Pass the index of the initial row
       });
     }
+
     for (int i = 1; i < _controllersList.length; i++) {
       _barcodeFocusNodes.add(FocusNode());
     }
 
-    // loadList();
-    super.initState();
     name_cos = widget.name_customer.toString();
-  }
-
-  void addtosaveFactor() async {
-    setState(() {
-      List Barcodes = [];
-      String dayOfWeekInPersian = getDayNameInPersian(DateTime.now().weekday);
-      String customerName = widget.name_customer.text;
-      List number_S_GOOD = [];
-
-      Map<String, dynamic> itemsOfFacor = {
-        "name_of_customer": customerName,
-        "name_of_seller": widget.seller_name,
-        "facotor_id": _numberFactor,
-        "date": DateFormat("d,MM,yyy").format(DateTime.now()).toString(),
-        "day": dayOfWeekInPersian,
-        "time": currentTime.format(context).toString(),
-        "barcodes": Barcodes,
-      };
-
-      // Check if a factor with the same number exists in the list
-      int existingFactorIndex = -1;
-      for (int i = 0; i < saveFactor.factorAll.length; i++) {
-        if (saveFactor.factorAll[i]["facotor_id"] == _numberFactor) {
-          existingFactorIndex = i;
-          break;
-        }
-      }
-
-      if (existingFactorIndex != -1) {
-        // Factor with the same number exists, update it
-        saveFactor.factorAll[existingFactorIndex] = itemsOfFacor;
-      } else {
-        // Factor with the same number does not exist, add a new one
-        saveFactor.factorAll.add(itemsOfFacor);
-        saveFactor.updateDatabase();
-      }
-    });
   }
 
   void addtoItems() {
@@ -315,6 +290,7 @@ class _YourWidgetState extends State<YourWidget> {
     });
 
     saveList(); // Save the list and numberFactor
+    print("called successfully");
   }
 
   Future<void> saveList() async {
@@ -336,129 +312,158 @@ class _YourWidgetState extends State<YourWidget> {
 
   @override
   Widget build(BuildContext context) {
-    String dayNameInPersian = getDayNameInPersian(dayOfWeek);
-
-    return SingleChildScrollView(
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
       child: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: [
-                // MaterialButton(
-                //     child: Text("dsafsdaf"),
-                //     onPressed: () {
-                //       setState(() {
-                //         shareddb.clearList();
-                //       });
-                //     }),
-                for (int row = 0; row < _controllersList.length; row++)
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 8),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Container(
-                          height: 30,
-                          width: 180,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                                width: 0.8,
-                                color: Color.fromARGB(255, 86, 85, 85)),
-                            borderRadius: BorderRadius.circular(3.0),
-                          ),
-                          child: Center(
-                              child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "افغانی ",
-                                style: TextStyle(
-                                  fontFamily: 'Yekan',
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.w900,
-                                ),
-                              ),
-                              Text(
-                                " ${totals[row]}",
-                                style: TextStyle(
-                                  fontFamily: "Yekan",
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.w900,
-                                ),
-                              ),
-                            ],
-                          )),
-                        ),
-                        for (int i = 0; i < _controllersList[row].length; i++)
-                          Container(
-                            height: 33,
-                            width: 180,
-                            child: TextField(
-                              style: TextStyle(
-                                fontFamily: 'Yekan',
-                                fontSize: 17,
-                                fontWeight: FontWeight.w900,
-                              ),
-                              controller: _controllersList[row][i],
-                              onChanged: (value) {
-                                searchItem(
-                                    row); // Pass the index of the current row
-                                calculateTotal(row);
-
-                                addNewRowIfNeeded();
-                                barcodeResult = _controllersList[row][i].text;
-                                setState(() {
-                                  onChangedController3(row, i);
-                                });
-                              },
-                              autofocus: i == 3,
-                              cursorHeight: 0,
-                              textAlignVertical: TextAlignVertical.top,
-                              textAlign: TextAlign.center,
-                              decoration: InputDecoration(
-                                  border: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          width: 0.8, color: Colors.grey))),
-                            ),
-                          ),
-                        Container(
-                          height: 30,
-                          width: 180,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                                width: 0.8,
-                                color: Color.fromARGB(255, 86, 85, 85)),
-                            borderRadius: BorderRadius.circular(3.0),
-                          ),
-                          child: Center(
-                              child: Text(
-                            '${rowNumbers[row]}',
-                            style: TextStyle(
-                              fontFamily: 'Yekan',
-                              fontSize: 17,
-                              fontWeight: FontWeight.w900,
-                            ),
-                          )),
-                        )
-                      ],
+          // MaterialButton(
+          //     child: Text("dsafsdaf"),
+          //     onPressed: () {
+          //       setState(() {
+          //         shareddb.clearList();
+          //       });
+          //     }),
+          for (int row = 0; row < _controllersList.length; row++)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Container(
+                    height: 30,
+                    width: 180,
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                          width: 0.8, color: Color.fromARGB(255, 86, 85, 85)),
+                      borderRadius: BorderRadius.circular(3.0),
                     ),
+                    child: Center(
+                        child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "افغانی ",
+                          style: TextStyle(
+                            fontFamily: 'Yekan',
+                            fontSize: 17,
+                            fontWeight: FontWeight.w900,
+                          ),
+                        ),
+                        Text(
+                          " ${totals[row]}",
+                          style: TextStyle(
+                            fontFamily: "Yekan",
+                            fontSize: 17,
+                            fontWeight: FontWeight.w900,
+                          ),
+                        ),
+                      ],
+                    )),
                   ),
-                MaterialButton(
-                  onPressed: () {
-                    setState(() {
-                      addtoItems();
-                      // addtosaveFactor();
-                    });
-                  },
-                  child: Text("دخیره کردن "),
+                  for (int i = 0; i < _controllersList[row].length; i++)
+                    Container(
+                      height: 33,
+                      width: 180,
+                      child: TextField(
+                        style: TextStyle(
+                          fontFamily: 'Yekan',
+                          fontSize: 17,
+                          fontWeight: FontWeight.w900,
+                        ),
+                        controller: _controllersList[row][i],
+                        onChanged: (value) {
+                          searchItem(row); // Pass the index of the current row
+                          calculateTotal(row);
+
+                          addNewRowIfNeeded();
+                          barcodeResult = _controllersList[row][i].text;
+                          setState(() {
+                            onChangedController3(row, i);
+                          });
+                        },
+                        autofocus: i == 3,
+                        cursorHeight: 0,
+                        textAlignVertical: TextAlignVertical.top,
+                        textAlign: TextAlign.center,
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    width: 0.8, color: Colors.grey))),
+                      ),
+                    ),
+                  Container(
+                    height: 30,
+                    width: 180,
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                          width: 0.8, color: Color.fromARGB(255, 86, 85, 85)),
+                      borderRadius: BorderRadius.circular(3.0),
+                    ),
+                    child: Center(
+                        child: Text(
+                      '${rowNumbers[row]}',
+                      style: TextStyle(
+                        fontFamily: 'Yekan',
+                        fontSize: 17,
+                        fontWeight: FontWeight.w900,
+                      ),
+                    )),
+                  )
+                ],
+              ),
+            ),
+          Padding(
+            padding: const EdgeInsets.only(top: 350),
+            child: Row(
+              children: [
+                Container(
+                  height: 30,
+                  width: 100,
+                  decoration: BoxDecoration(
+                      border: Border.all(width: 0.5),
+                      color: Color.fromRGBO(248, 249, 251, 1),
+                      borderRadius: BorderRadius.circular(6.5)),
+                  child: MaterialButton(
+                      onPressed: () {
+                        setState(() {
+                          addtoItems();
+                          widget.onAddToItem;
+                        });
+                      },
+                      child: Text(
+                        "  ذخیره کردن ",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 16,
+                            fontFamily: 'YekanBakh',
+                            fontWeight: FontWeight.w600),
+                      )),
                 ),
-                MaterialButton(
-                  onPressed: () {
-                    // shareddb.clearList();
-                    print(shareddb.itemList);
-                  },
-                  child: Text(" لغو "),
+                SizedBox(
+                  width: 30,
+                ),
+                Container(
+                  height: 30,
+                  width: 100,
+                  decoration: BoxDecoration(
+                      border: Border.all(width: 0.5),
+                      color: Color.fromRGBO(248, 249, 251, 1),
+                      borderRadius: BorderRadius.circular(6.5)),
+                  child: MaterialButton(
+                      onPressed: () {
+                        setState(() {
+                          addtoItems();
+                          widget.onAddToItem;
+                        });
+                      },
+                      child: Text(
+                        "  لغو فاکتور",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 16,
+                            fontFamily: 'YekanBakh',
+                            fontWeight: FontWeight.w600),
+                      )),
                 ),
               ],
             ),
@@ -494,31 +499,44 @@ class _YourWidgetState extends State<YourWidget> {
     }
   }
 
-  void _showDialog(BuildContext context) {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text("complete"),
-            titlePadding: EdgeInsets.only(left: 30),
-            actions: [
-              TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Text("لغو ذخیره ")),
-              TextButton(
-                  onPressed: () {
-                    _onSavePressed();
-                    Navigator.of(context).pop();
-
-                    setState(() {});
-                  },
-                  child: Text("دخیره کردن ")),
-            ],
-          );
-        });
+  void _showSnackBar(BuildContext context, String message,
+      [Color color = Colors.green]) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Center(
+          child: Text(message),
+        ),
+        backgroundColor: color,
+      ),
+    );
   }
+
+  // void _showDialog(BuildContext context) {
+  //   showDialog(
+  //       context: context,
+  //       builder: (BuildContext context) {
+  //         return AlertDialog(
+  //           title: Text("complete"),
+  //           titlePadding: EdgeInsets.only(left: 30),
+  //           actions: [
+  //             TextButton(
+  //                 onPressed: () {
+
+  //                   Navigator.of(context).pop();
+  //                 },
+  //                 child: Text("لغو ذخیره ")),
+  //             TextButton(
+  //                 onPressed: () {
+  //                   _onSavePressed();
+  //                   Navigator.of(context).pop();
+
+  //                   setState(() {});
+  //                 },
+  //                 child: Text("دخیره کردن ")),
+  //           ],
+  //         );
+  //       });
+  // }
 
   String getDayNameInPersian(int dayOfWeek) {
     switch (dayOfWeek) {

@@ -3,9 +3,7 @@
 import 'package:accubooks/Factoring/TextFieldRow.dart';
 import 'package:accubooks/Factoring/secondRow.dart';
 import 'package:accubooks/employees/data/database.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class back_Home_Factoring extends StatefulWidget {
@@ -94,7 +92,6 @@ class _back_Home_FactoringState extends State<back_Home_Factoring>
 
   @override
   Widget build(BuildContext context) {
-    String dayNameInPersian = getDayNameInPersian(dayOfWeek);
     List<String> numberofGoods = widget.numbersOfGoods
         .replaceAll('[', '')
         .replaceAll(']', '')

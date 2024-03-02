@@ -1,6 +1,5 @@
 // ignore_for_file: dead_code
 
-import 'package:accubooks/Factoring/data/sharedDatabase.dart';
 import 'package:accubooks/LostDateGoods/whouse2.dart/Ware_Home.dart';
 import 'package:accubooks/whouse2.dart/data/database.dart';
 import 'package:accubooks/whouse2.dart/titleRows.dart';
@@ -25,7 +24,6 @@ class _Home_PageState extends State<Home_Page> {
 // reference the hive box
   final _myBox = Hive.box('Mybox');
   ToDoDatabse2 db = ToDoDatabse2();
-  SharedPreferencesHelper _sharedPref = SharedPreferencesHelper();
   final controller = PageController(initialPage: 1);
   @override
   void initState() {

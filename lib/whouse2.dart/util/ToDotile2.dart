@@ -136,10 +136,9 @@ class _ToDotile2State extends State<ToDotile2> with TickerProviderStateMixin {
   }
 
   Widget title(String inText, double width) {
-    return Center(
-      child: Container(
-        alignment: Alignment.center,
-        width: width,
+    return Container(
+      width: width,
+      child: Center(
         child: Text(
           inText,
           style: TextStyle(

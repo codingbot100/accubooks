@@ -1,9 +1,7 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:accubooks/Factoring/secondRow.dart';
 import 'package:flutter/material.dart';
-
-// main() {
-//   runApp(page_detail());
-// }
 
 class page_detail extends StatefulWidget {
   final int numberFactor;

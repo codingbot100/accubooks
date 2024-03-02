@@ -8,13 +8,6 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
 
 class Home_Factoring extends StatefulWidget {
-  // final Function callbackFunction;
-
-  Home_Factoring({
-    Key? key,
-    // required this.callbackFunction
-  }) : super(key: key);
-
   @override
   State<Home_Factoring> createState() => _Home_FactoringState();
 }
@@ -51,8 +44,29 @@ class _Home_FactoringState extends State<Home_Factoring>
     } else {
       db2.loadData();
     }
-    loadData();
 
+    loadData();
+    youWidgetState = YourWidget(
+      home_factoring: widget, // Pass the reference to the parent widget
+      onIntegerChanged: (totalSum) {
+        setState(() {
+          totalSumNew = totalSum;
+        });
+      },
+      onSavePressed: () {
+        // Your onSavePressed logic here
+      },
+      onChangedfactor: (factor) async {
+        setState(() {
+          counterfactor = factor;
+        });
+      },
+      onStateReady: (state) {
+        youWidgetState = state as YourWidget;
+      },
+      name_customer: Name_customer,
+      seller_name: selectedName,
+    );
     super.initState();
   }
 
@@ -253,54 +267,54 @@ class _Home_FactoringState extends State<Home_Factoring>
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 20),
-                child: Row(
-                  children: [
-                    Container(
-                      height: 30,
-                      width: 100,
-                      decoration: BoxDecoration(
-                          border: Border.all(width: 0.5),
-                          color: Color.fromRGBO(248, 249, 251, 1),
-                          borderRadius: BorderRadius.circular(6.5)),
-                      child: MaterialButton(
-                          onPressed: () {
-                            setState(() {});
-                          },
-                          child: Text(
-                            "  ذخیره کردن ",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 16,
-                                fontFamily: 'YekanBakh',
-                                fontWeight: FontWeight.w600),
-                          )),
-                    ),
-                    SizedBox(
-                      width: 30,
-                    ),
-                    Container(
-                      height: 30,
-                      width: 100,
-                      decoration: BoxDecoration(
-                          border: Border.all(width: 0.5),
-                          color: Color.fromRGBO(248, 249, 251, 1),
-                          borderRadius: BorderRadius.circular(6.5)),
-                      child: MaterialButton(
-                          onPressed: () {},
-                          child: Text(
-                            " لغو  فاکتور  ",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 16,
-                                fontFamily: 'YekanBakh',
-                                fontWeight: FontWeight.w600),
-                          )),
-                    ),
-                  ],
-                ),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.only(left: 20),
+              //   child: Row(
+              //     children: [
+              //       Container(
+              //         height: 30,
+              //         width: 100,
+              //         decoration: BoxDecoration(
+              //             border: Border.all(width: 0.5),
+              //             color: Color.fromRGBO(248, 249, 251, 1),
+              //             borderRadius: BorderRadius.circular(6.5)),
+              //         child: MaterialButton(
+              //             onPressed: () {
+              //               youWidgetState.callAddToItems();
+              //             },
+              //             child: Text(
+              //               "  ذخیره کردن ",
+              //               style: TextStyle(
+              //                   color: Colors.black,
+              //                   fontSize: 16,
+              //                   fontFamily: 'YekanBakh',
+              //                   fontWeight: FontWeight.w600),
+              //             )),
+              //       ),
+              //       SizedBox(
+              //         width: 30,
+              //       ),
+              //       Container(
+              //         height: 30,
+              //         width: 100,
+              //         decoration: BoxDecoration(
+              //             border: Border.all(width: 0.5),
+              //             color: Color.fromRGBO(248, 249, 251, 1),
+              //             borderRadius: BorderRadius.circular(6.5)),
+              //         child: MaterialButton(
+              //             onPressed: () {},
+              //             child: Text(
+              //               " لغو  فاکتور  ",
+              //               style: TextStyle(
+              //                   color: Colors.black,
+              //                   fontSize: 16,
+              //                   fontFamily: 'YekanBakh',
+              //                   fontWeight: FontWeight.w600),
+              //             )),
+              //       ),
+              //     ],
+              //   ),
+              // ),
               Divider(),
               Padding(
                 padding: const EdgeInsets.only(left: 30, top: 10, bottom: 10),

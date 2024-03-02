@@ -38,7 +38,14 @@ class _Home_repState extends State<Home_rep> {
                 ),
               ),
               Column(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text("گزارشات روزانه "),
+                    ],
+                  ),
                   TopBox(),
                   Center(
                       child: Container(width: 800, height: 300, child: chart()))
