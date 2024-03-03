@@ -78,7 +78,7 @@ class _ToDotile2State extends State<ToDotile2> with TickerProviderStateMixin {
             onHover: (event) {
               setState(() {
                 Duration(milliseconds: 2500);
-                color = Color.fromRGBO(200, 200, 255, 0.575);
+                color = Color.fromRGBO(243, 243, 243, 1);
               });
             },
             onExit: (event) {
@@ -86,44 +86,43 @@ class _ToDotile2State extends State<ToDotile2> with TickerProviderStateMixin {
                 color = Colors.transparent;
               });
             },
-            child: GestureDetector(
-              child: Directionality(
-                textDirection: TextDirection.rtl,
-                child: Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(),
-                    child: Container(
-                      color: color,
-                      child: Row(
-                        children: [
-                          SizedBox(
-                            width: 33,
-                          ),
-                          title(widget.counter.toString(), 50),
-                          title(widget.Product_Name.toString(), 190),
-                          SizedBox(
-                            width: 17,
-                          ),
-                          title(widget.Number_of_goods.toString(), 50),
-                          SizedBox(
-                            width: 25,
-                          ),
-                          title(widget.Barcode_number.toString(), 170),
-                          SizedBox(
-                            width: 19,
-                          ),
-                          title(widget.Expiration_date.toString(), 90),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          title(widget.part.toString(), 170),
-                          title(widget.provisions.toString(), 100),
-                          SizedBox(
-                            width: 90,
-                          ),
-                          title(widget.price.toString(), 70),
-                        ],
-                      ),
+            child: Directionality(
+              textDirection: TextDirection.rtl,
+              child: Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.only(),
+                  child: Container(
+                    color: color,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        // SizedBox(
+                        //   width: 33,
+                        // ),
+                        title(widget.counter.toString(), 50),
+                        title(widget.Product_Name.toString(), 190),
+                        // SizedBox(
+                        //   width: 17,
+                        // ),
+                        title(widget.Number_of_goods.toString(), 50),
+                        // SizedBox(
+                        //   width: 25,
+                        // ),
+                        title(widget.Barcode_number.toString(), 170),
+                        // SizedBox(
+                        //   width: 19,
+                        // ),
+                        title(widget.Expiration_date.toString(), 90),
+                        // SizedBox(
+                        //   width: 10,
+                        // ),
+                        title(widget.part.toString(), 170),
+                        title(widget.provisions.toString(), 100),
+                        // SizedBox(
+                        //   width: 90,
+                        // ),
+                        title(widget.price.toString(), 70),
+                      ],
                     ),
                   ),
                 ),

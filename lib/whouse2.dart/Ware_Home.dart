@@ -130,215 +130,211 @@ class _Home_PageState extends State<Home_Page> {
     return Container(
       decoration: BoxDecoration(),
       child: Scaffold(
-          body: Padding(
-        padding:
-            const EdgeInsets.only(right: 80, left: 80, top: 40, bottom: 50),
-        child: Center(
-          child: Container(
-            decoration: BoxDecoration(
-                color: Color.fromRGBO(248, 248, 251, 1),
-                borderRadius: BorderRadius.circular(10.0)),
-            width: double.infinity,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 25, bottom: 25),
-                  child: Directionality(
-                    textDirection: TextDirection.rtl,
-                    child: Container(
-                      child: ListTile(
-                        title: Text("لیست اجناس ",
-                            style: TextStyle(
-                                fontSize: 30,
-                                fontWeight: FontWeight.w900,
-                                fontFamily: 'YekanBakh')),
-                        trailing: FaIcon(
-                          FontAwesomeIcons.cubes,
-                          size: 60,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                      right: 20, left: 20, top: 20, bottom: 20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      // Container(
-                      //   height: 30,
-                      //   decoration: BoxDecoration(
-                      //       border: Border.all(width: 0.5),
-                      //       color: Color.fromRGBO(248, 249, 251, 1),
-                      //       borderRadius: BorderRadius.circular(6.5)),
-                      //   child: MaterialButton(
-                      //       onPressed: () {
-                      //         setState(() {
-                      //           db.clearAllData();
-                      //           db.updateDatabase();
-                      //           _controllers.cast();
-                      //         });
-                      //       },
-                      //       child: Text(
-                      //         "پاک کردن کل لیست",
-                      //         style: TextStyle(
-                      //             color: Colors.black,
-                      //             fontSize: 16,
-                      //             fontFamily: 'YekanBakh',
-                      //             fontWeight: FontWeight.w600),
-                      //       )),
-                      // ),
-                      Container(
-                        height: 30,
-                        decoration: BoxDecoration(
-                            border: Border.all(width: 0.5),
-                            color: Color.fromRGBO(248, 249, 251, 1),
-                            borderRadius: BorderRadius.circular(6.5)),
-                        child: MaterialButton(
-                            onPressed: () => createNewTask(),
-                            child: Text(
-                              "+" " کالا جدید",
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 16,
-                                  fontFamily: 'YekanBakh',
-                                  fontWeight: FontWeight.w600),
-                            )),
-                      ),
-                      Container(
-                          width: 250,
-                          height: 35,
-                          child: Directionality(
-                              textDirection: TextDirection.rtl,
-                              child: TextField(
-                                  controller: _searchController,
-                                  cursorHeight: 20,
-                                  textAlign: TextAlign.right,
-                                  textAlignVertical: TextAlignVertical.bottom,
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontFamily: 'YekanBakh',
-                                      fontWeight: FontWeight.w800),
-                                  decoration: InputDecoration(
-                                      suffixIcon: Icon(Icons.search),
-                                      hintText: 'جستجوی کالا...',
-                                      hintStyle: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 15,
-                                          fontFamily: 'YekanBakh'),
-                                      border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(10.0))),
-                                  onChanged: (value) {
-                                    setState(() {
-                                      filteredList = db.allInOne
-                                          .where((task) =>
-                                              task[0].toLowerCase().contains(
-                                                  value.toLowerCase()) ||
-                                              task[4].toLowerCase().contains(
-                                                  value.toLowerCase()) ||
-                                              task[3].toLowerCase().contains(
-                                                  value.toLowerCase()))
-                                          .toList();
-                                    });
-                                  }))),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                Expanded(
+          body: Center(
+        child: Container(
+          decoration: BoxDecoration(
+              color: Color.fromRGBO(255, 255, 255, 1),
+              borderRadius: BorderRadius.circular(10.0)),
+          width: double.infinity,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 25, bottom: 25),
+                child: Directionality(
+                  textDirection: TextDirection.rtl,
                   child: Container(
-                    width: double.infinity,
-                    child: Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                          top: 10,
-                        ),
-                        child: Column(
-                          children: [
-                            titleRows(),
-                            Divider(
-                              thickness: 1,
-                              color: Colors.blueAccent,
-                            ),
-                            Expanded(
-                              child: Container(
-                                height: double.infinity,
-                                child: ListView.separated(
-                                  separatorBuilder: (context, index) {
-                                    return Divider(
-                                      thickness: 1,
-                                    );
-                                  },
-                                  itemCount: filteredList.length,
-                                  itemBuilder: ((context, index) {
-                                    int counter = index + 1;
-                                    return Container(
-                                      key: ValueKey<String>(
-                                          filteredList[index][0]), // Add a key
-                                      child: GestureDetector(
-                                        onTap: () => updateTask(index),
-                                        child: Directionality(
-                                          textDirection: TextDirection.rtl,
-                                          child: ToDotile2(
-                                            counter: counter,
-                                            Product_Name: filteredList[index]
-                                                [0],
-                                            Number_of_goods: _parseInt(
-                                                db.allInOne[index][1]),
-                                            Barcode_number: _parseInt(
-                                                db.allInOne[index][2]),
-                                            Expiration_date: filteredList[index]
-                                                [3],
-                                            part: filteredList[index][4],
-                                            provisions: _parseDouble(
-                                                db.allInOne[index][5]),
-                                            price: _parseDouble(
-                                                db.allInOne[index][6]),
-                                            deleteFunction: (context) =>
-                                                deleteTask(index),
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                                  }),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
+                    child: ListTile(
+                      title: Text("لیست اجناس ",
+                          style: TextStyle(
+                              fontSize: 30,
+                              fontWeight: FontWeight.w900,
+                              fontFamily: 'YekanBakh')),
+                      trailing: FaIcon(
+                        FontAwesomeIcons.cubes,
+                        size: 60,
                       ),
                     ),
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                    right: 20, left: 20, top: 20, bottom: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    // Container(
+                    //   height: 30,
+                    //   decoration: BoxDecoration(
+                    //       border: Border.all(width: 0.5),
+                    //       color: Color.fromRGBO(248, 249, 251, 1),
+                    //       borderRadius: BorderRadius.circular(6.5)),
+                    //   child: MaterialButton(
+                    //       onPressed: () {
+                    //         setState(() {
+                    //           db.clearAllData();
+                    //           db.updateDatabase();
+                    //           _controllers.cast();
+                    //         });
+                    //       },
+                    //       child: Text(
+                    //         "پاک کردن کل لیست",
+                    //         style: TextStyle(
+                    //             color: Colors.black,
+                    //             fontSize: 16,
+                    //             fontFamily: 'YekanBakh',
+                    //             fontWeight: FontWeight.w600),
+                    //       )),
+                    // ),
                     Container(
-                      width: 120,
-                      height: 40,
+                      height: 30,
                       decoration: BoxDecoration(
                           border: Border.all(width: 0.5),
                           color: Color.fromRGBO(248, 249, 251, 1),
                           borderRadius: BorderRadius.circular(6.5)),
                       child: MaterialButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => LostDateGoods()));
-                          },
-                          child: Text('اجناس کم تاریخ')),
+                          onPressed: () => createNewTask(),
+                          child: Text(
+                            "+" " کالا جدید",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 16,
+                                fontFamily: 'YekanBakh',
+                                fontWeight: FontWeight.w600),
+                          )),
                     ),
+                    Container(
+                        width: 250,
+                        height: 35,
+                        child: Directionality(
+                            textDirection: TextDirection.rtl,
+                            child: TextField(
+                                controller: _searchController,
+                                cursorHeight: 20,
+                                textAlign: TextAlign.right,
+                                textAlignVertical: TextAlignVertical.bottom,
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontFamily: 'YekanBakh',
+                                    fontWeight: FontWeight.w800),
+                                decoration: InputDecoration(
+                                    suffixIcon: Icon(Icons.search),
+                                    hintText: 'جستجوی کالا...',
+                                    hintStyle: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 15,
+                                        fontFamily: 'YekanBakh'),
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0))),
+                                onChanged: (value) {
+                                  setState(() {
+                                    filteredList = db.allInOne
+                                        .where((task) =>
+                                            task[0].toLowerCase().contains(
+                                                value.toLowerCase()) ||
+                                            task[4].toLowerCase().contains(
+                                                value.toLowerCase()) ||
+                                            task[3]
+                                                .toLowerCase()
+                                                .contains(value.toLowerCase()))
+                                        .toList();
+                                  });
+                                }))),
                   ],
                 ),
-              ],
-            ),
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              Expanded(
+                child: Container(
+                  width: double.infinity,
+                  child: Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                        top: 10,
+                      ),
+                      child: Column(
+                        children: [
+                          titleRows(),
+                          Divider(
+                            thickness: 1,
+                            color: Colors.blueAccent,
+                          ),
+                          Expanded(
+                            child: Container(
+                              height: double.infinity,
+                              child: ListView.separated(
+                                separatorBuilder: (context, index) {
+                                  return Divider(
+                                    thickness: 1,
+                                  );
+                                },
+                                itemCount: filteredList.length,
+                                itemBuilder: ((context, index) {
+                                  int counter = index + 1;
+                                  return Container(
+                                    key: ValueKey<String>(
+                                        filteredList[index][0]), // Add a key
+                                    child: GestureDetector(
+                                      onTap: () => updateTask(index),
+                                      child: Directionality(
+                                        textDirection: TextDirection.rtl,
+                                        child: ToDotile2(
+                                          counter: counter,
+                                          Product_Name: filteredList[index][0],
+                                          Number_of_goods:
+                                              _parseInt(db.allInOne[index][1]),
+                                          Barcode_number:
+                                              _parseInt(db.allInOne[index][2]),
+                                          Expiration_date: filteredList[index]
+                                              [3],
+                                          part: filteredList[index][4],
+                                          provisions: _parseDouble(
+                                              db.allInOne[index][5]),
+                                          price: _parseDouble(
+                                              db.allInOne[index][6]),
+                                          deleteFunction: (context) =>
+                                              deleteTask(index),
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                }),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.end,
+              //   children: [
+              //     Container(
+              //       width: 120,
+              //       height: 40,
+              //       decoration: BoxDecoration(
+              //           border: Border.all(width: 0.5),
+              //           color: Color.fromRGBO(248, 249, 251, 1),
+              //           borderRadius: BorderRadius.circular(6.5)),
+              //       child: MaterialButton(
+              //           onPressed: () {
+              //             Navigator.push(
+              //                 context,
+              //                 MaterialPageRoute(
+              //                     builder: (context) => LostDateGoods()));
+              //           },
+              //           child: Text('اجناس کم تاریخ')),
+              //     ),
+              //   ],
+              // ),
+            ],
           ),
         ),
       )),

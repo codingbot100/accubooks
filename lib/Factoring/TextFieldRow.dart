@@ -12,6 +12,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
 class YourWidget extends StatefulWidget {
+// final GlobalKey<_YourWidgetState> key1;
+
   final Home_Factoring home_factoring;
   final Function(int) onIntegerChanged;
   final Function(int) onChangedfactor;
@@ -23,25 +25,23 @@ class YourWidget extends StatefulWidget {
   int factor = 1;
   final VoidCallback? onAddToItem;
 
-  YourWidget(
-      {Key? key,
-      required this.home_factoring,
-      required this.onIntegerChanged,
-      required this.onSavePressed,
-      required this.onChangedfactor,
-      required this.onStateReady,
-      required this.name_customer,
-      required this.seller_name,
-      this.onAddToItem})
-      : super(key: key);
-
-  void callAddToItems() {
-    _YourWidgetState state = _YourWidgetState();
-    state.addtoItems();
-  }
+  YourWidget({
+    Key? key,
+    required this.home_factoring,
+    required this.onIntegerChanged,
+    required this.onSavePressed,
+    required this.onChangedfactor,
+    required this.onStateReady,
+    required this.name_customer,
+    required this.seller_name,
+    this.onAddToItem,
+  }) : super(key: key);
 
   @override
   _YourWidgetState createState() => _YourWidgetState();
+  void addtoitemCreate() {
+    createState()?.addtoItems();
+  }
 }
 
 class _YourWidgetState extends State<YourWidget> {
@@ -179,6 +179,7 @@ class _YourWidgetState extends State<YourWidget> {
     // Perform any asynchronous operations directly or use Future.delayed
     // For example, loading data from the database
     loadList();
+
     if (_yourBox.get("TODOFacto") == null) {
       dbfactor.createinitialData();
     } else {
@@ -221,6 +222,7 @@ class _YourWidgetState extends State<YourWidget> {
   }
 
   void addtoItems() {
+    widget.onAddToItem?.call();
     setState(() {
       List<String> barcodeList = [];
       List<String> quantityList = [];
@@ -291,6 +293,10 @@ class _YourWidgetState extends State<YourWidget> {
 
     saveList(); // Save the list and numberFactor
     print("called successfully");
+  }
+
+  void Function() getAddToItemsCallback() {
+    return addtoItems;
   }
 
   Future<void> saveList() async {
@@ -415,6 +421,7 @@ class _YourWidgetState extends State<YourWidget> {
           Padding(
             padding: const EdgeInsets.only(top: 350),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Container(
                   height: 30,
@@ -426,8 +433,7 @@ class _YourWidgetState extends State<YourWidget> {
                   child: MaterialButton(
                       onPressed: () {
                         setState(() {
-                          addtoItems();
-                          widget.onAddToItem;
+                          _showDialog(context);
                         });
                       },
                       child: Text(
@@ -442,29 +448,29 @@ class _YourWidgetState extends State<YourWidget> {
                 SizedBox(
                   width: 30,
                 ),
-                Container(
-                  height: 30,
-                  width: 100,
-                  decoration: BoxDecoration(
-                      border: Border.all(width: 0.5),
-                      color: Color.fromRGBO(248, 249, 251, 1),
-                      borderRadius: BorderRadius.circular(6.5)),
-                  child: MaterialButton(
-                      onPressed: () {
-                        setState(() {
-                          addtoItems();
-                          widget.onAddToItem;
-                        });
-                      },
-                      child: Text(
-                        "  لغو فاکتور",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 16,
-                            fontFamily: 'YekanBakh',
-                            fontWeight: FontWeight.w600),
-                      )),
-                ),
+                // Container(
+                //   height: 30,
+                //   width: 100,
+                //   decoration: BoxDecoration(
+                //       border: Border.all(width: 0.5),
+                //       color: Color.fromRGBO(248, 249, 251, 1),
+                //       borderRadius: BorderRadius.circular(6.5)),
+                //   child: MaterialButton(
+                //       onPressed: () {
+                //         setState(() {
+                //           addtoItems();
+                //           widget.onAddToItem;
+                //         });
+                //       },
+                //       child: Text(
+                //         "  لغو فاکتور",
+                //         style: TextStyle(
+                //             color: Colors.black,
+                //             fontSize: 16,
+                //             fontFamily: 'YekanBakh',
+                //             fontWeight: FontWeight.w600),
+                //       )),
+                // ),
               ],
             ),
           ),
@@ -511,32 +517,82 @@ class _YourWidgetState extends State<YourWidget> {
     );
   }
 
-  // void _showDialog(BuildContext context) {
-  //   showDialog(
-  //       context: context,
-  //       builder: (BuildContext context) {
-  //         return AlertDialog(
-  //           title: Text("complete"),
-  //           titlePadding: EdgeInsets.only(left: 30),
-  //           actions: [
-  //             TextButton(
-  //                 onPressed: () {
-
-  //                   Navigator.of(context).pop();
-  //                 },
-  //                 child: Text("لغو ذخیره ")),
-  //             TextButton(
-  //                 onPressed: () {
-  //                   _onSavePressed();
-  //                   Navigator.of(context).pop();
-
-  //                   setState(() {});
-  //                 },
-  //                 child: Text("دخیره کردن ")),
-  //           ],
-  //         );
-  //       });
-  // }
+  void _showDialog(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Container(
+              height: 200,
+              width: 200,
+              child: Center(
+                child: Text(
+                  "فاکتور را ذخیره کنم؟",
+                  style: TextStyle(
+                      fontFamily: 'Yekan',
+                      color: Colors.black,
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
+            titlePadding: EdgeInsets.only(left: 30),
+            actions: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Container(
+                    height: 30,
+                    width: 100,
+                    decoration: BoxDecoration(
+                        border: Border.all(width: 0.5),
+                        color: Color.fromRGBO(248, 249, 251, 1),
+                        borderRadius: BorderRadius.circular(6.5)),
+                    child: MaterialButton(
+                        onPressed: () {
+                          setState(() {
+                            Navigator.pop(context);
+                          });
+                        },
+                        child: Text(
+                          "لغو",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 16,
+                              fontFamily: 'YekanBakh',
+                              fontWeight: FontWeight.w600),
+                        )),
+                  ),
+                  Container(
+                    height: 30,
+                    width: 100,
+                    decoration: BoxDecoration(
+                        border: Border.all(width: 0.5),
+                        color: Color.fromRGBO(248, 249, 251, 1),
+                        borderRadius: BorderRadius.circular(6.5)),
+                    child: MaterialButton(
+                        onPressed: () {
+                          setState(() {
+                            Navigator.of(context).pop();
+                            addtoItems();
+                            _showSnackBar(context, "موفقانه فاکتور ذخیره شد ");
+                          });
+                        },
+                        child: Text(
+                          "  ذخیره کردن ",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 16,
+                              fontFamily: 'YekanBakh',
+                              fontWeight: FontWeight.w600),
+                        )),
+                  ),
+                ],
+              )
+            ],
+          );
+        });
+  }
 
   String getDayNameInPersian(int dayOfWeek) {
     switch (dayOfWeek) {

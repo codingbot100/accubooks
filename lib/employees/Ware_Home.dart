@@ -117,93 +117,92 @@ class _employeesState extends State<employees> {
     return Container(
       decoration: BoxDecoration(),
       child: Scaffold(
-          body: Padding(
-        padding:
-            const EdgeInsets.only(right: 80, left: 80, top: 40, bottom: 50),
-        child: Center(
-          child: Container(
-            decoration: BoxDecoration(
-                color: Color.fromRGBO(248, 248, 251, 1),
-                borderRadius: BorderRadius.circular(10.0)),
-            width: double.infinity,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 30),
-                  child: Directionality(
-                    textDirection: TextDirection.rtl,
-                    child: Container(
-                      // width: 700,
-                      child: ListTile(
-                        //   leading:  Container(
-                        //   height: 30,
-                        //   decoration: BoxDecoration(
-                        //       border: Border.all(width: 0.5),
-                        //       color: Color.fromRGBO(248, 249, 251, 1),
-                        //       borderRadius: BorderRadius.circular(6.5)),
-                        //   child: MaterialButton(
-                        //       onPressed: () {
-                        //         setState(() {
-                        //           db2.clearAllData();
-                        //           db2.updateDatabase();
-                        //           _controllers.cast();
-                        //         });
-                        //       },
-                        //       child: Text(
-                        //         "پاک کردن کل لیست",
-                        //         style: TextStyle(
-                        //             color: Colors.black,
-                        //             fontSize: 16,
-                        //             fontFamily: 'YekanBakh',
-                        //             fontWeight: FontWeight.w600),
-                        //       )),
-                        // ),
-                        trailing: FaIcon(
-                          FontAwesomeIcons.users,
-                          size: 60,
-                        ),
-                        title: Text("لیست کارکنان ",
-                            style: TextStyle(
-                                fontSize: 35,
-                                fontWeight: FontWeight.w900,
-                                fontFamily: 'YekanBakh')),
+          body: Center(
+        child: Container(
+          decoration: BoxDecoration(
+              color: Color.fromRGBO(255, 255, 255, 1),
+              borderRadius: BorderRadius.circular(15.0)),
+          width: double.infinity,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 30),
+                child: Directionality(
+                  textDirection: TextDirection.rtl,
+                  child: Container(
+                    // width: 700,
+                    child: ListTile(
+                      //   leading:  Container(
+                      //   height: 30,
+                      //   decoration: BoxDecoration(
+                      //       border: Border.all(width: 0.5),
+                      //       color: Color.fromRGBO(248, 249, 251, 1),
+                      //       borderRadius: BorderRadius.circular(6.5)),
+                      //   child: MaterialButton(
+                      //       onPressed: () {
+                      //         setState(() {
+                      //           db2.clearAllData();
+                      //           db2.updateDatabase();
+                      //           _controllers.cast();
+                      //         });
+                      //       },
+                      //       child: Text(
+                      //         "پاک کردن کل لیست",
+                      //         style: TextStyle(
+                      //             color: Colors.black,
+                      //             fontSize: 16,
+                      //             fontFamily: 'YekanBakh',
+                      //             fontWeight: FontWeight.w600),
+                      //       )),
+                      // ),
+                      trailing: FaIcon(
+                        FontAwesomeIcons.users,
+                        size: 60,
                       ),
+                      title: Text("لیست کارکنان ",
+                          style: TextStyle(
+                              fontSize: 35,
+                              fontWeight: FontWeight.w900,
+                              fontFamily: 'YekanBakh')),
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: 30,
-                ),
-                Container(
-                  margin: EdgeInsets.only(right: 980, bottom: 30),
-                  height: 30,
-                  decoration: BoxDecoration(
-                      border: Border.all(width: 0.5),
-                      color: Color.fromRGBO(248, 249, 251, 1),
-                      borderRadius: BorderRadius.circular(6.5)),
-                  child: MaterialButton(
-                      onPressed: () => createNewTask(),
-                      child: Text(
-                        "+ " + "" " کارمند  جدید",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 16,
-                            fontFamily: 'YekanBakh',
-                            fontWeight: FontWeight.w600),
-                      )),
-                ),
-                Expanded(
-                  child: Container(
-                    width: double.infinity,
-                    child: Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                          top: 10,
-                        ),
-                        child: Column(
-                          children: [
-                            Container(
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              Container(
+                margin: EdgeInsets.only(right: 980, bottom: 30),
+                height: 30,
+                decoration: BoxDecoration(
+                    border: Border.all(width: 0.5),
+                    color: Color.fromRGBO(248, 249, 251, 1),
+                    borderRadius: BorderRadius.circular(6.5)),
+                child: MaterialButton(
+                    onPressed: () => createNewTask(),
+                    child: Text(
+                      "+ " + "" " کارمند  جدید",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 16,
+                          fontFamily: 'YekanBakh',
+                          fontWeight: FontWeight.w600),
+                    )),
+              ),
+              Expanded(
+                child: Container(
+                  width: double.infinity,
+                  child: Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                        top: 10,
+                      ),
+                      child: Column(
+                        children: [
+                          Container(
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 20),
                               child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceAround,
@@ -220,7 +219,7 @@ class _employeesState extends State<employees> {
                                     SizedBox(
                                       width: 25,
                                     ),
-                                   title("محل سکونت"),
+                                    title("محل سکونت"),
                                     SizedBox(
                                       width: 25,
                                     ),
@@ -232,49 +231,49 @@ class _employeesState extends State<employees> {
                                     title("شماره")
                                   ]),
                             ),
-                            Divider(
-                              thickness: 1,
-                              color: Colors.blueAccent,
-                            ),
-                            Expanded(
-                              child: ListView.separated(
-                                separatorBuilder: (context, index) {
-                                  return Divider(
-                                    thickness: 1,
-                                  );
-                                },
-                                itemCount: db2.allInOne.length,
-                                itemBuilder: ((context, index) {
-                                  int counter = index + 1;
-                                  return GestureDetector(
-                                    onTap: () => updateTask(index),
-                                    child: Directionality(
-                                      textDirection: TextDirection.rtl,
-                                      child: ToDoEmployees(
-                                        counter: counter,
-                                        Name: db2.allInOne[index][0],
-                                        Father_s_name: db2.allInOne[index][1],
-                                        Address: db2.allInOne[index][2],
-                                        date_of_employeement:
-                                            db2.allInOne[index][3],
-                                        education: db2.allInOne[index][4],
-                                        Salary: db2.allInOne[index][5],
-                                        deleteFunction: (context) =>
-                                            deleteTask(index),
-                                      ),
+                          ),
+                          Divider(
+                            thickness: 1,
+                            color: Colors.blueAccent,
+                          ),
+                          Expanded(
+                            child: ListView.separated(
+                              separatorBuilder: (context, index) {
+                                return Divider(
+                                  thickness: 1,
+                                );
+                              },
+                              itemCount: db2.allInOne.length,
+                              itemBuilder: ((context, index) {
+                                int counter = index + 1;
+                                return GestureDetector(
+                                  onTap: () => updateTask(index),
+                                  child: Directionality(
+                                    textDirection: TextDirection.rtl,
+                                    child: ToDoEmployees(
+                                      counter: counter,
+                                      Name: db2.allInOne[index][0],
+                                      Father_s_name: db2.allInOne[index][1],
+                                      Address: db2.allInOne[index][2],
+                                      date_of_employeement: db2.allInOne[index]
+                                          [3],
+                                      education: db2.allInOne[index][4],
+                                      Salary: db2.allInOne[index][5],
+                                      deleteFunction: (context) =>
+                                          deleteTask(index),
                                     ),
-                                  );
-                                }),
-                              ),
-                            )
-                          ],
-                        ),
+                                  ),
+                                );
+                              }),
+                            ),
+                          )
+                        ],
                       ),
                     ),
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       )),
@@ -282,7 +281,7 @@ class _employeesState extends State<employees> {
   }
 
   Widget title(String title) {
-    return Text("شماره",
+    return Text(title,
         style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,

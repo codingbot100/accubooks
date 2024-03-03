@@ -47,6 +47,7 @@ class _ToDoEmployeesState extends State<ToDoEmployees>
     });
   }
 
+  bool isHover = false;
   @override
   Widget build(BuildContext context) {
     return Slidable(
@@ -57,7 +58,7 @@ class _ToDoEmployeesState extends State<ToDoEmployees>
             child: SlidableAction(
               onPressed: (BuildContext) {
                 widget.deleteFunction!(BuildContext);
-                _showSnackBar(context, "لیست موفقانه پاک شد.");
+                _showSnackBar(context, "کارمند موفقانه حدف شد ");
               },
               icon: Icons.delete,
               backgroundColor: const Color.fromARGB(255, 232, 17, 17),
@@ -67,29 +68,62 @@ class _ToDoEmployeesState extends State<ToDoEmployees>
           )
         ],
       ),
-      child: Container(
-        width: double.infinity,
-        child: Directionality(
-          textDirection: TextDirection.rtl,
-          child: MouseRegion(
-            cursor: SystemMouseCursors.click,
-            onHover: (event) {
-              setState(() {
-                Duration(milliseconds: 2500);
-                color = Color.fromRGBO(200, 200, 255, 0.575);
-              });
-            },
-            onExit: (event) {
-              setState(() {
-                color = Colors.transparent;
-              });
-            },
-            child: GestureDetector(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+          width: double.infinity,
+          child: Directionality(
+            textDirection: TextDirection.rtl,
+            child: MouseRegion(
+              cursor: SystemMouseCursors.click,
+              onHover: (event) {
+                setState(() {
+                  Duration(milliseconds: 2500);
+                  color = Color.fromRGBO(51, 241, 54, 0.533);
+                });
+              },
+              onEnter: (event) {
+                setState(() {
+                  isHover = true;
+                  // color = const Color.fromARGB(255, 244, 239, 239);
+                });
+              },
+              onExit: (event) {
+                setState(() {
+                  isHover = false;
+                  color = Colors.transparent;
+                });
+              },
               child: Directionality(
                 textDirection: TextDirection.rtl,
                 child: Expanded(
-                  child: Container(
-                    color: color,
+                  child: AnimatedContainer(
+                    decoration: BoxDecoration(
+                        // boxShadow: [
+                        //   BoxShadow(
+                        //       blurRadius: 12,
+                        //       spreadRadius: 5,
+                        //       color: isHover
+                        //           ? Colors.pink.withOpacity(0.4)
+                        //           : Colors.transparent)
+                        // ],
+                        color: Color.fromRGBO(255, 255, 255, 1),
+                        borderRadius: BorderRadius.only(
+                            topRight: (isHover)
+                                ? Radius.circular(40)
+                                : Radius.circular(0),
+                            topLeft: (isHover)
+                                ? Radius.circular(40)
+                                : Radius.circular(0),
+                            bottomLeft: (isHover)
+                                ? Radius.circular(40)
+                                : Radius.circular(0),
+                            bottomRight: (isHover)
+                                ? Radius.circular(40)
+                                : Radius.circular(0))),
+                    height: isHover ? 40 : 23,
+                    duration: Duration(milliseconds: 400),
+                    curve: Curves.fastEaseInToSlowEaseOut,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -98,8 +132,28 @@ class _ToDoEmployeesState extends State<ToDoEmployees>
                         ),
                         Container(
                             width: 25,
-                            child:
-                                Center(child: Text(widget.counter.toString()))),
+                            child: Center(
+                                child: AnimatedContainer(
+                                    duration: Duration(milliseconds: 500),
+                                    decoration: BoxDecoration(
+                                        color: isHover
+                                            ? Colors.pink
+                                            : Colors.grey[200],
+                                        borderRadius: BorderRadius.circular(100)),
+                                    child: Center(
+                                      child: Text(
+                                        widget.counter.toString(),
+                                        style: TextStyle(
+                                            fontFamily: 'Yekan',
+                                            color: isHover
+                                                ? Colors.white
+                                                : Colors.grey[700],
+                                            fontSize: isHover ? 20 : 16,
+                                            fontWeight: isHover
+                                                ? FontWeight.normal
+                                                : FontWeight.bold),
+                                      ),
+                                    )))),
                         SizedBox(
                           width: 10,
                         ),

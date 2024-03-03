@@ -23,6 +23,7 @@ class MybarGRAPH extends StatelessWidget {
         weeklySummary.length > 5 ? (weeklySummary[5] ?? 0.0) : 0.0;
     double satAmount =
         weeklySummary.length > 6 ? (weeklySummary[6] ?? 0.0) : 0.0;
+        
 
     BarData myBarData = BarData(
       sunAmount: sunAmount,
@@ -38,7 +39,7 @@ class MybarGRAPH extends StatelessWidget {
 
     return BarChart(
       BarChartData(
-        backgroundColor: Color.fromRGBO(245, 245, 255, 1),
+        backgroundColor: Colors.white,
         maxY: 200,
         minY: 1,
         borderData: FlBorderData(show: false),

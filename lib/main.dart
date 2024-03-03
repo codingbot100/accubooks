@@ -6,7 +6,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 main() async {
   await Hive.initFlutter();
-    WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
   // open box
   var box = await Hive.openBox('Mybox');
   var employees = await Hive.openBox('employees');
@@ -27,8 +27,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(
           primaryColor: Color(0xFF423659),
-          backgroundColor: Color(0xFFFFFFFF),
-          scaffoldBackgroundColor: Color(0xFFFFFFFF),
+          backgroundColor: Color.fromARGB(243, 243, 243, 1),
+          scaffoldBackgroundColor: Color.fromRGBO(243, 243, 243, 1),
           textTheme: TextTheme()),
       debugShowCheckedModeBanner: false,
       home: HomePage(),

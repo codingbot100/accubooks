@@ -29,15 +29,14 @@ class _saved_home_factor12State extends State<saved_home_factor12> {
     setState(() {});
   }
 
+  Color getColor = Colors.transparent;
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(30.0),
+    return Expanded(
       child: Container(
-        width: 1100,
         decoration: BoxDecoration(borderRadius: BorderRadius.circular(12)),
         child: Scaffold(
-          backgroundColor: Color.fromRGBO(248, 248, 251, 1),
+          backgroundColor: Color.fromRGBO(255, 255, 255, 1),
           body: itemList.isEmpty
               ? Center(
                   child: Text(
@@ -49,7 +48,6 @@ class _saved_home_factor12State extends State<saved_home_factor12> {
                   child: Container(
                     decoration:
                         BoxDecoration(borderRadius: BorderRadius.circular(12)),
-                    width: 1100,
                     // height: 500,
                     child: Directionality(
                       textDirection: TextDirection.rtl,
@@ -131,129 +129,178 @@ class _saved_home_factor12State extends State<saved_home_factor12> {
                               child: ListView.separated(
                                 separatorBuilder: (context, index) {
                                   return Divider(
-                                    color: Colors.black,
-                                    thickness: 0.5,
+                                    color: Colors.grey[900],
+                                    thickness: 0.2,
                                   );
                                 },
                                 itemBuilder: (context, index) {
                                   int counter = index + 1;
 
-                                  return GestureDetector(
-                                    onTap: () {
+                                  return MouseRegion(
+                                    onHover: (event) {
                                       setState(() {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    back_Home_Factoring(
-                                                      itemList: itemList,
-                                                      time: itemList[index][2]
-                                                          .replaceAll('[', '')
-                                                          .replaceAll(']', ''),
-                                                      numberFactor: counter,
-                                                      TodayDate: itemList[index]
-                                                              [3]
-                                                          .replaceAll('[', '')
-                                                          .replaceAll(']', ''),
-                                                      day: itemList[index][4]
-                                                          .replaceAll('[', '')
-                                                          .replaceAll(']', ''),
-                                                      customer_name: itemList[
-                                                              index][5]
-                                                          .replaceAll('[', '')
-                                                          .replaceAll(']', ''),
-                                                      barcode: itemList[index]
-                                                              [1]
-                                                          .replaceAll('[', '')
-                                                          .replaceAll(']', ''),
-                                                      numbersOfGoods: itemList[
-                                                              index][0]
-                                                          .replaceAll('[', '')
-                                                          .replaceAll(']', ''),
-                                                      seller_name: itemList[
-                                                              index][7]
-                                                          .replaceAll('[', '')
-                                                          .replaceAll(']', ''),
-                                                      Product: itemList[index]
-                                                          [9],
-                                                      Price: itemList[index][8],
-                                                    )));
+                                        getColor = Colors.blue;
                                       });
                                     },
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Container(
-                                          width: 100,
-                                          child: Center(
-                                            child: Text(
-                                              textAlign: TextAlign.justify,
-                                              '$counter',
-                                              style: TextStyle(
-                                                fontFamily: 'Yekan',
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w600,
+                                    onExit: (event) {
+                                      setState(() {
+                                        getColor = Colors.transparent;
+                                      });
+                                    },
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      back_Home_Factoring(
+                                                        itemList: itemList,
+                                                        time: itemList[index][2]
+                                                            .replaceAll('[', '')
+                                                            .replaceAll(
+                                                                ']', ''),
+                                                        numberFactor: counter,
+                                                        TodayDate:
+                                                            itemList[index][3]
+                                                                .replaceAll(
+                                                                    '[', '')
+                                                                .replaceAll(
+                                                                    ']', ''),
+                                                        day: itemList[index][4]
+                                                            .replaceAll('[', '')
+                                                            .replaceAll(
+                                                                ']', ''),
+                                                        customer_name:
+                                                            itemList[index][5]
+                                                                .replaceAll(
+                                                                    '[', '')
+                                                                .replaceAll(
+                                                                    ']', ''),
+                                                        barcode: itemList[index]
+                                                                [1]
+                                                            .replaceAll('[', '')
+                                                            .replaceAll(
+                                                                ']', ''),
+                                                        numbersOfGoods:
+                                                            itemList[index][0]
+                                                                .replaceAll(
+                                                                    '[', '')
+                                                                .replaceAll(
+                                                                    ']', ''),
+                                                        seller_name:
+                                                            itemList[index][7]
+                                                                .replaceAll(
+                                                                    '[', '')
+                                                                .replaceAll(
+                                                                    ']', ''),
+                                                        Product: itemList[index]
+                                                            [9],
+                                                        Price: itemList[index]
+                                                            [8],
+                                                      )));
+                                        });
+                                      },
+                                      child: MouseRegion(
+                                        cursor: SystemMouseCursors.click,
+
+                                        // onHover: (event) {
+                                        //   setState(() {
+                                        //     getColor = Colors.blue;
+                                        //   });
+                                        // },
+                                        // onExit: (event) {
+                                        //   setState(() {
+                                        //     getColor = Colors.transparent;
+                                        //   });
+                                        // },
+                                        child: Container(
+                                          // color: getColor,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceAround,
+                                            children: [
+                                              Container(
+                                                width: 100,
+                                                child: Center(
+                                                  child: Text(
+                                                    textAlign:
+                                                        TextAlign.justify,
+                                                    '$counter',
+                                                    style: TextStyle(
+                                                      fontFamily: 'Yekan',
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                    ),
+                                                  ),
+                                                ),
                                               ),
-                                            ),
+                                              Container(
+                                                width: 100,
+                                                child: Center(
+                                                  child: Text(
+                                                    textAlign:
+                                                        TextAlign.justify,
+                                                    //5
+                                                    // تعداد 0
+                                                    //شماره بار کد 1
+                                                    //ساعت 2
+                                                    //تاریخ 3
+                                                    //روز 4
+                                                    //فروشنده 7
+                                                    // خریدار 5
+                                                    // قیمت فی 0
+                                                    itemList[index][5]
+                                                        .replaceAll('[', '')
+                                                        .replaceAll(']', ''),
+                                                    style: TextStyle(
+                                                      fontFamily: 'Yekan',
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              Container(
+                                                width: 100,
+                                                child: Center(
+                                                  child: Text(
+                                                    textAlign:
+                                                        TextAlign.justify,
+                                                    '$counter',
+                                                    style: TextStyle(
+                                                      fontFamily: 'Yekan',
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              Container(
+                                                width: 100,
+                                                child: Center(
+                                                  child: Text(
+                                                    textAlign:
+                                                        TextAlign.justify,
+                                                    itemList[index][3]
+                                                        .replaceAll('[', '')
+                                                        .replaceAll(']', ''),
+                                                    style: TextStyle(
+                                                      fontFamily: 'Yekan',
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ),
-                                        Container(
-                                          width: 100,
-                                          child: Center(
-                                            child: Text(
-                                              textAlign: TextAlign.justify,
-                                              //5
-                                              // تعداد 0
-                                              //شماره بار کد 1
-                                              //ساعت 2
-                                              //تاریخ 3
-                                              //روز 4
-                                              //فروشنده 7
-                                              // خریدار 5
-                                              // قیمت فی 0
-                                              itemList[index][5]
-                                                  .replaceAll('[', '')
-                                                  .replaceAll(']', ''),
-                                              style: TextStyle(
-                                                fontFamily: 'Yekan',
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w600,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          width: 100,
-                                          child: Center(
-                                            child: Text(
-                                              textAlign: TextAlign.justify,
-                                              '$counter',
-                                              style: TextStyle(
-                                                fontFamily: 'Yekan',
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w600,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          width: 100,
-                                          child: Center(
-                                            child: Text(
-                                              textAlign: TextAlign.justify,
-                                              itemList[index][3]
-                                                  .replaceAll('[', '')
-                                                  .replaceAll(']', ''),
-                                              style: TextStyle(
-                                                fontFamily: 'Yekan',
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w600,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
+                                      ),
                                     ),
                                   );
                                 },

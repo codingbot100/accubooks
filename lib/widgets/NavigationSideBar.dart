@@ -24,7 +24,7 @@ class NavigationSidebar extends StatelessWidget {
       child: Expanded(
         child: Container(
           decoration: BoxDecoration(
-              color: Color.fromRGBO(244, 242, 248, 1),
+              color: Color.fromRGBO(255, 255, 255, 1),
               borderRadius: BorderRadius.circular(0
                   // 20.0
                   )),

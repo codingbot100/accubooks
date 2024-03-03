@@ -60,13 +60,13 @@ class _HomePageState extends State<HomePage>
                       child: Container(
                         child: Center(
                             child: _selectedindex == 0
-                                ? Home_Page()
+                                ? Home_rep()
                                 : _selectedindex == 1
                                     ? Home_Factoring()
                                     : _selectedindex == 2
                                         ? employees()
                                         : _selectedindex == 3
-                                            ? Home_rep()
+                                            ? Home_Page()
                                             : _selectedindex == 4
                                                 ? saved_home_factor12()
                                                 : saved_home_factor12()),
@@ -104,10 +104,10 @@ class _HomePageState extends State<HomePage>
                           child: NavigationSidebar(
                             itemsIcons: iconsList,
                             items: [
-                              ' محصولات',
+                              ' گزارشات ',
                               ' فروشات',
                               ' کارمندان',
-                              ' گزارشات ',
+                              ' محصولات',
                               'فاکتور ها  '
                             ],
                             selectedIndex: _selectedindex,
