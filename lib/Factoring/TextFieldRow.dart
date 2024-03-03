@@ -522,19 +522,36 @@ class _YourWidgetState extends State<YourWidget> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Container(
-              height: 200,
-              width: 200,
-              child: Center(
-                child: Text(
-                  "فاکتور را ذخیره کنم؟",
-                  style: TextStyle(
-                      fontFamily: 'Yekan',
-                      color: Colors.black,
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold),
+            title: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 70, right: 25),
+                  child: Center(
+                    child: Image.asset(
+                      'icons/save-file.png',
+                      scale: 6,
+                    ),
+                  ),
                 ),
-              ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 20),
+                  child: Container(
+                    height: 200,
+                    width: 200,
+                    child: Center(
+                      child: Text(
+                        "فاکتور را ذخیره کنم؟",
+                        style: TextStyle(
+                            fontFamily: 'Yekan',
+                            color: Colors.black,
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
             titlePadding: EdgeInsets.only(left: 30),
             actions: [

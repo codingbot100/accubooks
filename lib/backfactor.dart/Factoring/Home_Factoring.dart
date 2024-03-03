@@ -3,6 +3,7 @@
 import 'package:accubooks/Factoring/TextFieldRow.dart';
 import 'package:accubooks/Factoring/secondRow.dart';
 import 'package:accubooks/employees/data/database.dart';
+import 'package:accubooks/widgets/save_Name.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -56,6 +57,7 @@ class _back_Home_FactoringState extends State<back_Home_Factoring>
   late String selectedItem; // Use 'late' to mark it as mutable
   ToDoDatabseEmployees db2 = ToDoDatabseEmployees();
   final _myBox = Hive.box('employees');
+  late String _loadedInfo;
 
   final Key firstRowKey = UniqueKey();
   callme() {}
@@ -69,8 +71,17 @@ class _back_Home_FactoringState extends State<back_Home_Factoring>
       db2.loadData();
     }
     loadData();
-
     super.initState();
+    _loadInfo().then((loadedInfo) {
+      setState(() {
+        _loadedInfo = loadedInfo ?? '';
+      });
+    });
+  }
+
+  Future<String?> _loadInfo() async {
+    String? info = await StorageService.loadInfo();
+    return info;
   }
 
   int selectedIndex = 0;
@@ -139,7 +150,7 @@ class _back_Home_FactoringState extends State<back_Home_Factoring>
                           padding: const EdgeInsets.only(top: 15),
                           child: Center(
                             child: Text(
-                              "فروشگاه مواد غذایی تک",
+                              "فروشگاه مواد غذایی " + _loadedInfo,
                               style: TextStyle(
                                 fontSize: 30,
                                 fontFamily: 'Yekan',

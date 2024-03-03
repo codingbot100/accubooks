@@ -3,6 +3,7 @@
 import 'package:accubooks/Factoring/TextFieldRow.dart';
 import 'package:accubooks/Factoring/secondRow.dart';
 import 'package:accubooks/employees/data/database.dart';
+import 'package:accubooks/widgets/save_Name.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
@@ -24,6 +25,7 @@ class _Home_FactoringState extends State<Home_Factoring>
   TextEditingController discount = TextEditingController();
   TextEditingController remainedMoNEY = TextEditingController();
   TextEditingController Name_customer = TextEditingController();
+  late String _loadedInfo;
 
   int? counterfactor = 0;
   late int numberFactor;
@@ -39,40 +41,29 @@ class _Home_FactoringState extends State<Home_Factoring>
   callme() {}
   @override
   void initState() {
-    selectedItem = seller.first; // Initialize selectedItem with the first item
+    setState(() {
+      selectedItem =
+          seller.first; // Initialize selectedItem with the first item
 
-    if (_myBox.get("TODOLIST2") == null) {
-      db2.createinitialData();
-    } else {
-      db2.loadData();
-    }
+      if (_myBox.get("TODOLIST2") == null) {
+        db2.createinitialData();
+      } else {
+        db2.loadData();
+      }
 
-    loadData();
-    // youWidgetState = YourWidget(
-    //   home_factoring: widget,
-    //   onIntegerChanged: (totalSum) {
-    //     setState(() {
-    //       totalSumNew = totalSum;
-    //     });
-    //   },
-    //   onSavePressed: () {
-    //     // Your onSavePressed logic here
-    //   },
-    //   onChangedfactor: (factor) async {
-    //     setState(() {
-    //       counterfactor = factor;
-    //     });
-    //   },
-    //   onStateReady: (state) {
-    //     // No need to create a new instance here
-    //     youWidgetState = state as YourWidget;
-    //   },
-    //   name_customer: Name_customer,
-    //   seller_name: selectedName,
-    // );
-    // youWidgetState = YourWidget(key1: childKey, home_factoring: null,);
+      super.initState();
+      loadData();
+      _loadInfo().then((loadedInfo) {
+        setState(() {
+          _loadedInfo = loadedInfo ?? '';
+        });
+      });
+    });
+  }
 
-    super.initState();
+  Future<String?> _loadInfo() async {
+    String? info = await StorageService.loadInfo();
+    return info;
   }
 
   int selectedIndex = 0;
@@ -117,7 +108,7 @@ class _Home_FactoringState extends State<Home_Factoring>
                       padding: const EdgeInsets.only(top: 15),
                       child: Center(
                         child: Text(
-                          "فروشگاه مواد غذایی تک",
+                          "فروشگاه مواد غذایی " + _loadedInfo,
                           style: TextStyle(
                             fontSize: 30,
                             fontFamily: 'Yekan',

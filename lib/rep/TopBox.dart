@@ -1,7 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:accubooks/rep/pie_Chart/Home_chart.dart';
-import 'package:accubooks/rep/tesr/bar_graph.dart';
+import 'package:accubooks/rep/MainChart/bar_graph.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
