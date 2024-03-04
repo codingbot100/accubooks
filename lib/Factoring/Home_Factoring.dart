@@ -25,7 +25,6 @@ class _Home_FactoringState extends State<Home_Factoring>
   TextEditingController discount = TextEditingController();
   TextEditingController remainedMoNEY = TextEditingController();
   TextEditingController Name_customer = TextEditingController();
-  late String _loadedInfo;
 
   int? counterfactor = 0;
   late int numberFactor;
@@ -36,7 +35,7 @@ class _Home_FactoringState extends State<Home_Factoring>
   late String selectedItem; // Use 'late' to mark it as mutable
   ToDoDatabseEmployees db2 = ToDoDatabseEmployees();
   final _myBox = Hive.box('employees');
-
+  late String _loadedInfo;
   final Key firstRowKey = UniqueKey();
   callme() {}
   @override
@@ -52,12 +51,12 @@ class _Home_FactoringState extends State<Home_Factoring>
       }
 
       super.initState();
-      loadData();
       _loadInfo().then((loadedInfo) {
         setState(() {
           _loadedInfo = loadedInfo ?? '';
         });
       });
+      loadData();
     });
   }
 
@@ -108,7 +107,8 @@ class _Home_FactoringState extends State<Home_Factoring>
                       padding: const EdgeInsets.only(top: 15),
                       child: Center(
                         child: Text(
-                          "فروشگاه مواد غذایی " + _loadedInfo,
+                          "فروشگاه مواد غذایی تک",
+                          // + _loadedInfo
                           style: TextStyle(
                             fontSize: 30,
                             fontFamily: 'Yekan',

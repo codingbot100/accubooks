@@ -1,6 +1,8 @@
 import 'package:accubooks/Factoring/data/sharedDatabase.dart';
 import 'package:accubooks/backfactor.dart/Factoring/Home_Factoring.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 
 class saved_home_factor12 extends StatefulWidget {
   const saved_home_factor12({super.key});
@@ -29,7 +31,8 @@ class _saved_home_factor12State extends State<saved_home_factor12> {
     setState(() {});
   }
 
-  Color getColor = Colors.transparent;
+  Color color = Colors.transparent;
+  bool isHover = false;
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -137,14 +140,24 @@ class _saved_home_factor12State extends State<saved_home_factor12> {
                                   int counter = index + 1;
 
                                   return MouseRegion(
+                                    cursor: SystemMouseCursors.click,
                                     onHover: (event) {
                                       setState(() {
-                                        getColor = Colors.blue;
+                                        Duration(milliseconds: 2500);
+                                        color =
+                                            Color.fromRGBO(51, 241, 54, 0.533);
+                                      });
+                                    },
+                                    onEnter: (event) {
+                                      setState(() {
+                                        isHover = true;
+                                        // color = const Color.fromARGB(255, 244, 239, 239);
                                       });
                                     },
                                     onExit: (event) {
                                       setState(() {
-                                        getColor = Colors.transparent;
+                                        isHover = false;
+                                        color = Colors.transparent;
                                       });
                                     },
                                     child: GestureDetector(
@@ -203,102 +216,107 @@ class _saved_home_factor12State extends State<saved_home_factor12> {
                                       },
                                       child: MouseRegion(
                                         cursor: SystemMouseCursors.click,
-
-                                        // onHover: (event) {
-                                        //   setState(() {
-                                        //     getColor = Colors.blue;
-                                        //   });
-                                        // },
-                                        // onExit: (event) {
-                                        //   setState(() {
-                                        //     getColor = Colors.transparent;
-                                        //   });
-                                        // },
-                                        child: Container(
-                                          // color: getColor,
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceAround,
-                                            children: [
-                                              Container(
-                                                width: 100,
-                                                child: Center(
-                                                  child: Text(
-                                                    textAlign:
-                                                        TextAlign.justify,
-                                                    '$counter',
-                                                    style: TextStyle(
-                                                      fontFamily: 'Yekan',
-                                                      fontSize: 16,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                    ),
+                                        onHover: (event) {
+                                          setState(() {
+                                            Duration(milliseconds: 2500);
+                                            color = Color.fromRGBO(
+                                                51, 241, 54, 0.533);
+                                          });
+                                        },
+                                        onEnter: (event) {
+                                          setState(() {
+                                            isHover = true;
+                                            // color = const Color.fromARGB(255, 244, 239, 239);
+                                          });
+                                        },
+                                        onExit: (event) {
+                                          setState(() {
+                                            isHover = false;
+                                            color = Colors.transparent;
+                                          });
+                                        },
+                                        child:Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: [
+                                            Container(
+                                              width: 100,
+                                              child: Center(
+                                                child: Text(
+                                                  textAlign:
+                                                      TextAlign.justify,
+                                                  '$counter',
+                                                  style: TextStyle(
+                                                    fontFamily: 'Yekan',
+                                                    fontSize: 16,
+                                                    fontWeight:
+                                                        FontWeight.w600,
                                                   ),
                                                 ),
                                               ),
-                                              Container(
-                                                width: 100,
-                                                child: Center(
-                                                  child: Text(
-                                                    textAlign:
-                                                        TextAlign.justify,
-                                                    //5
-                                                    // تعداد 0
-                                                    //شماره بار کد 1
-                                                    //ساعت 2
-                                                    //تاریخ 3
-                                                    //روز 4
-                                                    //فروشنده 7
-                                                    // خریدار 5
-                                                    // قیمت فی 0
-                                                    itemList[index][5]
-                                                        .replaceAll('[', '')
-                                                        .replaceAll(']', ''),
-                                                    style: TextStyle(
-                                                      fontFamily: 'Yekan',
-                                                      fontSize: 16,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                    ),
+                                            ),
+                                            Container(
+                                              width: 100,
+                                              child: Center(
+                                                child: Text(
+                                                  textAlign:
+                                                      TextAlign.justify,
+                                                  //5
+                                                  // تعداد 0
+                                                  //شماره بار کد 1
+                                                  //ساعت 2
+                                                  //تاریخ 3
+                                                  //روز 4
+                                                  //فروشنده 7
+                                                  // خریدار 5
+                                                  // قیمت فی 0
+                                                  itemList[index][5]
+                                                      .replaceAll('[', '')
+                                                      .replaceAll(']', ''),
+                                                  style: TextStyle(
+                                                    fontFamily: 'Yekan',
+                                                    fontSize: 16,
+                                                    fontWeight:
+                                                        FontWeight.w600,
                                                   ),
                                                 ),
                                               ),
-                                              Container(
-                                                width: 100,
-                                                child: Center(
-                                                  child: Text(
-                                                    textAlign:
-                                                        TextAlign.justify,
-                                                    '$counter',
-                                                    style: TextStyle(
-                                                      fontFamily: 'Yekan',
-                                                      fontSize: 16,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                    ),
+                                            ),
+                                            Container(
+                                              width: 100,
+                                              child: Center(
+                                                child: Text(
+                                                  textAlign:
+                                                      TextAlign.justify,
+                                                  '$counter',
+                                                  style: TextStyle(
+                                                    fontFamily: 'Yekan',
+                                                    fontSize: 16,
+                                                    fontWeight:
+                                                        FontWeight.w600,
                                                   ),
                                                 ),
                                               ),
-                                              Container(
-                                                width: 100,
-                                                child: Center(
-                                                  child: Text(
-                                                    textAlign:
-                                                        TextAlign.justify,
-                                                    itemList[index][3]
-                                                        .replaceAll('[', '')
-                                                        .replaceAll(']', ''),
-                                                    style: TextStyle(
-                                                      fontFamily: 'Yekan',
-                                                      fontSize: 16,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                    ),
+                                            ),
+                                            Container(
+                                              width: 100,
+                                              child: Center(
+                                                child: Text(
+                                                  textAlign:
+                                                      TextAlign.justify,
+                                                  itemList[index][3]
+                                                      .replaceAll('[', '')
+                                                      .replaceAll(']', ''),
+                                                  style: TextStyle(
+                                                    fontFamily: 'Yekan',
+                                                    fontSize: 16,
+                                                    fontWeight:
+                                                        FontWeight.w600,
                                                   ),
                                                 ),
                                               ),
-                                            ],
-                                          ),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ),

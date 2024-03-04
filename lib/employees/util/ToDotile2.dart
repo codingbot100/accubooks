@@ -99,14 +99,7 @@ class _ToDoEmployeesState extends State<ToDoEmployees>
                 child: Expanded(
                   child: AnimatedContainer(
                     decoration: BoxDecoration(
-                        // boxShadow: [
-                        //   BoxShadow(
-                        //       blurRadius: 12,
-                        //       spreadRadius: 5,
-                        //       color: isHover
-                        //           ? Colors.pink.withOpacity(0.4)
-                        //           : Colors.transparent)
-                        // ],
+                      
                         color: Color.fromRGBO(255, 255, 255, 1),
                         borderRadius: BorderRadius.only(
                             topRight: (isHover)

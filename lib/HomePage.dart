@@ -140,6 +140,11 @@ class _HomePageState extends State<HomePage>
       },
     );
   }
+// Future<void> _saveInfo() async {
+//   String info = _infoController.text;
+//   await StorageService.saveInfo(info);
+//   _loadInfo(); // Call _loadInfo here to update the text immediately
+// }
 
   Future<String?> _loadInfo() async {
     String? info = await StorageService.loadInfo();
@@ -194,27 +199,24 @@ class _HomePageState extends State<HomePage>
                 ),
               ),
             ),
-            ListTile(
-              leading: Icon(Icons.person),
-              title: Text('نام'),
-              onTap: () {
-                _showInformationDialog(context);
-              },
+            Directionality(
+              textDirection: TextDirection.rtl,
+              child: ListTile(
+                leading: Icon(Icons.edit_note_sharp),
+                title: Text(
+                  " نام جدید ",
+                  style: TextStyle(
+                      fontFamily: 'Yekan',
+                      color: Colors.black,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w900),
+                ),
+                onTap: () {
+                  _showInformationDialog(context);
+                },
+              ),
             ),
-            ListTile(
-              leading: GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      isDark = !isDark;
-                    });
-                  },
-                  child: Icon(Icons.settings)),
-              title: Icon(isDark ? Icons.wb_sunny : Icons.nights_stay_rounded),
-              onTap: () {
-                // Handle the tap on Settings
-                // Navigator.pop(context); // Close the drawer
-              },
-            ),
+
             // Add more ListTiles for additional menu items
           ],
         ),

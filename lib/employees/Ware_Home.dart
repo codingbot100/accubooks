@@ -172,23 +172,27 @@ class _employeesState extends State<employees> {
               SizedBox(
                 height: 30,
               ),
-              Container(
-                margin: EdgeInsets.only(right: 980, bottom: 30),
-                height: 30,
-                decoration: BoxDecoration(
-                    border: Border.all(width: 0.5),
-                    color: Color.fromRGBO(248, 249, 251, 1),
-                    borderRadius: BorderRadius.circular(6.5)),
-                child: MaterialButton(
-                    onPressed: () => createNewTask(),
-                    child: Text(
-                      "+ " + "" " کارمند  جدید",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 16,
-                          fontFamily: 'YekanBakh',
-                          fontWeight: FontWeight.w600),
-                    )),
+              Row(
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(left: 10, bottom: 30),
+                    height: 30,
+                    decoration: BoxDecoration(
+                        border: Border.all(width: 0.5),
+                        color: Color.fromRGBO(248, 249, 251, 1),
+                        borderRadius: BorderRadius.circular(6.5)),
+                    child: MaterialButton(
+                        onPressed: () => createNewTask(),
+                        child: Text(
+                          "+ " + "" " کارمند  جدید",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 16,
+                              fontFamily: 'YekanBakh',
+                              fontWeight: FontWeight.w600),
+                        )),
+                  ),
+                ],
               ),
               Expanded(
                 child: Container(
