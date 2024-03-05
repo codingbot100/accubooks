@@ -1,8 +1,7 @@
 import 'package:accubooks/Factoring/data/sharedDatabase.dart';
 import 'package:accubooks/backfactor.dart/Factoring/Home_Factoring.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
+// import 'package:flutter_slidable/flutter_slidable.dart';
 
 class saved_home_factor12 extends StatefulWidget {
   const saved_home_factor12({super.key});

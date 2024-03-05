@@ -25,7 +25,6 @@ class NavigationSidebar extends StatefulWidget {
 
 class _NavigationSidebarState extends State<NavigationSidebar> {
   late String _loadedInfo;
-  int _selectedindex = 0;
   File? _image2;
   int font = 15;
   @override

@@ -24,7 +24,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
-  late String _loadedInfo;
   List<Widget> iconsList = [
     Icon(Icons.shopping_cart, size: 30),
     Icon(Icons.attach_money, size: 30),
@@ -44,7 +43,7 @@ class _HomePageState extends State<HomePage>
     loadImage();
     _loadInfo().then((loadedInfo) {
       setState(() {
-        _loadedInfo = loadedInfo ?? '';
+       
       });
     });
   }
@@ -318,111 +317,111 @@ class _HomePageState extends State<HomePage>
     );
   }
 
-  void _showDialog(BuildContext context) {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return Container(
-            width: 300,
-            height: 300,
-            child: AlertDialog(
-              title: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 20),
-                    child: Container(
-                      height: 200,
-                      width: 200,
-                      child: Center(
-                        child: Text(
-                          "نام فروشگاه خود را وارد کنید",
-                          style: TextStyle(
-                              fontFamily: 'Yekan',
-                              color: Colors.black,
-                              fontSize: 30,
-                              fontWeight: FontWeight.w900),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Center(
-                    child: Container(
-                        child: TextField(
-                      cursorHeight: 20,
-                      textAlign: TextAlign.right,
-                      textAlignVertical: TextAlignVertical.bottom,
-                      style: TextStyle(
-                          fontSize: 16,
-                          fontFamily: 'YekanBakh',
-                          fontWeight: FontWeight.w800),
-                      decoration: InputDecoration(
-                          suffixIcon: Icon(Icons.search),
-                          hintText: 'جستجوی کالا...',
-                          hintStyle: TextStyle(
-                              color: Colors.black,
-                              fontSize: 15,
-                              fontFamily: 'YekanBakh'),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10.0))),
-                    )),
-                  )
-                ],
-              ),
-              titlePadding: EdgeInsets.only(left: 30),
-              actions: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Container(
-                      height: 30,
-                      width: 100,
-                      decoration: BoxDecoration(
-                          border: Border.all(width: 0.5),
-                          color: Color.fromRGBO(248, 249, 251, 1),
-                          borderRadius: BorderRadius.circular(6.5)),
-                      child: MaterialButton(
-                          onPressed: () {
-                            setState(() {
-                              Navigator.pop(context);
-                            });
-                          },
-                          child: Text(
-                            "لغو",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 16,
-                                fontFamily: 'YekanBakh',
-                                fontWeight: FontWeight.w600),
-                          )),
-                    ),
-                    Container(
-                      height: 30,
-                      width: 100,
-                      decoration: BoxDecoration(
-                          border: Border.all(width: 0.5),
-                          color: Color.fromRGBO(248, 249, 251, 1),
-                          borderRadius: BorderRadius.circular(6.5)),
-                      child: MaterialButton(
-                          onPressed: () {
-                            setState(() {
-                              Navigator.of(context).pop();
-                            });
-                          },
-                          child: Text(
-                            "  ذخیره کردن ",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 16,
-                                fontFamily: 'YekanBakh',
-                                fontWeight: FontWeight.w600),
-                          )),
-                    ),
-                  ],
-                )
-              ],
-            ),
-          );
-        });
-  }
+  // void _showDialog(BuildContext context) {
+  //   showDialog(
+  //       context: context,
+  //       builder: (BuildContext context) {
+  //         return Container(
+  //           width: 300,
+  //           height: 300,
+  //           child: AlertDialog(
+  //             title: Column(
+  //               mainAxisSize: MainAxisSize.min,
+  //               children: [
+  //                 Padding(
+  //                   padding: const EdgeInsets.only(right: 20),
+  //                   child: Container(
+  //                     height: 200,
+  //                     width: 200,
+  //                     child: Center(
+  //                       child: Text(
+  //                         "نام فروشگاه خود را وارد کنید",
+  //                         style: TextStyle(
+  //                             fontFamily: 'Yekan',
+  //                             color: Colors.black,
+  //                             fontSize: 30,
+  //                             fontWeight: FontWeight.w900),
+  //                       ),
+  //                     ),
+  //                   ),
+  //                 ),
+  //                 Center(
+  //                   child: Container(
+  //                       child: TextField(
+  //                     cursorHeight: 20,
+  //                     textAlign: TextAlign.right,
+  //                     textAlignVertical: TextAlignVertical.bottom,
+  //                     style: TextStyle(
+  //                         fontSize: 16,
+  //                         fontFamily: 'YekanBakh',
+  //                         fontWeight: FontWeight.w800),
+  //                     decoration: InputDecoration(
+  //                         suffixIcon: Icon(Icons.search),
+  //                         hintText: 'جستجوی کالا...',
+  //                         hintStyle: TextStyle(
+  //                             color: Colors.black,
+  //                             fontSize: 15,
+  //                             fontFamily: 'YekanBakh'),
+  //                         border: OutlineInputBorder(
+  //                             borderRadius: BorderRadius.circular(10.0))),
+  //                   )),
+  //                 )
+  //               ],
+  //             ),
+  //             titlePadding: EdgeInsets.only(left: 30),
+  //             actions: [
+  //               Row(
+  //                 mainAxisAlignment: MainAxisAlignment.spaceAround,
+  //                 children: [
+  //                   Container(
+  //                     height: 30,
+  //                     width: 100,
+  //                     decoration: BoxDecoration(
+  //                         border: Border.all(width: 0.5),
+  //                         color: Color.fromRGBO(248, 249, 251, 1),
+  //                         borderRadius: BorderRadius.circular(6.5)),
+  //                     child: MaterialButton(
+  //                         onPressed: () {
+  //                           setState(() {
+  //                             Navigator.pop(context);
+  //                           });
+  //                         },
+  //                         child: Text(
+  //                           "لغو",
+  //                           style: TextStyle(
+  //                               color: Colors.black,
+  //                               fontSize: 16,
+  //                               fontFamily: 'YekanBakh',
+  //                               fontWeight: FontWeight.w600),
+  //                         )),
+  //                   ),
+  //                   Container(
+  //                     height: 30,
+  //                     width: 100,
+  //                     decoration: BoxDecoration(
+  //                         border: Border.all(width: 0.5),
+  //                         color: Color.fromRGBO(248, 249, 251, 1),
+  //                         borderRadius: BorderRadius.circular(6.5)),
+  //                     child: MaterialButton(
+  //                         onPressed: () {
+  //                           setState(() {
+  //                             Navigator.of(context).pop();
+  //                           });
+  //                         },
+  //                         child: Text(
+  //                           "  ذخیره کردن ",
+  //                           style: TextStyle(
+  //                               color: Colors.black,
+  //                               fontSize: 16,
+  //                               fontFamily: 'YekanBakh',
+  //                               fontWeight: FontWeight.w600),
+  //                         )),
+  //                   ),
+  //                 ],
+  //               )
+  //             ],
+  //           ),
+  //         );
+  //       });
+  // }
 }

@@ -164,45 +164,51 @@ class _Home_PageState extends State<Home_Page> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    // Container(
-                    //   height: 30,
-                    //   decoration: BoxDecoration(
-                    //       border: Border.all(width: 0.5),
-                    //       color: Color.fromRGBO(248, 249, 251, 1),
-                    //       borderRadius: BorderRadius.circular(6.5)),
-                    //   child: MaterialButton(
-                    //       onPressed: () {
-                    //         setState(() {
-                    //           db.clearAllData();
-                    //           db.updateDatabase();
-                    //           _controllers.cast();
-                    //         });
-                    //       },
-                    //       child: Text(
-                    //         "پاک کردن کل لیست",
-                    //         style: TextStyle(
-                    //             color: Colors.black,
-                    //             fontSize: 16,
-                    //             fontFamily: 'YekanBakh',
-                    //             fontWeight: FontWeight.w600),
-                    //       )),
-                    // ),
-                    Container(
-                      height: 30,
-                      decoration: BoxDecoration(
-                          border: Border.all(width: 0.5),
-                          color: Color.fromRGBO(248, 249, 251, 1),
-                          borderRadius: BorderRadius.circular(6.5)),
-                      child: MaterialButton(
-                          onPressed: () => createNewTask(),
-                          child: Text(
-                            "+" " کالا جدید",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 16,
-                                fontFamily: 'YekanBakh',
-                                fontWeight: FontWeight.w600),
-                          )),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        // Container(
+                        //   height: 30,
+                        //   decoration: BoxDecoration(
+                        //       border: Border.all(width: 0.5),
+                        //       color: Color.fromRGBO(248, 249, 251, 1),
+                        //       borderRadius: BorderRadius.circular(6.5)),
+                        //   child: MaterialButton(
+                        //       onPressed: () {
+                        //         setState(() {
+                        //           // _showDialog(context);
+                        //         });
+                        //       },
+                        //       child: Text(
+                        //         "حذف همه",
+                        //         style: TextStyle(
+                        //             color: Colors.black,
+                        //             fontSize: 16,
+                        //             fontFamily: 'YekanBakh',
+                        //             fontWeight: FontWeight.w600),
+                        //       )),
+                        // ),
+                        // SizedBox(
+                        //   width: 20,
+                        // ),
+                        Container(
+                          height: 30,
+                          decoration: BoxDecoration(
+                              border: Border.all(width: 0.5),
+                              color: Color.fromRGBO(248, 249, 251, 1),
+                              borderRadius: BorderRadius.circular(6.5)),
+                          child: MaterialButton(
+                              onPressed: () => createNewTask(),
+                              child: Text(
+                                "+" " کالا جدید",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 16,
+                                    fontFamily: 'YekanBakh',
+                                    fontWeight: FontWeight.w600),
+                              )),
+                        ),
+                      ],
                     ),
                     Container(
                         width: 250,
@@ -356,5 +362,113 @@ class _Home_PageState extends State<Home_Page> {
       print("Error parsing double: $value");
       return 0.0; // or handle the error in a way that makes sense for your app
     }
+  }
+
+  void _showSnackBar(BuildContext context, String message,
+      [Color color = Colors.green]) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Center(
+          child: Text(message),
+        ),
+        backgroundColor: color,
+      ),
+    );
+  }
+
+  void _showDialog(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 70, right: 25),
+                  child: Center(
+                    child: Image.asset(
+                      'icons/delete (2).png',
+                      scale: 6,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 20),
+                  child: Container(
+                    height: 200,
+                    width: 200,
+                    child: Center(
+                      child: Text(
+                        " کل لیست را پاک کنم؟",
+                        style: TextStyle(
+                            fontFamily: 'Yekan',
+                            color: Colors.black,
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            titlePadding: EdgeInsets.only(left: 30),
+            actions: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Container(
+                    height: 30,
+                    width: 100,
+                    decoration: BoxDecoration(
+                        border: Border.all(width: 0.5),
+                        color: Color.fromRGBO(248, 249, 251, 1),
+                        borderRadius: BorderRadius.circular(6.5)),
+                    child: MaterialButton(
+                        onPressed: () {
+                          setState(() {
+                            Navigator.pop(context);
+                          });
+                        },
+                        child: Text(
+                          "لغو",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 16,
+                              fontFamily: 'YekanBakh',
+                              fontWeight: FontWeight.w600),
+                        )),
+                  ),
+                  Container(
+                    height: 30,
+                    width: 100,
+                    decoration: BoxDecoration(
+                        border: Border.all(width: 0.5),
+                        color: Color.fromRGBO(248, 249, 251, 1),
+                        borderRadius: BorderRadius.circular(6.5)),
+                    child: MaterialButton(
+                        onPressed: () {
+                          setState(() {
+                            db.clearAllData();
+                            db.updateDatabase();
+                            _controllers.cast();
+                            Navigator.of(context).pop();
+                            _showSnackBar(context, "موفقانه فاکتور ذخیره شد ");
+                          });
+                        },
+                        child: Text(
+                          "حذف ",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 16,
+                              fontFamily: 'YekanBakh',
+                              fontWeight: FontWeight.w600),
+                        )),
+                  ),
+                ],
+              )
+            ],
+          );
+        });
   }
 }

@@ -35,7 +35,7 @@ class _Home_FactoringState extends State<Home_Factoring>
   late String selectedItem; // Use 'late' to mark it as mutable
   ToDoDatabseEmployees db2 = ToDoDatabseEmployees();
   final _myBox = Hive.box('employees');
-  late String _loadedInfo;
+  // late String _loadedInfo;
   final Key firstRowKey = UniqueKey();
   callme() {}
   @override
@@ -53,7 +53,7 @@ class _Home_FactoringState extends State<Home_Factoring>
       super.initState();
       _loadInfo().then((loadedInfo) {
         setState(() {
-          _loadedInfo = loadedInfo ?? '';
+          // _loadedInfo = loadedInfo ?? '';
         });
       });
       loadData();

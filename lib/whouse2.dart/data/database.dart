@@ -10,7 +10,32 @@ class ToDoDatabse2 {
 
   //run this method if this is the 1st time ever opening this app
   void createinitialData() {
-    allInOne = [];
+    allInOne = [
+      {
+        'id': 1,
+        'title': 'Buy groceries',
+        'description': 'Buy groceries',
+        'date': '2021-01-01',
+      },
+      {
+        'id': 2,
+        'title': 'Buy groceries',
+        'description': 'Buy groceries',
+        'date': '2021-01-01',
+      },
+      {
+        'id': 3,
+        'title': 'Buy groceries',
+        'description': 'Buy groceries',
+        'date': '2021-01-01',
+      },
+      {
+        'id': 4,
+        'title': 'Buy groceries',
+        'description': 'Buy groceries',
+        'date': '2021-01-01',
+      },
+    ];
   }
 
 
