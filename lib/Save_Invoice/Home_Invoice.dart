@@ -1,6 +1,7 @@
 import 'package:accubooks/Invoice/data/sharedDatabase.dart';
 import 'package:accubooks/Save_Invoice/Invoice/Home_Factoring.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 // import 'package:flutter_slidable/flutter_slidable.dart';
 
 class saved_home_factor12 extends StatefulWidget {
@@ -234,88 +235,124 @@ class _saved_home_factor12State extends State<saved_home_factor12> {
                                             color = Colors.transparent;
                                           });
                                         },
-                                        child:Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
-                                          children: [
-                                            Container(
-                                              width: 100,
-                                              child: Center(
-                                                child: Text(
-                                                  textAlign:
-                                                      TextAlign.justify,
-                                                  '$counter',
-                                                  style: TextStyle(
-                                                    fontFamily: 'Yekan',
-                                                    fontSize: 16,
-                                                    fontWeight:
-                                                        FontWeight.w600,
+                                        child: Slidable(
+                                          startActionPane: ActionPane(
+                                              motion: StretchMotion(),
+                                              children: [
+                                                Container(
+                                                  child: SlidableAction(
+                                                    onPressed:
+                                                        (BuildContext) async {
+                                                      int index =
+                                                          itemList.length -
+                                                              1 -
+                                                              counter;
+
+                                                      // Ensure that the index is within bounds
+                                                      if (index >= 0 &&
+                                                          index <
+                                                              itemList.length) {
+                                                        // Call deleteEntry to remove the item at the specified index
+                                                        _deleteEntry(index);
+                                                        // Show a snackbar or any other feedback
+                                                        _showSnackBar(context,
+                                                            "لیست موفقانه پاک شد.");
+                                                      }
+                                                    },
+                                                    icon: Icons.delete,
+                                                    backgroundColor:
+                                                        const Color.fromARGB(
+                                                            255, 232, 17, 17),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5.0),
+                                                    spacing: 10,
+                                                  ),
+                                                )
+                                              ]),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceAround,
+                                            children: [
+                                              Container(
+                                                width: 100,
+                                                child: Center(
+                                                  child: Text(
+                                                    textAlign:
+                                                        TextAlign.justify,
+                                                    '$counter',
+                                                    style: TextStyle(
+                                                      fontFamily: 'Yekan',
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                    ),
                                                   ),
                                                 ),
                                               ),
-                                            ),
-                                            Container(
-                                              width: 100,
-                                              child: Center(
-                                                child: Text(
-                                                  textAlign:
-                                                      TextAlign.justify,
-                                                  //5
-                                                  // تعداد 0
-                                                  //شماره بار کد 1
-                                                  //ساعت 2
-                                                  //تاریخ 3
-                                                  //روز 4
-                                                  //فروشنده 7
-                                                  // خریدار 5
-                                                  // قیمت فی 0
-                                                  itemList[index][5]
-                                                      .replaceAll('[', '')
-                                                      .replaceAll(']', ''),
-                                                  style: TextStyle(
-                                                    fontFamily: 'Yekan',
-                                                    fontSize: 16,
-                                                    fontWeight:
-                                                        FontWeight.w600,
+                                              Container(
+                                                width: 100,
+                                                child: Center(
+                                                  child: Text(
+                                                    textAlign:
+                                                        TextAlign.justify,
+                                                    //5
+                                                    // تعداد 0
+                                                    //شماره بار کد 1
+                                                    //ساعت 2
+                                                    //تاریخ 3
+                                                    //روز 4
+                                                    //فروشنده 7
+                                                    // خریدار 5
+                                                    // قیمت فی 0
+                                                    itemList[index][5]
+                                                        .replaceAll('[', '')
+                                                        .replaceAll(']', ''),
+                                                    style: TextStyle(
+                                                      fontFamily: 'Yekan',
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                    ),
                                                   ),
                                                 ),
                                               ),
-                                            ),
-                                            Container(
-                                              width: 100,
-                                              child: Center(
-                                                child: Text(
-                                                  textAlign:
-                                                      TextAlign.justify,
-                                                  '$counter',
-                                                  style: TextStyle(
-                                                    fontFamily: 'Yekan',
-                                                    fontSize: 16,
-                                                    fontWeight:
-                                                        FontWeight.w600,
+                                              Container(
+                                                width: 100,
+                                                child: Center(
+                                                  child: Text(
+                                                    textAlign:
+                                                        TextAlign.justify,
+                                                    '$counter',
+                                                    style: TextStyle(
+                                                      fontFamily: 'Yekan',
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                    ),
                                                   ),
                                                 ),
                                               ),
-                                            ),
-                                            Container(
-                                              width: 100,
-                                              child: Center(
-                                                child: Text(
-                                                  textAlign:
-                                                      TextAlign.justify,
-                                                  itemList[index][3]
-                                                      .replaceAll('[', '')
-                                                      .replaceAll(']', ''),
-                                                  style: TextStyle(
-                                                    fontFamily: 'Yekan',
-                                                    fontSize: 16,
-                                                    fontWeight:
-                                                        FontWeight.w600,
+                                              Container(
+                                                width: 100,
+                                                child: Center(
+                                                  child: Text(
+                                                    textAlign:
+                                                        TextAlign.justify,
+                                                    itemList[index][3]
+                                                        .replaceAll('[', '')
+                                                        .replaceAll(']', ''),
+                                                    style: TextStyle(
+                                                      fontFamily: 'Yekan',
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                    ),
                                                   ),
                                                 ),
                                               ),
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -351,5 +388,33 @@ class _saved_home_factor12State extends State<saved_home_factor12> {
     );
   }
 
-  //
+  void _showSnackBar(BuildContext context, String message,
+      [Color color = Colors.green]) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Center(
+          child: Directionality(
+              textDirection: TextDirection.rtl,
+              child: Text(
+                message,
+                style: TextStyle(
+                    fontFamily: 'Yekan',
+                    color: Colors.black,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold),
+              )),
+        ),
+        backgroundColor: color,
+      ),
+    );
+  }
+
+  void _deleteEntry(int index) async {
+    setState(() {
+      // Remove the entry at the specified index
+      itemList.removeAt(index);
+      // Save the updated list to SharedPreferences
+      SharedPreferencesHelper.saveList(itemList);
+    });
+  }
 }

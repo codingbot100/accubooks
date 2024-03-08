@@ -25,23 +25,22 @@ class YourWidget extends StatefulWidget {
   int factor = 1;
   final VoidCallback? onAddToItem;
 
-  YourWidget({
-    Key? key,
-    required this.home_factoring,
-    required this.onIntegerChanged,
-    required this.onSavePressed,
-    required this.onChangedfactor,
-    required this.onStateReady,
-    required this.name_customer,
-    required this.seller_name,
-    this.onAddToItem,
-  }) : super(key: key);
+  YourWidget(
+      {Key? key,
+      required this.home_factoring,
+      required this.onIntegerChanged,
+      required this.onSavePressed,
+      required this.onChangedfactor,
+      required this.onStateReady,
+      required this.name_customer,
+      required this.seller_name,
+      this.onAddToItem,
+      })
+      : super(key: key);
 
   @override
   _YourWidgetState createState() => _YourWidgetState();
-  // void addtoitemCreate() {
-  //   createState()?.addtoItems();
-  // }
+ 
 }
 
 class _YourWidgetState extends State<YourWidget> {
@@ -175,7 +174,6 @@ class _YourWidgetState extends State<YourWidget> {
   @override
   void initState() {
     super.initState();
-
     // Perform any asynchronous operations directly or use Future.delayed
     // For example, loading data from the database
     loadList();
@@ -631,6 +629,5 @@ class _YourWidgetState extends State<YourWidget> {
         return '';
     }
   }
-
 
 }

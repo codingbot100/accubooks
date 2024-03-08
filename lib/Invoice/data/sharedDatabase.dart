@@ -45,10 +45,19 @@ class SharedPreferencesHelper {
     await saveNumberFactor(nextFactorNumber);
     return nextFactorNumber;
   }
+  
+  Future<void> deleteEntry(int index) async {
+    if (index >= 0 && index < itemList.length) {
+      itemList.removeAt(index);
+      await saveList(itemList); // Save the updated list
 
- Future<void> clearList() async {
-  itemList.clear();
-  await saveList(itemList); // Save the cleared list
-  await saveNumberFactor(1); // Reset the number factor to the default value
-}
+    }
+  }
+
+
+  Future<void> clearList() async {
+    itemList.clear();
+    await saveList(itemList); // Save the cleared list
+    await saveNumberFactor(1); // Reset the number factor to the default value
+  }
 }
