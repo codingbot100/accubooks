@@ -1,16 +1,7 @@
-# accubooks
-
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![store 1](https://github.com/codingbot100/Ragheb-dictionary/assets/129599209/74d6be0a-5a1f-4d96-a2c5-b26ef0754f16)
+![store 2](https://github.com/codingbot100/Ragheb-dictionary/assets/129599209/a2df3135-b7f0-40e8-90a7-bf5dc31253a5)
+![store 3](https://github.com/codingbot100/Ragheb-dictionary/assets/129599209/716c316d-daac-4dea-98b0-4f1ad3dd6982)
+![store 4](https://github.com/codingbot100/Ragheb-dictionary/assets/129599209/75c0704e-aa4b-4924-849e-043bec9eea50)
+![store 5](https://github.com/codingbot100/Ragheb-dictionary/assets/129599209/185961fb-3a9f-4200-911a-87ec051a6c9d)
+![store 6](https://github.com/codingbot100/Ragheb-dictionary/assets/129599209/34372368-595e-49b7-9230-a8c093b9ae96)
+![store 7](https://github.com/codingbot100/Ragheb-dictionary/assets/129599209/b097582d-5a94-4704-9d6a-0e33d986d161)
